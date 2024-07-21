@@ -1,3 +1,15 @@
+# Development
+
+1. Install dependencies
+```bash
+npm install
+```
+
+2. Deploy development server
+```bash
+npm run dev
+```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
