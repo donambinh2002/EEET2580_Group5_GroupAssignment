@@ -48,7 +48,7 @@ docker-compose up -d
 1. Database and Cache
 
 ```bash
-docker-compose up --build service-db service-redis service
+docker-compose up -d service-db service-redis
 ```
 
 2. Backend
