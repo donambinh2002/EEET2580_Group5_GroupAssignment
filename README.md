@@ -47,8 +47,16 @@ docker-compose up -d
 
 1. Database and Cache
 
+- for Mac Silicon:
+
 ```bash
 docker-compose up -d service-db service-redis
+```
+
+- for Mac Intel:
+
+```bash
+docker compose up -d service-db service-redis
 ```
 
 2. Backend
