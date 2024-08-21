@@ -1,0 +1,104 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, #B7B597, #6B8A7A);
+}
+
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #254336; 
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #254336; 
+  font-weight: 500;
+}
+
+.header-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.header-icons a {
+  text-decoration: none;
+  color: #254336; 
+}
+
+.icon-user:before {
+  content: "\1F464"; 
+  font-size: 20px;
+}
+
+.icon-cart:before {
+  content: "\1F6D2"; 
+  font-size: 20px;
+}
+
+
+.hero-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('E:\RMIT\Enterprise\website\my-react-app\src\background.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px 60px;
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  color: #254336; 
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #666; 
+  margin-bottom: 40px;
+}
+
+.hero-button {
+  padding: 12px 30px;
+  background-color: #6B8A7A; 
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.hero-button:hover {
+  background-color: #DAD3BE; 
+}

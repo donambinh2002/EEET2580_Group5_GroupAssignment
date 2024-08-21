@@ -1,0 +1,133 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+
+*, *::before, *::after {
+  box-sizing: inherit; 
+}
+
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background: linear-gradient(135deg, #B7B597, #6B8A7A); 
+  font-family: 'Roboto', sans-serif; 
+}
+
+
+.auth-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px; 
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); 
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box; 
+}
+
+
+.auth-box h2 {
+  margin-bottom: 24px;
+  color: #254336; 
+  font-size: 24px; 
+  font-weight: 700; 
+}
+
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #DAD3BE;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box; 
+  transition: border-color 0.3s; 
+}
+
+
+.input-group input:focus {
+  border-color: #6B8A7A; 
+  outline: none;
+}
+
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #B7B597; 
+  font-size: 14px;
+}
+
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.auth-options a {
+  color: #6B8A7A; 
+  text-decoration: none;
+}
+
+
+.auth-button {
+  margin-top: 0.4rem;
+  width: 100%;
+  padding: 12px 0;
+  background: #6B8A7A; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background: #DAD3BE;
+}
+
+
+.back-to-home-button {
+  margin-top: 1rem;
+  padding: 12px 0;
+  width: 100%;
+  background-color: #254336; 
+  color: white;
+  border: none;
+  border-radius: 8px; 
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s; 
+}
+
+.back-to-home-button:hover {
+  background-color: #6B8A7A; 
+}
+
+
+.auth-box p {
+  font-size: 14px;
+}
+
+.auth-box p a {
+  color: #6B8A7A; 
+  text-decoration: none;
+}
