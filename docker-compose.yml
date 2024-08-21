@@ -46,11 +46,6 @@ services:
     networks:
       - service-network
 
-  service-local:
-    depends_on:
-      - service-db
-      - service-redis
-
 networks:
   service-network:
 
