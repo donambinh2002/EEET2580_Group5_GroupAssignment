@@ -1,0 +1,60 @@
+services:
+  service-db:
+    image: mysql:8.0
+    env_file:
+      - .env
+    container_name: ${SERVICE_DB_CONTAINER_NAME}
+    ports:
+      - "${SERVICE_DB_PORT}:${SERVICE_DB_PORT}"
+    environment:
+      MYSQL_DATABASE: ${SERVICE_NAME}
+      MYSQL_TCP_PORT: ${SERVICE_DB_PORT}
+    volumes:
+      - mysql-service-data:/var/lib/mysql
+    networks:
+      - service-network
+
+  service-redis:
+    image: redis:7.4-rc1-bookworm
+    restart: always
+    ports:
+      - "${SERVICE_REDIS_PORT}:${REDIS_PORT_CONTAINER}"
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${SERVICE_REDIS_PASSWORD}
+    volumes:
+      - service-redis-data:/data
+    networks:
+      - service-network
+
+  service:
+    env_file:
+      - .env
+    build: ./${SERVICE_NAME}
+    container_name: ${SERVICE_NAME}
+    environment:
+      SPRING_PORT: ${SERVICE_PORT}
+      SPRING_DATASOURCE_URL: ${SERVICE_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      SPRING_REDIS_HOST: service-redis
+      SPRING_REDIS_PORT: ${REDIS_PORT_CONTAINER}
+      SPRING_REDIS_PASSWORD: ${SERVICE_REDIS_PASSWORD}
+    ports:
+      - "${SERVICE_PORT}:${SERVICE_PORT}"
+    depends_on:
+      - service-db
+      - service-redis
+    networks:
+      - service-network
+
+  service-local:
+    depends_on:
+      - service-db
+      - service-redis
+
+networks:
+  service-network:
+
+volumes:
+  mysql-service-data:
+  service-redis-data:
+    driver: local
