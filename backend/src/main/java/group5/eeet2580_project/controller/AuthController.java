@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("v1/auth")
 @Validated
 public class AuthController {
     private final AuthService authService;

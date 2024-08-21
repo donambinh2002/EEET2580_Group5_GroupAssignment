@@ -1,4 +1,4 @@
-package group5.eeet2580_project.exception;
+package group5.eeet2580_project.config;
 
 import group5.eeet2580_project.dto.resp.MessageResponse;
 import org.springframework.http.HttpStatus;
