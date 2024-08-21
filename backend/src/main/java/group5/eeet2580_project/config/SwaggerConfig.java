@@ -13,9 +13,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("User Service API")
+                        .title("Backend Service API")
                         .version("0.1")
-                        .description("API documentation for the User Service"));
+                        .description("API documentation for the Backend Service"));
     }
 
     @Bean
