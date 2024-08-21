@@ -53,11 +53,11 @@ public class AuthService {
     @Transactional
     public ResponseEntity<?> registerUser(RegisterUserRequest registerUserRequest) {
         if (userRepository.existsByUsername(registerUserRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
         }
 
         if (userRepository.existsByEmail(registerUserRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Email is already in use!"));
         }
 
         User user = new User();
@@ -80,7 +80,7 @@ public class AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             User user = userRepository.findByUsernameOrEmail(loginRequest.getCredential(), loginRequest.getCredential())
-                    .orElseThrow(() -> new RuntimeException("Error: User not found!"));
+                    .orElseThrow(() -> new RuntimeException("User not found!"));
 
             String accessToken = jwtUtil.generateAccessToken(user.getUsername());
             String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
@@ -90,7 +90,7 @@ public class AuthService {
             return ResponseEntity.ok(new MessageResponse("Authenticated successfully for user " + user.getUsername(), new AuthResponse(accessToken, refreshToken)));
         } catch (AuthenticationException | JsonProcessingException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new MessageResponse("Error: Unauthorized! Please check your credentials!"));
+                    .body(new MessageResponse("Unauthorized! Please check your credentials!"));
         }
     }
 
@@ -98,11 +98,11 @@ public class AuthService {
     public ResponseEntity<?> refreshToken(Map<String, String> request) throws JsonProcessingException {
         String refreshToken = request.get("refreshToken");
         if (refreshToken == null || !jwtUtil.validateToken(refreshToken, null)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Invalid refresh token"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid refresh token"));
         }
 
         String username = jwtUtil.extractUsername(refreshToken);
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Error: User not found!"));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found!"));
 
         String newAccessToken = jwtUtil.generateAccessToken(username);
         String newRefreshToken = jwtUtil.generateRefreshToken(username);
@@ -117,12 +117,12 @@ public class AuthService {
     public ResponseEntity<?> logout(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Invalid access token"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid access token"));
         }
         String accessToken = authorizationHeader.substring(7);
 
         if (!jwtUtil.validateToken(accessToken, null)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Invalid access token"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid access token"));
         }
 
         String username = jwtUtil.extractUsername(accessToken);
@@ -137,12 +137,12 @@ public class AuthService {
     public ResponseEntity<?> validateToken(Map<String, String> request) {
         String token = request.get("token");
         if (token == null) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Token is missing"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Token is missing"));
         }
         try {
             String username = jwtUtil.extractUsername(token);
             if (username == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Invalid token"));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid token"));
             }
 
             // Check cache first
@@ -158,7 +158,7 @@ public class AuthService {
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Expired token"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Error: Invalid token"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid token"));
         }
     }
 }

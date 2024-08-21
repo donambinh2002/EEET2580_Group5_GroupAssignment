@@ -36,7 +36,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: User not found!"));
+                    .body(new MessageResponse("User not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -48,7 +48,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: User not found!"));
+                    .body(new MessageResponse("User not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -65,7 +65,7 @@ public class UserService {
     public ResponseEntity<?> updateUser(Long id, UpdateUserRequest updateUserRequest, HttpServletRequest request) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: User not found!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("User not found!"));
         }
 
         User user = userOptional.get();
@@ -81,7 +81,7 @@ public class UserService {
                 jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));  // Update cache if exists
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Error: Unable to update user cache"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to update user cache"));
         }
         return ResponseEntity.ok(new UserResponse(user));
     }
@@ -91,7 +91,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findByUsernameOrEmail(deleteUserRequest.getCredential(), deleteUserRequest.getCredential());
 
         if (userOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Error: User not found!"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("User not found!"));
         }
 
         User user = userOptional.get();
@@ -114,7 +114,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: User not found!"));
+                    .body(new MessageResponse("User not found!"));
         }
 
         userRepository.delete(user.get());
