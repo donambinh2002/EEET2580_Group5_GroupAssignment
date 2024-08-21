@@ -2,13 +2,49 @@ package group5.eeet2580_project.repository;
 
 import group5.eeet2580_project.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Repository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
-    Optional<User> findByEmail(String email);
-    Optional<User> findByUsernameOrEmail(String username, String email);
-    Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+
+    @Query("SELECT U FROM User U WHERE U.username = :username")
+    Optional<User> findByUsername(@Param("username") String username);
+
+    @Query("SELECT U FROM User U WHERE U.email = :email")
+    Optional<User> findByEmail(@Param("email") String email);
+
+    @Query("SELECT U FROM User U WHERE U.username = :username OR U.email = :email")
+    Optional<User> findByUsernameOrEmail(@Param("username") String username, @Param("email") String email);
+
+    @Query("SELECT CASE WHEN COUNT(U) > 0 THEN true ELSE false END FROM User U WHERE U.username = :username")
+    Boolean existsByUsername(@Param("username") String username);
+
+    @Query("SELECT CASE WHEN COUNT(U) > 0 THEN true ELSE false END FROM User U WHERE U.email = :email")
+    Boolean existsByEmail(@Param("email") String email);
+
+    default UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .authorities(user.getRoles().stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                        .collect(Collectors.toList()))
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(false)
+                .build();
+    }
 }
+

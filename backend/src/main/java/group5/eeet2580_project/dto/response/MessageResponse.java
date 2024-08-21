@@ -1,7 +1,5 @@
-package group5.eeet2580_project.dto.resp;
+package group5.eeet2580_project.dto.response;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import group5.eeet2580_project.dto.serializer.MessageResponseSerializer;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,7 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@JsonSerialize(using = MessageResponseSerializer.class)
 public class MessageResponse {
     private String message;
     private MetaData metaData;

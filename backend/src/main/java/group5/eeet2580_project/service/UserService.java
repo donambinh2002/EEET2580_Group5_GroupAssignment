@@ -2,12 +2,13 @@ package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group5.eeet2580_project.entity.User;
-import group5.eeet2580_project.dto.req.DeleteUserRequest;
-import group5.eeet2580_project.dto.req.SearchUserRequest;
-import group5.eeet2580_project.dto.req.UpdateUserRequest;
-import group5.eeet2580_project.dto.resp.MessageResponse;
-import group5.eeet2580_project.dto.resp.UserResponse;
+import group5.eeet2580_project.dto.request.DeleteUserRequest;
+import group5.eeet2580_project.dto.request.SearchUserRequest;
+import group5.eeet2580_project.dto.request.UpdateUserRequest;
+import group5.eeet2580_project.dto.response.MessageResponse;
+import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
-
-    public UserService(UserRepository userRepository, JedisPool jedisPool, ObjectMapper objectMapper) {
-        this.userRepository = userRepository;
-        this.jedisPool = jedisPool;
-        this.objectMapper = objectMapper;
-    }
 
     public ResponseEntity<?> searchUser(SearchUserRequest searchUserRequest) {
         Optional<User> user = userRepository.findByUsernameOrEmail(searchUserRequest.getCredential(), searchUserRequest.getCredential());

@@ -2,9 +2,10 @@ package group5.eeet2580_project.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
-import group5.eeet2580_project.dto.req.LoginUserRequest;
-import group5.eeet2580_project.dto.req.RegisterUserRequest;
+import group5.eeet2580_project.dto.request.LoginUserRequest;
+import group5.eeet2580_project.dto.request.RegisterUserRequest;
 import group5.eeet2580_project.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("v1/auth")
 @Validated
+@RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest registerUserRequest) {

@@ -1,6 +1,6 @@
 package group5.eeet2580_project.config;
 
-import group5.eeet2580_project.dto.resp.MessageResponse;
+import group5.eeet2580_project.dto.response.MessageResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

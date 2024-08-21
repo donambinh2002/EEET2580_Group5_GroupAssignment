@@ -1,4 +1,4 @@
-package group5.eeet2580_project.dto.resp;
+package group5.eeet2580_project.dto.response;
 
 import lombok.*;
 

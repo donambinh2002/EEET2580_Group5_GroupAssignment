@@ -5,12 +5,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.entity.User;
-import group5.eeet2580_project.dto.req.LoginUserRequest;
-import group5.eeet2580_project.dto.req.RegisterUserRequest;
-import group5.eeet2580_project.dto.resp.AuthResponse;
-import group5.eeet2580_project.dto.resp.MessageResponse;
-import group5.eeet2580_project.dto.resp.UserResponse;
+import group5.eeet2580_project.dto.request.LoginUserRequest;
+import group5.eeet2580_project.dto.request.RegisterUserRequest;
+import group5.eeet2580_project.dto.response.AuthResponse;
+import group5.eeet2580_project.dto.response.MessageResponse;
+import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -36,15 +38,6 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
-
-    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder encoder, JwtUtil jwtUtil, JedisPool jedisPool, ObjectMapper objectMapper) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.encoder = encoder;
-        this.jwtUtil = jwtUtil;
-        this.jedisPool = jedisPool;
-        this.objectMapper = objectMapper;
-    }
 
     private void cacheUser(User user, String accessToken) throws JsonProcessingException {
         try (Jedis jedis = jedisPool.getResource()) {
