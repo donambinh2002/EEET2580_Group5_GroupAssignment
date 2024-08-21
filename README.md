@@ -1,8 +1,8 @@
 # EEET2580 - Project - Group 5
 
-## Frontend: React + Vite
+## Frontend
 
-- Languague: JavaScript, Library: ReactJS
+- Languague: JavaScript, Library: ReactJS + Vite
 
 ## Backend
 
