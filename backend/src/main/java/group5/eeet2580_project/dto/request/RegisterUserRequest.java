@@ -1,7 +1,9 @@
 package group5.eeet2580_project.dto.request;
 
+import group5.eeet2580_project.common.Constants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -25,5 +27,6 @@ public class RegisterUserRequest {
     private String password;
 
     @NotBlank
+    @Pattern(regexp = Constants.ROLE_KEYS.ROLE_REGEX, message = "Invalid role, try USER or STAFF")
     private String role;
 }

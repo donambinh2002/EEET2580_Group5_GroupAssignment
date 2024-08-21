@@ -1,5 +1,6 @@
 package group5.eeet2580_project.config;
 
+import group5.eeet2580_project.common.Constants;
 import group5.eeet2580_project.config.jwt.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("v1/auth/**", "/swagger-ui/**", "/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole("USER", "STAFF")
-                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole("STAFF")
+                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole(Constants.ROLE_KEYS.USER, Constants.ROLE_KEYS.STAFF)
+                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole(Constants.ROLE_KEYS.STAFF)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
