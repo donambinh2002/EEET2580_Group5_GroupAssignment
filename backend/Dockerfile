@@ -18,7 +18,7 @@ ARG SPRING_PORT
 ENV SPRING_PORT ${SPRING_PORT}
 
 # Copy the executable jar file from the build stage
-COPY --from=build /app/target/userservice-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port your application runs on
 EXPOSE ${SPRING_PORT}
