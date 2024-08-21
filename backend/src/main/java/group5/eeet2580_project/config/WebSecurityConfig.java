@@ -1,7 +1,7 @@
 package group5.eeet2580_project.config;
 
 import group5.eeet2580_project.config.jwt.JwtRequestFilter;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,37 +18,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-    private final String serviceUsername;
-    private final String servicePassword;
-
-    public WebSecurityConfig(JwtRequestFilter jwtRequestFilter, CustomAuthenticationEntryPoint customAuthenticationEntryPoint, @Value("service.auth.username") String serviceUsername, @Value("service.auth.password") String servicePassword) {
-        this.jwtRequestFilter = jwtRequestFilter;
-        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
-        this.serviceUsername = serviceUsername;
-        this.servicePassword = servicePassword;
-    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
-        CustomBasicAuthFilter customBasicAuthFilter = new CustomBasicAuthFilter(authenticationManager, serviceUsername, servicePassword);
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "STAFF")
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("STAFF")
-                        .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
+                        .requestMatchers("v1/auth/**", "/swagger-ui/**", "/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole("USER", "STAFF")
+                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole("STAFF")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(customAuthenticationEntryPoint));
 
-        http.addFilterBefore(customBasicAuthFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
