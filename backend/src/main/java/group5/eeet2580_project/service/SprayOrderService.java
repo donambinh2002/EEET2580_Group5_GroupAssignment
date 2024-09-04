@@ -1,5 +1,6 @@
 package group5.eeet2580_project.service;
 
+import group5.eeet2580_project.dto.request.FeedbackRequest;
 import group5.eeet2580_project.entity.SprayOrder;
 import group5.eeet2580_project.entity.SpraySession;
 import group5.eeet2580_project.entity.User;
@@ -17,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SprayOrderService {
-
     private final SprayOrderRepository sprayOrderRepository;
     private final SpraySessionRepository spraySessionRepository;
     private final UserRepository userRepository;
@@ -51,7 +52,7 @@ public class SprayOrderService {
                 .desiredDate(request.getDesiredDate())
                 .desiredTime(request.getDesiredTime())
                 .totalCost(totalCost)
-                .status("Pending")
+                .status(SprayOrder.Status.PENDING)
                 .build();
         sprayOrderRepository.save(sprayOrder);
 
@@ -71,5 +72,41 @@ public class SprayOrderService {
 
     public List<SpraySession> getAvailableSessions(LocalDate date) {
         return spraySessionRepository.findAvailableSessionsByDate(date);
+    }
+
+    public void updateOrderStatus(Long orderID, SprayOrder.Status status, String sprayerNames) {
+        SprayOrder sprayOrder = sprayOrderRepository.findById(orderID).orElseThrow(() -> new RuntimeException("Order not found!")); ;
+        sprayOrder.setStatus(status);
+        sprayOrderRepository.save(sprayOrder);
+
+        Optional<User> userOptional = userRepository.findByFullName(sprayerNames);
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            switch (status) {
+                case CANCELLED:
+                    emailService.sendOrderCancelledEmail(user, sprayOrder);
+                    break;
+                case ASSIGNED:
+                    emailService.sendOrderAssignedEmail(user, sprayOrder, "Sprayer 1, Sprayer 2");
+                    break;
+                case IN_PROGRESS:
+                    emailService.sendOrderInProgressEmail(user, sprayOrder);
+                    break;
+                case COMPLETED:
+                    emailService.sendOrderCompletedEmail(user, sprayOrder);
+                    break;
+            }
+        }else {
+            throw new RuntimeException("Sprayer not found!");
+        }
+    }
+
+    @Transactional
+    public void submitFeedback(Long orderId, FeedbackRequest feedbackRequest) {
+        SprayOrder sprayOrder = sprayOrderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found!"));
+        sprayOrder.setFeedbackText(feedbackRequest.getFeedbackText());
+        sprayOrder.setFeedbackRating(feedbackRequest.getFeedbackRating());
+        sprayOrderRepository.save(sprayOrder);
     }
 }

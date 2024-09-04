@@ -28,7 +28,18 @@ public class SprayOrder implements Serializable {
     private LocalDate desiredDate;
     private LocalTime desiredTime;
     private double totalCost;
-    private String status;
     private Integer rating;
+    private String feedbackText;
+    private Integer feedbackRating;
 
+    public enum Status {
+        PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED
+    }
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public double getFarmlandArea() {
+        return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
+    }
 }
