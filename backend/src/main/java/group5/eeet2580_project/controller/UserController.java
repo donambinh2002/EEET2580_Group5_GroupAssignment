@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest searchUserRequest) {
         return userService.searchUser(searchUserRequest);
     }
