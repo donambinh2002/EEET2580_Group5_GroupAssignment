@@ -2,7 +2,7 @@ package group5.eeet2580_project.controller;
 
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
-import group5.eeet2580_project.dto.request.UpdateUserRequest;
+import group5.eeet2580_project.dto.request.UserRequest;
 import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/search")
-    public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest searchUserRequest) {
-        return userService.searchUser(searchUserRequest);
+    public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest request) {
+        return userService.searchUser(request);
     }
 
     @GetMapping("/{id}")
@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@Valid @RequestBody DeleteUserRequest deleteUserRequest, HttpServletRequest request) {
-        return userService.deleteUser(deleteUserRequest, request);
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody DeleteUserRequest request, HttpServletRequest httpRequest) {
+        return userService.deleteUser(request, httpRequest);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest, HttpServletRequest request) {
-        return userService.updateUser(id, updateUserRequest, request);
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest request, HttpServletRequest httpRequest) {
+        return userService.updateUser(id, request, httpRequest);
     }
 
     @GetMapping
