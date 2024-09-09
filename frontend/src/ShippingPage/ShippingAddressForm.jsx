@@ -13,6 +13,7 @@ function ShippingAddressForm() {
               id="firstName"
               className={styles.input}
               placeholder="First Name"
+              required
             />
           </div>
           <div className={styles.inputWrapper}>
@@ -21,6 +22,7 @@ function ShippingAddressForm() {
               id="lastName"
               className={styles.input}
               placeholder="Last Name"
+              required
             />
           </div>
         </div>
@@ -30,6 +32,7 @@ function ShippingAddressForm() {
             id="address"
             className={styles.input}
             placeholder="Address and number"
+            required
           />
         </div>
         <div className={styles.inputWrapper}>
@@ -47,6 +50,7 @@ function ShippingAddressForm() {
               id="city"
               className={styles.input}
               placeholder="City"
+              required
             />
           </div>
           <div className={styles.inputWrapper}>
@@ -55,6 +59,7 @@ function ShippingAddressForm() {
               id="postalCode"
               className={styles.input}
               placeholder="Postal Code"
+              required
             />
           </div>
           <div className={styles.selectWrapper}>
@@ -63,6 +68,7 @@ function ShippingAddressForm() {
               id="province"
               className={styles.input}
               placeholder="Province"
+              required
             />
           </div>
         </div>
@@ -72,6 +78,7 @@ function ShippingAddressForm() {
             id="country"
             className={styles.input}
             placeholder="Country"
+            required
           />
         </div>
         <div className={styles.saveInfoOption}>
