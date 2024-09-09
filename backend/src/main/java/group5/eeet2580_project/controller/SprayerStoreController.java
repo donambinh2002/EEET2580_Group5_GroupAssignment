@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("v1/sprayers")
+@RequestMapping("v1/stores")
 @Validated
 @RequiredArgsConstructor
 public class SprayerStoreController {
