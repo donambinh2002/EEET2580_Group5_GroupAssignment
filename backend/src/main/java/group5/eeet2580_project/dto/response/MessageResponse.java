@@ -12,7 +12,7 @@ public class MessageResponse {
     private String message;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private MetaData metaData;
+    private Data data;
 
     public MessageResponse(String message) {
         this.message = message;

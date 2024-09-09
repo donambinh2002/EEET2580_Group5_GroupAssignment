@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/spray-orders")
+@RequestMapping("v1/spray-orders")
 public class SprayOrderController {
 
     @Autowired

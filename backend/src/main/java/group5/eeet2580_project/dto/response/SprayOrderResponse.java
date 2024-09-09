@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class SprayOrderResponse {
+public class SprayOrderResponse implements Data {
     private Long id;
     private String customerName;
     private LocalDate orderDate;

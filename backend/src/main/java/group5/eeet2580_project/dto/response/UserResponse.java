@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class UserResponse implements MetaData {
+public class UserResponse implements Data {
     private Long id;
     private String username;
     private String email;

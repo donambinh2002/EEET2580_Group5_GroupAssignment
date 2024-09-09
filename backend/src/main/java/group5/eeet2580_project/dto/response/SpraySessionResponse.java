@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class SpraySessionResponse {
+public class SpraySessionResponse implements Data {
     private Long id;
     private LocalDate date;
     private String timeSlot;
