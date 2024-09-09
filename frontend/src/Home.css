@@ -1,29 +1,32 @@
+
+
 body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Playfair', sans-serif;
+  box-sizing: border-box;
 }
 
 .home-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: linear-gradient(135deg, #B7B597, #6B8A7A);
+  background-color: #f7f7f7;
 }
 
-
+/* Header Section */
 .home-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
   background-color: white;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: #254336; 
+  color: #254336;
 }
 
 .nav-links {
@@ -34,7 +37,7 @@ body, html {
 
 .nav-links li a {
   text-decoration: none;
-  color: #254336; 
+  color: #254336;
   font-weight: 500;
 }
 
@@ -45,7 +48,7 @@ body, html {
 
 .header-icons a {
   text-decoration: none;
-  color: #254336; 
+  color: #254336;
 }
 
 .icon-user:before {
@@ -58,13 +61,13 @@ body, html {
   font-size: 20px;
 }
 
-
+/* Hero Section */
 .hero-section {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('E:\RMIT\Enterprise\website\my-react-app\src\background.png');
+  height: 60vh;
+  background-image: url('D:\Github\EEET2580_Group5_GroupAssignment\frontend\src\images\background.png');
   background-size: cover;
   background-position: center;
 }
@@ -79,19 +82,19 @@ body, html {
 
 .hero-content h1 {
   font-size: 36px;
-  color: #254336; 
+  color: #254336;
   margin-bottom: 20px;
 }
 
 .hero-content p {
   font-size: 18px;
-  color: #666; 
+  color: #666;
   margin-bottom: 40px;
 }
 
 .hero-button {
   padding: 12px 30px;
-  background-color: #6B8A7A; 
+  background-color: #6B8A7A;
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -100,5 +103,147 @@ body, html {
 }
 
 .hero-button:hover {
-  background-color: #DAD3BE; 
+  background-color: #DAD3BE;
+}
+
+/* Products Section */
+.products-section, .popular-section, .testimonials-section {
+  padding: 50px 80px;
+  text-align: center;
+}
+
+.products-section h2, .popular-section h2, .testimonials-section h2 {
+  font-size: 28px;
+  color: #254336;
+  margin-bottom: 20px;
+}
+
+.product-grid, .testimonials-grid {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  width: 200px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.product-info {
+  font-size: 16px;
+  color: #254336;
+}
+
+.product-info p:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-info p:last-child {
+  color: #666;
+}
+
+.testimonial-card {
+  width: 200px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Section */
+.footer {
+  background-color: #254336;
+  color: white;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Learn More Section */
+.learn-more-section {
+  padding: 50px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  margin: 50px 0;
+}
+
+.learn-more-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.learn-more-text {
+  flex: 1;
+  text-align: left;
+}
+
+.learn-more-text h2 {
+  font-size: 28px;
+  color: #254336;
+  margin-bottom: 20px;
+}
+
+.learn-more-text p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.learn-more-button {
+  padding: 10px 20px;
+  background-color: #6B8A7A;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.learn-more-button:hover {
+  background-color: #DAD3BE;
+}
+
+.learn-more-image {
+  flex: 1;
+}
+
+.learn-more-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid red; /* Debugging aid */
 }
