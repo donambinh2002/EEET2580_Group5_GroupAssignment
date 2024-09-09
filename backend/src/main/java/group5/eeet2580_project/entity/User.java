@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @Builder
 public class User implements Serializable, Comparable<User> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -22,12 +22,15 @@ public class Sprayer {
     private Float price;
 
     @Column(nullable = false)
-    private String cropType;
+    private String name;
 
-    @Column(nullable = false)
+    @Column()
     private String description;
 
-    @Column(nullable = false)
+    @Column()
+    private String cropType;
+
+    @Column()
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

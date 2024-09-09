@@ -17,10 +17,15 @@ public class SprayerStore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private String description;
 
     private String imageUrl;
 
+    @OneToOne(mappedBy = "sprayerStore", cascade = CascadeType.ALL)
+    private User owner;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sprayerStore", cascade = CascadeType.ALL)
-    private Collection<Sprayer> sprayerss;
+    private Collection<Sprayer> sprayers;
 }

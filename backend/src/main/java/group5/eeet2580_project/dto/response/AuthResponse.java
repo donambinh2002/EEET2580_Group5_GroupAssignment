@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class AuthResponse implements MetaData {
+public class AuthResponse implements Data {
     private String accessToken;
     private String refreshToken;
 }
