@@ -1,10 +1,10 @@
 package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group5.eeet2580_project.dto.request.UserRequest;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
-import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.dto.response.MessageResponse;
 import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.repository.UserRepository;
@@ -30,8 +30,8 @@ public class UserService {
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
 
-    public ResponseEntity<?> searchUser(SearchUserRequest searchUserRequest) {
-        Optional<User> user = userRepository.findByUsernameOrEmail(searchUserRequest.getCredential(), searchUserRequest.getCredential());
+    public ResponseEntity<?> searchUser(SearchUserRequest request) {
+        Optional<User> user = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential());
 
         if (user.isEmpty()) {
             return ResponseEntity
@@ -62,19 +62,19 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> updateUser(Long id, UpdateUserRequest updateUserRequest, HttpServletRequest request) {
+    public ResponseEntity<?> updateUser(Long id, UserRequest request, HttpServletRequest httpRequest) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("User not found!"));
         }
 
         User user = userOptional.get();
-        user.setUsername(updateUserRequest.getUsername());
-        user.setEmail(updateUserRequest.getEmail());
-        user.setRoles(updateUserRequest.getRoles());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.getRoles().add(request.getRole().toUpperCase());
         userRepository.save(user);
 
-        String token = request.getHeader("Authorization").substring(7);
+        String token = httpRequest.getHeader("Authorization").substring(7);
         try (Jedis jedis = jedisPool.getResource()) {
             String cachedUser = jedis.get("user:" + token);
             if (cachedUser != null) {
@@ -87,8 +87,8 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> deleteUser(DeleteUserRequest deleteUserRequest, HttpServletRequest request) {
-        Optional<User> userOptional = userRepository.findByUsernameOrEmail(deleteUserRequest.getCredential(), deleteUserRequest.getCredential());
+    public ResponseEntity<?> deleteUser(DeleteUserRequest request, HttpServletRequest httpRequest) {
+        Optional<User> userOptional = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential());
 
         if (userOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("User not found!"));

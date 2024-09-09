@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.LoginUserRequest;
-import group5.eeet2580_project.dto.request.RegisterUserRequest;
+import group5.eeet2580_project.dto.request.UserRequest;
 import group5.eeet2580_project.dto.response.AuthResponse;
 import group5.eeet2580_project.dto.response.MessageResponse;
 import group5.eeet2580_project.dto.response.UserResponse;
@@ -51,20 +51,20 @@ public class AuthService {
     }
 
     @Transactional
-    public ResponseEntity<?> registerUser(RegisterUserRequest registerUserRequest) {
-        if (userRepository.existsByUsername(registerUserRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(UserRequest request) {
+        if (userRepository.existsByUsername(request.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(registerUserRequest.getEmail())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Email is already in use!"));
         }
 
         User user = new User();
-        user.setUsername(registerUserRequest.getUsername());
-        user.setPassword(encoder.encode(registerUserRequest.getPassword()));
-        user.setEmail(registerUserRequest.getEmail());
-        user.getRoles().add(registerUserRequest.getRole().toUpperCase());
+        user.setUsername(request.getUsername());
+        user.setPassword(encoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
+        user.getRoles().add(request.getRole().toUpperCase());
 
         userRepository.save(user);
 
@@ -72,14 +72,14 @@ public class AuthService {
                 .body(new MessageResponse("User registered successfully!", new UserResponse(user)));
     }
 
-    public ResponseEntity<?> authenticateUser(LoginUserRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(LoginUserRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getCredential(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(request.getCredential(), request.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            User user = userRepository.findByUsernameOrEmail(loginRequest.getCredential(), loginRequest.getCredential())
+            User user = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential())
                     .orElseThrow(() -> new RuntimeException("User not found!"));
 
             String accessToken = jwtUtil.generateAccessToken(user.getUsername());
@@ -114,8 +114,8 @@ public class AuthService {
 
 
     @Transactional
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
+    public ResponseEntity<?> logout(HttpServletRequest httpRequest) {
+        String authorizationHeader = httpRequest.getHeader("Authorization");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Invalid access token"));
         }
