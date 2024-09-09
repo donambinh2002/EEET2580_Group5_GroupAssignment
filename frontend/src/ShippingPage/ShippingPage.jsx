@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ShippingPage.module.css";
-import StepIndicator from "./StepIndicator";
+// import StepIndicator from "./StepIndicator";
 import ContactSection from "./ContactSection";
 import ShippingAddressForm from "./ShippingAddressForm";
 import NavigationButtons from "./NavigationButtons";

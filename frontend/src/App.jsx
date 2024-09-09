@@ -6,6 +6,7 @@ import Terms from "./Terms.jsx";
 import ForgotPassword from "./ForgotPassword.jsx";
 import Home from "./Home.jsx";
 import ShippingPage from "./ShippingPage/ShippingPage.jsx";
+import CheckoutPage from "./CheckoutPage/CheckoutPage.jsx";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/shipping" element={<ShippingPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </Router>
   );
