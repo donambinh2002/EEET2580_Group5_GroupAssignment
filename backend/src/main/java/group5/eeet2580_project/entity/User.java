@@ -36,6 +36,13 @@ public class User implements Serializable, Comparable<User> {
     @Column(name = "role")
     private Set<String> roles = new HashSet<>();
 
+    @Column()
+    private String imageUrl;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sprayer_store_id")
+    private SprayerStore sprayerStore;
+
     @Override
     public int compareTo(User otherUser) {
         return this.id.compareTo(otherUser.id);
