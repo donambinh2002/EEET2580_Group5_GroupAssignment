@@ -1,0 +1,381 @@
+.shippingPage {
+  background-color: #fff;
+  padding: 0 80px;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.formSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, sans-serif;
+  margin-top: 20px;
+}
+
+.logo {
+  width: 126px;
+  height: auto;
+  object-fit: contain;
+}
+
+.orderSummarySection {
+  width: 100%;
+  margin-left: 20px;
+}
+
+.stepIndicator {
+  display: flex;
+  align-items: center;
+  margin-top: 23px;
+  gap: 10px;
+  color: #616161;
+  white-space: nowrap;
+  letter-spacing: -0.9px;
+  font: 500 16px/1.6 Roboto, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.step {
+  flex-grow: 1;
+}
+
+.completed {
+  color: #56b280;
+}
+
+.current {
+  color: #272727;
+}
+
+.separator {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+}
+
+.contactSection {
+  margin-top: 44px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  color: #272727;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.9px;
+}
+
+.loginPrompt {
+  color: #616161;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.loginLink {
+  color: #56b280;
+  text-decoration: none;
+}
+
+.emailInput {
+  width: 100%;
+  padding: 7px 17px;
+  border: 0.5px solid #56b280;
+  background-color: #fff;
+  font-size: 14px;
+  color: #616161;
+  line-height: 2;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #b7b7b7;
+  background-color: #fff;
+}
+
+.checkboxLabel {
+  flex-grow: 1;
+}
+
+.shippingAddressForm {
+  margin-top: 47px;
+}
+
+.nameFields,
+.locationFields {
+  display: flex;
+  gap: 13px;
+}
+
+.inputWrapper {
+  flex: 1;
+  margin-bottom: 12px;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 7px 17px;
+  border: 1px solid #898989;
+  background-color: #fff;
+  font-size: 14px;
+  color: #616161;
+  line-height: 2;
+}
+
+.selectWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  padding-right: 30px;
+  background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/396b9083cd1b35d1252602d47a57bbe71dae0cb146432b1091575a4d9c27883c?placeholderIfAbsent=true&apiKey=79cebdbf412842ad9da41eb57fbb37d9");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 25px;
+}
+
+.saveInfoOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #272727;
+}
+
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 67px;
+  font-family: Roboto, sans-serif;
+}
+
+.backLink {
+  color: #56b280;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.9px;
+  text-decoration: underline;
+}
+
+.nextButton {
+  border-radius: 4px;
+  background-color: #56b280;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px 44px;
+  border: none;
+  cursor: pointer;
+}
+
+.orderSummary {
+  background-color: #f2f2f2;
+  padding: 61px 65px;
+}
+
+.productInfo {
+  display: flex;
+  gap: 40px;
+}
+
+.productImageWrapper {
+  position: relative;
+  width: 160px;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.productQuantity {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #56b280;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  color: #272727;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 3.6;
+}
+
+.productPrice {
+  color: #56b280;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 3;
+}
+
+.divider {
+  border: 1px solid rgba(86, 178, 128, 0.2);
+  margin: 26px 0;
+}
+
+.couponForm {
+  display: flex;
+  gap: 10px;
+}
+
+.couponInput {
+  flex-grow: 1;
+  padding: 7px 17px;
+  border: 1px solid #898989;
+  background-color: #fff;
+  font-size: 14px;
+  color: #616161;
+  line-height: 2;
+}
+
+.couponButton {
+  border-radius: 4px;
+  background-color: #a8a8a8;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px 21px;
+  border: none;
+  cursor: pointer;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.subtotalLabels,
+.subtotalValues {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtotalPrice {
+  color: #272727;
+  font-weight: 500;
+}
+
+.shippingInfo {
+  color: #616161;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+  font-family: Roboto, sans-serif;
+}
+
+.totalLabel {
+  color: #616161;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2;
+}
+
+.totalPrice {
+  color: #272727;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+@media (max-width: 991px) {
+  .authenticationPage {
+    padding: 0 20px;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .formSection,
+  .orderSummarySection {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .stepIndicator {
+    flex-wrap: wrap;
+  }
+
+  .nameFields,
+  .locationFields {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .navigationButtons {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .backLink,
+  .nextButton {
+    text-align: center;
+  }
+
+  .orderSummary {
+    padding: 40px 20px;
+  }
+
+  .productInfo {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .productImageWrapper {
+    width: 100%;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+
+  .couponForm {
+    flex-direction: column;
+  }
+
+  .couponButton {
+    width: 100%;
+  }
+}
