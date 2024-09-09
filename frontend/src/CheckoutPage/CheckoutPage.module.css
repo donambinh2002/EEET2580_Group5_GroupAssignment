@@ -1,0 +1,24 @@
+.checkoutPage {
+  background-color: #fff;
+  padding: 0 80px;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.formSection {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, sans-serif;
+  margin-top: 20px;
+}
+
+.logo {
+  width: 126px;
+  height: auto;
+  object-fit: contain;
+}
