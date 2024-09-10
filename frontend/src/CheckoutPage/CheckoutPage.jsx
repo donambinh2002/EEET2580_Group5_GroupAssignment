@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./CheckoutPage.module.css";
 import ContactSection from "../ShippingPage/ContactSection";
-import NavigationButtons from "../ShippingPage/NavigationButtons";
 import OrderSummary from "../ShippingPage/OrderSummary";
 import CheckoutForm from "./CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
@@ -38,8 +37,6 @@ function CheckoutPage() {
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm />
           </Elements>
-
-          <NavigationButtons />
         </section>
         <aside className={styles.orderSummarySection}>
           <OrderSummary />
