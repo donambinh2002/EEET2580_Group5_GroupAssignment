@@ -1,0 +1,125 @@
+.contentWrapper {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.shippingPage {
+    background-color: #fff;
+    padding: 0 80px;
+    overflow: hidden;
+}
+
+.productImage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+}
+
+.productInfo {
+    padding: 20px;
+}
+
+/* header h1 {
+    color: #4caf50;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.product-page {
+    display: flex;
+    padding: 20px;
+}
+
+.product-page img {
+    width: 300px;
+    height: auto;
+}
+
+.product-details {
+    margin-left: 20px;
+} */
+
+.price {
+    font-size: 24px;
+    color: #4caf50;
+}
+
+.subscription {
+    margin-top: 10px;
+}
+
+.quantity {
+    width: 100px;
+    margin: 10px 0;
+    display: fixed;
+    align-items: center;
+}
+
+.quantity button {
+    padding: 5px;
+    color: #56B280;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+    align-items: center;
+}
+
+.quantity span {
+    margin: 0 20px;
+    display: fixed;
+}
+
+.cartAdd {
+    width: 350px;
+    height: 42px;
+    background-color: #56B280;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.cartAdd:hover {
+    background-color: #4caf50;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+footer h3,
+footer h4 {
+    margin: 0;
+}
+
+footer p,
+footer ul {
+    margin: 5px 0;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul li {
+    margin: 5px 0;
+}

@@ -7,6 +7,7 @@ import ForgotPassword from "./ForgotPassword.jsx";
 import Home from "./Home.jsx";
 import ShippingPage from "./ShippingPage/ShippingPage.jsx";
 import CheckoutPage from "./CheckoutPage/CheckoutPage.jsx";
+import ProductPage from "./ProductPage/ProductPage.jsx";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/shipping" element={<ShippingPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/product" element={<ProductPage />} />
       </Routes>
     </Router>
   );
