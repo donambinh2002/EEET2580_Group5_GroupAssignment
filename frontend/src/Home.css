@@ -1,9 +1,7 @@
-
-
 body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Playfair', sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
 }
 
@@ -125,9 +123,17 @@ body, html {
   flex-wrap: wrap;
 }
 
+.product-carousel {
+  width: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
 .product-card {
-  width: 200px;
-  padding: 15px;
+  width: 20rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -136,9 +142,9 @@ body, html {
 
 .product-card img {
   width: 100%;
-  height: auto;
+  height: 15rem;
+  object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 10px;
 }
 
 .product-info {
@@ -242,8 +248,8 @@ body, html {
 
 .learn-more-image img {
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid red; /* Debugging aid */
+  border: 1px solid red; /* debug thing */
 }

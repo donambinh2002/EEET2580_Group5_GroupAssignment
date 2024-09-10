@@ -1,6 +1,10 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation'; 
+import 'swiper/css/pagination'; 
+import './Home.css'; 
 
 const Home = () => {
   const productSectionRef = useRef(null);
@@ -41,57 +45,91 @@ const Home = () => {
       {/* Products Section */}
       <section className="products-section" ref={productSectionRef}>
         <h2>Products</h2>
-        <div className="product-grid">
-          <div className="product-card">
-            <img src="src\images\product.jpg" alt="product" />
-            <div className="product-info"> 
-              <p>product</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="src\images\product1.jpg" alt="product 1" />
-            <div className="product-info">
-              <p>product 1</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="src\images\product2.jpg" alt="product 2" />
-            <div className="product-info">
-              <p>product 2</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="src\images\product3.jpg" alt="product 3" />
-            <div className="product-info">
-              <p>product 3</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product4.png" alt="product 4" />
-            <div className="product-info">
-              <p>product 4</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product5.png" alt="product 5" />
-            <div className="product-info">
-              <p>product 5</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product6.png" alt="product 6" />
-            <div className="product-info">
-              <p>product 6</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-        </div>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3}
+          loop={true}
+          pagination={{ clickable: true }}
+          className="product-carousel"
+        >
+          <SwiperSlide>
+            <Link to="/product/1">
+              <div className="product-card">
+                <img src="src/images/product.jpg" alt="product" />
+                <div className="product-info">
+                  <p>Product</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/2">
+              <div className="product-card">
+                <img src="src/images/product1.jpg" alt="product 1" />
+                <div className="product-info">
+                  <p>Product 1</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/3">
+              <div className="product-card">
+                <img src="src/images/product2.jpg" alt="product 2" />
+                <div className="product-info">
+                  <p>Product 2</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 3" />
+                <div className="product-info">
+                  <p>Product 3</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 4" />
+                <div className="product-info">
+                  <p>Product 4</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 5" />
+                <div className="product-info">
+                  <p>Product 5</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 6" />
+                <div className="product-info">
+                  <p>Product 6</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        </Swiper>
       </section>
 
       {/* Testimonials Section */}
@@ -99,16 +137,16 @@ const Home = () => {
         <h2>Testimonials</h2>
         <div className="testimonials-grid">
           <div className="testimonial-card">
-            <p>"testimonials 1."</p>
-            <p>- name</p>
+            <p>"Testimonials 1."</p>
+            <p>- Name</p>
           </div>
           <div className="testimonial-card">
-            <p>"testimonials 2"</p>
-            <p>- name</p>
+            <p>"Testimonials 2"</p>
+            <p>- Name</p>
           </div>
           <div className="testimonial-card">
-            <p>"testimonials 3."</p>
-            <p>- name</p>
+            <p>"Testimonials 3."</p>
+            <p>- Name</p>
           </div>
         </div>
       </section>
@@ -124,7 +162,7 @@ const Home = () => {
             <Link to="/learn-more" className="learn-more-button">Learn More</Link>
           </div>
           <div className="learn-more-image">
-            <img src='src\images\learn_more.jpg' alt="placeholder-learn-more" />
+            <img src="src/images/learn_more.jpg" alt="Learn More" />
           </div>
         </div>
       </section>
@@ -136,28 +174,28 @@ const Home = () => {
           <div className="product-card">
             <img src="product7.png" alt="product 7" />
             <div className="product-info">
-              <p>product 7</p>
+              <p>Product 7</p>
               <p>$9.99</p>
             </div>
           </div>
           <div className="product-card">
             <img src="product8.png" alt="product 8" />
             <div className="product-info">
-              <p>product 8</p>
+              <p>Product 8</p>
               <p>$9.99</p>
             </div>
           </div>
           <div className="product-card">
             <img src="product9.png" alt="product 9" />
             <div className="product-info">
-              <p>product 9</p>
+              <p>Product 9</p>
               <p>$9.99</p>
             </div>
           </div>
           <div className="product-card">
             <img src="product10.png" alt="product 10" />
             <div className="product-info">
-              <p>product 10</p>
+              <p>Product 10</p>
               <p>$9.99</p>
             </div>
           </div>
