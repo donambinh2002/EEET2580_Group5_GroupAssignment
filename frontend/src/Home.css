@@ -64,7 +64,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 50rem;
   background-image: url('D:\Github\EEET2580_Group5_GroupAssignment\frontend\src\images\background.png');
   background-size: cover;
   background-position: center;
@@ -76,6 +76,7 @@ body, html {
   padding: 40px 60px;
   border-radius: 12px;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  max-width: 70%; 
 }
 
 .hero-content h1 {
