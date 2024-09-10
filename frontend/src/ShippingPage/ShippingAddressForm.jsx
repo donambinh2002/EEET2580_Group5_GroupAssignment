@@ -87,6 +87,16 @@ function ShippingAddressForm() {
             Save this information for a future fast checkout
           </label>
         </div>
+
+        <nav className={styles.navigationButtons}>
+          <a href="#cart" className={styles.backLink}>
+            Back to cart
+          </a>
+
+          <button type="submit" className={styles.nextButton}>
+            Checkout
+          </button>
+        </nav>
       </form>
     </section>
   );

@@ -3,7 +3,6 @@ import styles from "./ShippingPage.module.css";
 // import StepIndicator from "./StepIndicator";
 import ContactSection from "./ContactSection";
 import ShippingAddressForm from "./ShippingAddressForm";
-import NavigationButtons from "./NavigationButtons";
 import OrderSummary from "./OrderSummary";
 
 function ShippingPage() {
@@ -19,7 +18,6 @@ function ShippingPage() {
           {/* <StepIndicator /> */}
           <ContactSection />
           <ShippingAddressForm />
-          <NavigationButtons />
         </section>
         <aside className={styles.orderSummarySection}>
           <OrderSummary />
