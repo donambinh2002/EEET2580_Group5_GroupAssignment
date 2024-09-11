@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SprayerRepository extends JpaRepository<Sprayer, Long> {
-    @Query("SELECT s FROM Sprayer s WHERE s.sprayerStore.id = :id")
-    Sprayer findBySprayerStoreID(@Param("storeID") Long id);
+    @Query("SELECT s FROM Sprayer s WHERE s.sprayerStore.id = :storeID")
+    Sprayer findBySprayerStoreID(@Param("storeID") Long storeID);
 }

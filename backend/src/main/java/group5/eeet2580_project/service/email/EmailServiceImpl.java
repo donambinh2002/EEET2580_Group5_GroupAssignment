@@ -17,20 +17,20 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendOrderConfirmationEmail(User user, SprayOrder sprayOrder) {
         sendEmail(user.getEmail(), "Spray Order Confirmation", "Dear " + user.getUsername() + ",\n\nYour spray order has been created successfully.\n\nOrder Details:\n" +
-                "Crop Type: " + sprayOrder.getCropType() + "\n" +
-                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
-                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
-                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
+//                "Crop Type: " + sprayOrder.getCropType() + "\n" +
+//                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
+//                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
+//                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
     @Override
     public void sendOrderCancelledEmail(User user, SprayOrder sprayOrder) {
         sendEmail(user.getEmail(), "Spray Order Cancelled", "Dear " + user.getUsername() + ",\n\nYour spray order has been cancelled.\n\nOrder Details:\n" +
-                "Crop Type: " + sprayOrder.getCropType() + "\n" +
-                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
-                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
-                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
+//                "Crop Type: " + sprayOrder.getCropType() + "\n" +
+//                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
+//                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
+//                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
@@ -38,30 +38,30 @@ public class EmailServiceImpl implements EmailService {
     public void sendOrderAssignedEmail(User user, SprayOrder sprayOrder, String sprayerNames) {
         sendEmail(user.getEmail(), "Spray Order Assigned", "Dear " + user.getUsername() + ",\n\nYour spray order has been assigned to the following sprayer(s):\n" +
                 sprayerNames + "\n\nOrder Details:\n" +
-                "Crop Type: " + sprayOrder.getCropType() + "\n" +
-                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
-                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
-                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
+//                "Crop Type: " + sprayOrder.getCropType() + "\n" +
+//                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
+//                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
+//                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
     @Override
     public void sendOrderInProgressEmail(User user, SprayOrder sprayOrder) {
         sendEmail(user.getEmail(), "Spray Order In Progress", "Dear " + user.getUsername() + ",\n\nYour spray order is now in progress.\n\nOrder Details:\n" +
-                "Crop Type: " + sprayOrder.getCropType() + "\n" +
-                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
-                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
-                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
+//                "Crop Type: " + sprayOrder.getCropType() + "\n" +
+//                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
+//                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
+//                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
     @Override
     public void sendOrderCompletedEmail(User user, SprayOrder sprayOrder) {
         sendEmail(user.getEmail(), "Spray Order Completed", "Dear " + user.getUsername() + ",\n\nYour spray order has been completed.\n\nOrder Details:\n" +
-                "Crop Type: " + sprayOrder.getCropType() + "\n" +
-                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
-                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
-                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
+//                "Crop Type: " + sprayOrder.getCropType() + "\n" +
+//                "Farmland Area: " + sprayOrder.getFarmlandArea() + "\n" +
+//                "Desired Date: " + sprayOrder.getDesiredDate() + "\n" +
+//                "Desired Time: " + sprayOrder.getDesiredTime() + "\n" +
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
