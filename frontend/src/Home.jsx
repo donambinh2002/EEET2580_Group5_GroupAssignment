@@ -135,20 +135,33 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="testimonials-section">
         <h2>Testimonials</h2>
-        <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <p>"Testimonials 1."</p>
-            <p>- Name</p>
-          </div>
-          <div className="testimonial-card">
-            <p>"Testimonials 2"</p>
-            <p>- Name</p>
-          </div>
-          <div className="testimonial-card">
-            <p>"Testimonials 3."</p>
-            <p>- Name</p>
-          </div>
-        </div>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3}
+          loop={true}
+          pagination={{ clickable: true }}
+          className="testimonial-carousel"
+        >
+          <SwiperSlide>
+            <div className="testimonial-card">
+            <img src="src/images/product3.jpg" alt="product 6" />
+              <p>"Testimonials 1."</p>
+              <p>- Name</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="testimonial-card">
+              <p>"Testimonials 2."</p>
+              <p>- Name</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="testimonial-card">
+              <p>"Testimonials 3."</p>
+              <p>- Name</p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </section>
 
       {/* Learn More Section */}
@@ -169,37 +182,92 @@ const Home = () => {
 
       {/* Popular Products Section */}
       <section className="popular-section">
-        <h2>Popular</h2>
-        <div className="product-grid">
-          <div className="product-card">
-            <img src="product7.png" alt="product 7" />
-            <div className="product-info">
-              <p>Product 7</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product8.png" alt="product 8" />
-            <div className="product-info">
-              <p>Product 8</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product9.png" alt="product 9" />
-            <div className="product-info">
-              <p>Product 9</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-          <div className="product-card">
-            <img src="product10.png" alt="product 10" />
-            <div className="product-info">
-              <p>Product 10</p>
-              <p>$9.99</p>
-            </div>
-          </div>
-        </div>
+      <h2>Popular</h2>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3}
+          loop={true}
+          pagination={{ clickable: true }}
+          className="product-carousel"
+        >
+          <SwiperSlide>
+            <Link to="/product/1">
+              <div className="product-card">
+                <img src="src/images/product.jpg" alt="product" />
+                <div className="product-info">
+                  <p>Product</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/2">
+              <div className="product-card">
+                <img src="src/images/product1.jpg" alt="product 1" />
+                <div className="product-info">
+                  <p>Product 1</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/3">
+              <div className="product-card">
+                <img src="src/images/product2.jpg" alt="product 2" />
+                <div className="product-info">
+                  <p>Product 2</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 3" />
+                <div className="product-info">
+                  <p>Product 3</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 4" />
+                <div className="product-info">
+                  <p>Product 4</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 5" />
+                <div className="product-info">
+                  <p>Product 5</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link to="/product/4">
+              <div className="product-card">
+                <img src="src/images/product3.jpg" alt="product 6" />
+                <div className="product-info">
+                  <p>Product 6</p>
+                  <p>$9.99</p>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        </Swiper>
       </section>
 
       {/* Footer Section */}

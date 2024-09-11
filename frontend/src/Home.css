@@ -65,7 +65,7 @@ body, html {
   justify-content: center;
   align-items: center;
   height: 50rem;
-  background-image: url('D:\Github\EEET2580_Group5_GroupAssignment\frontend\src\images\background.png');
+  background-image: url('/src/images/background.png');
   background-size: cover;
   background-position: center;
 }
@@ -106,9 +106,10 @@ body, html {
 }
 
 /* Products Section */
-.products-section, .popular-section, .testimonials-section {
+.products-section, .popular-section{
   padding: 50px 80px;
   text-align: center;
+  background-color: #ffffff
 }
 
 .products-section h2, .popular-section h2, .testimonials-section h2 {
@@ -135,10 +136,14 @@ body, html {
 
 .product-card {
   width: 20rem;
+  height: 21rem;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
 }
 
 .product-card img {
@@ -162,12 +167,51 @@ body, html {
   color: #666;
 }
 
+/* Testimonial Section */
+
+.testimonials-section {
+  padding: 50px 80px;
+  text-align: center;
+  background-color: #f4f4f4
+}
+
 .testimonial-card {
-  width: 200px;
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 20rem;
+  background: linear-gradient(135deg, #e0f7e9, #f7fff8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card img {
+  width: 10rem; 
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #6B8A7A;
+  margin-bottom: 15px;
+}
+
+.testimonial-info {
+  font-size: 16px;
+  color: #254336;
+}
+
+.testimonial-info p:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.testimonial-info p:last-child {
+  color: #666;
+}
+
+.testimonial-carousel {
+  width: 100%;
 }
 
 /* Footer Section */
@@ -203,7 +247,6 @@ body, html {
   justify-content: space-between;
   align-items: center;
   background-color: #f0f0f0;
-  margin: 50px 0;
 }
 
 .learn-more-content {
