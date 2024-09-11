@@ -161,6 +161,12 @@ const Home = () => {
               <p>- Name</p>
             </div>
           </SwiperSlide>
+          <SwiperSlide>
+            <div className="testimonial-card">
+              <p>"Testimonials 4."</p>
+              <p>- Name</p>
+            </div>
+          </SwiperSlide>
         </Swiper>
       </section>
 
