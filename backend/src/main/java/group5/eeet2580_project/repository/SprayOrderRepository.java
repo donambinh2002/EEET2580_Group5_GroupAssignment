@@ -12,9 +12,8 @@ import java.util.List;
 
 @Repository
 public interface SprayOrderRepository extends JpaRepository<SprayOrder, Long> {
-
-//    @Query("SELECT CASE WHEN COUNT(S) > 0 THEN true ELSE false END FROM SprayOrder S WHERE S.user.username = :username AND S.timestamp = :timestamp")
-//    Boolean existsByUserAndDate(@Param("username") String username, @Param("date") LocalDateTime timestamp);
+    @Query("SELECT CASE WHEN COUNT(S) > 0 THEN true ELSE false END FROM SprayOrder S WHERE S.user.username = :username AND S.timestamp = :timestamp")
+    Boolean existsByUserAndDate(@Param("username") String username, @Param("timestamp") LocalDateTime timestamp);
 
     @Query("SELECT S FROM SprayOrder S WHERE S.user.username = :username")
     List<SprayOrder> findByUser(@Param("username") String username);

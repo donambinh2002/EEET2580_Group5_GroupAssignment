@@ -23,6 +23,4 @@ public class SprayerRequest {
     private String description;
 
     private String imageUrl;
-
-    private Long SprayerStoreId;
 }

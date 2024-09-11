@@ -21,8 +21,6 @@ public class SprayerResponse implements Data {
 
     private String imageUrl;
 
-    private SprayerStoreResponse sprayerStore;
-
     public SprayerResponse(Sprayer sprayer) {
         this.id = sprayer.getId();
         this.quantity = sprayer.getQuantity();
@@ -30,6 +28,5 @@ public class SprayerResponse implements Data {
         this.cropType = sprayer.getCropType();
         this.description = sprayer.getDescription();
         this.imageUrl = sprayer.getImageUrl();
-        this.sprayerStore = new SprayerStoreResponse(sprayer.getSprayerStore());
     }
 }

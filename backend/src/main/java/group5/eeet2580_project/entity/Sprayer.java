@@ -32,8 +32,4 @@ public class Sprayer {
 
     @Column()
     private String imageUrl;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", referencedColumnName = "id", updatable = false)
-    private SprayerStore sprayerStore;
 }

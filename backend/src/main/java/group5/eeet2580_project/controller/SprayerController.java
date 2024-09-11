@@ -32,13 +32,8 @@ public class SprayerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getSprayerById(@PathVariable Long id) {
+    public ResponseEntity<?> getSprayerByID(@PathVariable Long id) {
         return sprayerService.get(id);
-    }
-
-    @GetMapping("/store/{storeID}")
-    public ResponseEntity<?> getSprayersByStoreId(@PathVariable Long storeID) {
-        return sprayerService.getByStoreID(storeID);
     }
 
     @GetMapping()
