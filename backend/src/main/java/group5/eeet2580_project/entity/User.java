@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @Builder
 public class User implements Serializable, Comparable<User> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,10 +28,20 @@ public class User implements Serializable, Comparable<User> {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String fullName;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<String> roles = new HashSet<>();
+
+    @Column()
+    private String imageUrl;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sprayer_store_id")
+    private SprayerStore sprayerStore;
 
     @Override
     public int compareTo(User otherUser) {

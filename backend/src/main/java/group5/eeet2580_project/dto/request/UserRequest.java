@@ -12,10 +12,13 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class RegisterUserRequest {
+public class UserRequest {
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
+
+    @NotBlank
+    private String fullName;
 
     @NotBlank
     @Size(max = 50)

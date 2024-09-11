@@ -47,5 +47,8 @@ public interface UserRepository extends JpaRepository<User, Long>, UserDetailsSe
                 .disabled(false)
                 .build();
     }
+
+    @Query("SELECT U FROM User U WHERE U.fullName = :fullName")
+    Optional<User> findByFullName(@Param("fullName") String fullName);
 }
 
