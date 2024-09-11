@@ -36,9 +36,9 @@ const Home = () => {
       {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-content">
-          <h1>[WEBSITE NAME]</h1>
+          <h1>HOVER SPRITE</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quasi voluptatum accusantium ullam in architecto soluta eius. Aspernatur sunt facere suscipit architecto corporis soluta, placeat, maxime deleniti perspiciatis iste officiis.</p>
-          <button onClick={scrollToProducts} className="hero-button">Discover our collection</button>
+          <button onClick={scrollToProducts} className="hero-button">Discover our products</button>
         </div>
       </main>
 
