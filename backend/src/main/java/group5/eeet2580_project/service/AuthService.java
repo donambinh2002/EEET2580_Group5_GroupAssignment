@@ -62,6 +62,7 @@ public class AuthService {
 
         User user = new User();
         user.setUsername(request.getUsername());
+        user.setFullName(request.getFullName());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.getRoles().add(request.getRole().toUpperCase());

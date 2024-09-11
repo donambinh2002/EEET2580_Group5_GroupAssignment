@@ -35,9 +35,6 @@ public class SprayOrderService {
             return ResponseEntity.badRequest().body(new MessageResponse("Invalid farmland area!"));
         }
 
-        // Calculate total cost
-        double totalCost = request.getFarmlandArea() * 30000;
-
         // Check if the desired session is available
         boolean sessionExists = spraySessionRepository.existsByDateAndTimeSlot(request.getDesiredDate(), String.valueOf(request.getDesiredTime()));
         if (!sessionExists) {
@@ -47,11 +44,7 @@ public class SprayOrderService {
         // Create and save spray order
         SprayOrder sprayOrder = SprayOrder.builder()
                 .user(user)
-                .cropType(request.getCropType())
-                .farmLandArea(request.getFarmlandArea())
-                .desiredDate(request.getDesiredDate())
-                .desiredTime(request.getDesiredTime())
-                .totalCost(totalCost)
+//                .totalCost(totalCost)
                 .status(SprayOrder.Status.PENDING)
                 .build();
         sprayOrderRepository.save(sprayOrder);
@@ -62,9 +55,9 @@ public class SprayOrderService {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Spray order created successfully!"));
     }
 
-    public List<SprayOrder> getOrdersByUser(User user) {
-        return sprayOrderRepository.findByUser(user);
-    }
+//    public List<SprayOrder> getOrdersByUser(User user) {
+//        return sprayOrderRepository.findByUser(user);
+//    }
 
     public List<SprayOrder> getAllOrders() {
         return sprayOrderRepository.findAll();

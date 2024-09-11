@@ -25,7 +25,7 @@ public class SprayOrderController {
                 .map(order -> SprayOrderResponse.builder()
                         .id(order.getId())
                         .customerName(order.getUser().getUsername())
-                        .orderDate(order.getDesiredDate())
+//                        .orderDate(order.getDesiredDate())
                         .status(String.valueOf(order.getStatus()))
                         .build())
                 .collect(Collectors.toList());
