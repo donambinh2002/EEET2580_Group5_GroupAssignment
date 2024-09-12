@@ -1,4 +1,4 @@
-.home-header {
+.homeHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,34 +13,34 @@
   color: #254336;
 }
 
-.nav-links {
+.navLinks {
   list-style: none;
   display: flex;
   gap: 20px;
 }
 
-.nav-links li a {
+.navLinks li a {
   text-decoration: none;
   color: #254336;
   font-weight: 500;
 }
 
-.header-icons {
+.headerIcons {
   display: flex;
   gap: 15px;
 }
 
-.header-icons a {
+.headerIcons a {
   text-decoration: none;
   color: #254336;
 }
 
-.icon-user:before {
+.iconUser:before {
   content: "\1F464";
   font-size: 20px;
 }
 
-.icon-cart:before {
+.iconCart:before {
   content: "\1F6D2";
   font-size: 20px;
 }
