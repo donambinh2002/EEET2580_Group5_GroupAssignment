@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ShippingPage.module.css";
+import styles from "./OrderSummary.module.css";
 
 function OrderSummary() {
   return (
@@ -20,9 +20,6 @@ function OrderSummary() {
       </div>
       <hr className={styles.divider} />
       <form className={styles.couponForm}>
-        <label htmlFor="couponCode" className="visually-hidden">
-          Coupon code
-        </label>
         <input
           type="text"
           id="couponCode"

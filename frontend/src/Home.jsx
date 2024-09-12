@@ -1,44 +1,39 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation'; 
-import 'swiper/css/pagination'; 
-import './Home.css'; 
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "./Home.css";
+import HomeHeader from "./Components/HomeHeader";
 
 const Home = () => {
   const productSectionRef = useRef(null);
 
   const scrollToProducts = () => {
     if (productSectionRef.current) {
-      productSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      productSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <div className="home-container">
       {/* Header Section */}
-      <header className="home-header">
-        <div className="logo">[LOGO]</div>
-        <nav>
-          <ul className="nav-links">
-            <li><Link to="/discovery">Discovery</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-          </ul>
-        </nav>
-        <div className="header-icons">
-          <Link to="/login"><span className="icon-user"></span></Link>
-          <Link to="/cart"><span className="icon-cart"></span></Link>
-        </div>
-      </header>
+      <HomeHeader />
 
       {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-content">
           <h1>HOVER SPRITE</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quasi voluptatum accusantium ullam in architecto soluta eius. Aspernatur sunt facere suscipit architecto corporis soluta, placeat, maxime deleniti perspiciatis iste officiis.</p>
-          <button onClick={scrollToProducts} className="hero-button">Discover our products</button>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quasi
+            voluptatum accusantium ullam in architecto soluta eius. Aspernatur
+            sunt facere suscipit architecto corporis soluta, placeat, maxime
+            deleniti perspiciatis iste officiis.
+          </p>
+          <button onClick={scrollToProducts} className="hero-button">
+            Discover our products
+          </button>
         </div>
       </main>
 
@@ -144,7 +139,7 @@ const Home = () => {
         >
           <SwiperSlide>
             <div className="testimonial-card">
-            <img src="src/images/product3.jpg" alt="product 6" />
+              <img src="src/images/product3.jpg" alt="product 6" />
               <p>"Testimonials 1."</p>
               <p>- Name</p>
             </div>
@@ -176,9 +171,14 @@ const Home = () => {
           <div className="learn-more-text">
             <h2>Learn More</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate repudiandae minus, autem officiis nostrum deleniti reiciendis error maiores quidem, quis hic illo numquam molestiae obcaecati ad recusandae reprehenderit dolore omnis.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Cupiditate repudiandae minus, autem officiis nostrum deleniti
+              reiciendis error maiores quidem, quis hic illo numquam molestiae
+              obcaecati ad recusandae reprehenderit dolore omnis.
             </p>
-            <Link to="/learn-more" className="learn-more-button">Learn More</Link>
+            <Link to="/learn-more" className="learn-more-button">
+              Learn More
+            </Link>
           </div>
           <div className="learn-more-image">
             <img src="src/images/learn_more.jpg" alt="Learn More" />
@@ -188,7 +188,7 @@ const Home = () => {
 
       {/* Popular Products Section */}
       <section className="popular-section">
-      <h2>Popular</h2>
+        <h2>Popular</h2>
         <Swiper
           spaceBetween={20}
           slidesPerView={3}
