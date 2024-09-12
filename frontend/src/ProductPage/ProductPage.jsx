@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Home from '../Home';
 import styles from './ProductPage.module.css';
 import HomeHeader from '../Components/HomeHeader';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import mintImage from './mint.png';
 
 function ProductPage() {
     const [quantity, setQuantity] = useState(1);
@@ -21,35 +24,32 @@ function ProductPage() {
             < HomeHeader />
             <div className={styles.contentWrapper}>
                 <section className={styles.productImage}>
-                    <img src="path_to_candle_image" alt="Spiced Mint Candle" />
+                    <img src={mintImage} alt="Spiced Mint Candle" />
                 </section>
                 <aside>
                     <div className={styles.productInfo}>
                         <h2>Spiced Mint Candleaf®</h2>
-                        <p className="price">$9.99</p>
-                        <div className="subscription">
-                            <input
-                                type="radio"
-                                checked={!subscription}
-                                onChange={() => setSubscription(false)}
-                            />
-                            One time purchase
-                            <br />
-                            <input
-                                type="radio"
-                                checked={subscription}
-                                onChange={() => setSubscription(true)}
-                            />
-                            Subscribe and delivery every{' '}
-                            <select
-                                value={deliveryInterval}
-                                onChange={(e) => setDeliveryInterval(e.target.value)}
-                                disabled={!subscription}
-                            >
-                                <option value="4 weeks">4 weeks</option>
-                                <option value="8 weeks">8 weeks</option>
-                                <option value="12 weeks">12 weeks</option>
-                            </select>
+                        <p className={styles.price}>$9.99</p>
+                        <div className="subscription-box">
+                            <div className="subscription-option">
+                                <input type="radio" id="one-time" name="purchase-type" value="one-time" />
+                                <label htmlFor="one-time">One time purchase</label>
+                            </div>
+
+                            <div className="subscription-option">
+                                <input type="radio" id="subscribe" name="purchase-type" value="subscribe" />
+                                <label htmlFor="subscribe">Subscribe and delivery every</label>
+
+                                <select>
+                                    <option value="4 weeks">4 weeks</option>
+                                    <option value="8 weeks">8 weeks</option>
+                                    <option value="12 weeks">12 weeks</option>
+                                </select>
+                            </div>
+
+                            <p className="subscription-text">
+                                Subscribe now and get the 10% discount on every recurring order. The discount will be applied at checkout. <a href="#">See details</a>
+                            </p>
                         </div>
 
                         <div className={styles.quantity}>
@@ -61,12 +61,21 @@ function ProductPage() {
                         <button className={styles.cartAdd}> + Add to cart</button>
                     </div>
 
-                    <div className="product-info">
-                        <p>Wax: Top grade Soy wax that delivers a smoke less, consistent burn</p>
-                        <p>Fragrance: Premium quality ingredients with natural essential oils</p>
-                        <p>Burning Time: 70-75 hours</p>
-                        <p>Dimensions: 10cm x 5cm</p>
-                        <p>Weight: 400g</p>
+                    <div className='productInfoContainer'>
+                        <Card className={styles.productInfo}>
+                            <CardContent>
+                                <h3>Product Information</h3>
+                                <p>
+                                    Wax: Top grade Soy wax that delivers a smoke less, consistent burn
+                                </p>
+                                <p>
+                                    Fragrance: Premium quality ingredients with natural essential oils
+                                </p>
+                                <p>Burning Time: 70-75 hours</p>
+                                <p>Dimensions: 10cm x 5cm</p>
+                                <p>Weight: 400g</p>
+                            </CardContent>
+                        </Card>
                     </div>
                 </aside>
             </div>
