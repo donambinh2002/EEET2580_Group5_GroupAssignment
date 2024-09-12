@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./HomeHeader.css";
+import styles from "./HomeHeader.module.css";
 
 const HomeHeader = () => {
   return (
-    <header className="home-header">
-      <div className="logo">[LOGO]</div>
+    <header className={styles.homeHeader}>
+      <div className={styles.logo}>[LOGO]</div>
       <nav>
-        <ul className="nav-links">
+        <ul className={styles.navLinks}>
           <li>
             <Link to="/discovery">Discovery</Link>
           </li>
@@ -19,12 +19,12 @@ const HomeHeader = () => {
           </li>
         </ul>
       </nav>
-      <div className="header-icons">
+      <div className={styles.headerIcons}>
         <Link to="/login">
-          <span className="icon-user"></span>
+          <span className={styles.iconUser}></span>
         </Link>
         <Link to="/cart">
-          <span className="icon-cart"></span>
+          <span className={styles.iconCart}></span>
         </Link>
       </div>
     </header>
