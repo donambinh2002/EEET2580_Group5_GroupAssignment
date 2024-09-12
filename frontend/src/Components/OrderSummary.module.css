@@ -1,0 +1,133 @@
+.orderSummary {
+  background-color: #f2f2f2;
+  padding: 61px 65px;
+}
+
+.productInfo {
+  display: flex;
+  gap: 40px;
+}
+
+.productImageWrapper {
+  position: relative;
+  width: 160px;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.productQuantity {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #56b280;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  color: #272727;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 3.6;
+}
+
+.productPrice {
+  color: #56b280;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 3;
+}
+
+.divider {
+  border: 1px solid rgba(86, 178, 128, 0.2);
+  margin: 26px 0;
+}
+
+.couponForm {
+  display: flex;
+  gap: 10px;
+}
+
+.couponInput {
+  flex-grow: 1;
+  padding: 7px 17px;
+  border: 1px solid #898989;
+  background-color: #fff;
+  font-size: 14px;
+  color: #616161;
+  line-height: 2;
+}
+
+.couponButton {
+  border-radius: 4px;
+  background-color: #a8a8a8;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px 21px;
+  border: none;
+  cursor: pointer;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.subtotalLabels,
+.subtotalValues {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtotalPrice {
+  color: #272727;
+  font-weight: 500;
+}
+
+.shippingInfo {
+  color: #616161;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+  font-family: Roboto, sans-serif;
+}
+
+.totalLabel {
+  color: #616161;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2;
+}
+
+.totalPrice {
+  color: #272727;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+}
