@@ -1,17 +1,56 @@
-import React, { useState } from 'react';
-import './Auth.css';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Auth.css";
+import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const requestBody = {
+      email: email,
+      full_name: name,
+      password: password,
+      username: username, // Deriving the username from the email
+      role: "USER",
+    };
+
+    console.log("Request Body:", requestBody); // Log the request body for debugging
+
+    try {
+      const response = await fetch("http://localhost:8080/v1/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json(); // Parse error message from the server
+        console.error("Server Error:", errorData);
+        throw new Error(`Error: ${errorData.message || response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Registration successful:", data);
+      // Handle successful registration
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert(`Failed to register: ${error.message}`);
+    }
   };
 
   return (
@@ -39,6 +78,15 @@ const Register = () => {
           </div>
           <div className="input-group">
             <input
+              type="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
               type="text"
               placeholder="Phone Number (Optional)"
               value={phone}
@@ -47,32 +95,35 @@ const Register = () => {
           </div>
           <div className="input-group">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="Create a Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength="6"
+              maxLength="40"
             />
             <span
               className="toggle-password"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? "Hide" : "Show"}
             </span>
           </div>
           <div className="input-group">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              pattern={password}
             />
           </div>
           <div className="auth-options">
             <label>
-              <input type="checkbox" required />
-              I agree to the <Link to="/terms">Terms and Conditions</Link>
+              <input type="checkbox" required />I agree to the{" "}
+              <Link to="/terms">Terms and Conditions</Link>
             </label>
           </div>
           <button type="submit" className="auth-button">
