@@ -5,11 +5,23 @@ import HomeHeader from '../Components/HomeHeader';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import mintImage from './mint.png';
+import { Box, Typography, Radio, FormControlLabel, RadioGroup, Paper, MenuItem, Select, Link } from "@mui/material";
+import Footer from '../Components/Footer';
 
 function ProductPage() {
     const [quantity, setQuantity] = useState(1);
-    const [subscription, setSubscription] = useState(false);
-    const [deliveryInterval, setDeliveryInterval] = useState('4 weeks');
+    const [selectedValue, setSelectedValue] = useState("one-time");
+    const [subscriptionInterval, setSubscriptionInterval] = useState('4 weeks');
+    
+    // Handles radio button selection
+    const handleRadioChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+
+    // Handles subscription interval selection
+    const handleSubscriptionChange = (event) => {
+        setSubscriptionInterval(event.target.value);
+    };
 
     const handleQuantityChange = (type) => {
         if (type === 'increment') {
@@ -30,27 +42,90 @@ function ProductPage() {
                     <div className={styles.productInfo}>
                         <h2>Spiced Mint Candleaf®</h2>
                         <p className={styles.price}>$9.99</p>
-                        <div className="subscription-box">
-                            <div className="subscription-option">
-                                <input type="radio" id="one-time" name="purchase-type" value="one-time" />
-                                <label htmlFor="one-time">One time purchase</label>
-                            </div>
 
-                            <div className="subscription-option">
-                                <input type="radio" id="subscribe" name="purchase-type" value="subscribe" />
-                                <label htmlFor="subscribe">Subscribe and delivery every</label>
+                        <Box  bgcolor="white">
+                            <Box padding={2}>
 
-                                <select>
-                                    <option value="4 weeks">4 weeks</option>
-                                    <option value="8 weeks">8 weeks</option>
-                                    <option value="12 weeks">12 weeks</option>
-                                </select>
-                            </div>
+                                <RadioGroup defaultValue="one-time" onChange={handleRadioChange}>
+                                    <FormControlLabel
+                                        value="one-time"
+                                        control={<Radio sx={{ color: "#dadada" }} />}
+                                        label={
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+                                                    color: "black",
+                                                }}
+                                            >
+                                                One-time purchase
+                                            </Typography>
+                                        }
+                                    />
+                                    <FormControlLabel
+                                        value="subscribe"
+                                        control={<Radio sx={{ color: "#87d6ac" }} />}
+                                        label={
+                                            <Box display="flex" alignItems="center">
+                                                <Typography
+                                                    variant="body2"
+                                                    sx={{
+                                                        fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+                                                        color: "black",
+                                                        marginRight: 1,
+                                                    }}
+                                                >
+                                                    Subscribe and delivery every
+                                                </Typography>
+                                                <Select
+                                                    value={subscriptionInterval}
+                                                    onChange={handleSubscriptionChange}
+                                                    displayEmpty
+                                                    disabled={selectedValue !== "subscribe"}
+                                                    sx={{
+                                                        width: 120,
+                                                        height: 21,
+                                                        border: 1,
+                                                        borderColor: "#e6e6e6",
+                                                        fontSize: "0.875rem",
+                                                    }}
+                                                >
+                                                    <MenuItem value="4 weeks">4 weeks</MenuItem>
+                                                    <MenuItem value="8 weeks">8 weeks</MenuItem>
+                                                    <MenuItem value="24 weeks">24 weeks</MenuItem>
+                                                </Select>
+                                            </Box>
+                                        }
+                                    />
+                                </RadioGroup>
 
-                            <p className="subscription-text">
-                                Subscribe now and get the 10% discount on every recurring order. The discount will be applied at checkout. <a href="#">See details</a>
-                            </p>
-                        </div>
+                                <Paper
+                                    elevation={0}
+                                    sx={{
+                                        borderRadius: 1,
+                                        border: 1,
+                                        borderColor: "#e6e6e6",
+                                        padding: 2,
+                                        boxSizing: "border-box",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "#808080",
+                                            fontFamily: "Helvetica, Arial, sans-serif",
+                                            marginBottom: 1,
+                                        }}
+                                    >
+                                        Subscribe now and get the 10% discount on every recurring order. The discount will be applied at checkout.{" "}
+                                        <Link href="#" sx={{ color: "#56b280", fontSize: "0.875rem" }}>
+                                            See details
+                                        </Link>
+                                    </Typography>
+                                </Paper>
+                            </Box>
+                        </Box>
+
 
                         <div className={styles.quantity}>
                             <button onClick={() => handleQuantityChange('increment')}>+</button>
@@ -58,7 +133,7 @@ function ProductPage() {
                             <button onClick={() => handleQuantityChange('decrement')}>-</button>
                         </div>
 
-                        <button className={styles.cartAdd}> + Add to cart</button>
+                        <button className={styles.cartAdd}>+ Add to cart</button>
                     </div>
 
                     <div className='productInfoContainer'>
@@ -80,36 +155,7 @@ function ProductPage() {
                 </aside>
             </div>
 
-            <footer>
-                <div className="footer-left">
-                    <h3>Candleaf</h3>
-                    <p>Your natural candle made for your home and for your wellness.</p>
-                </div>
-                <div className="footer-links">
-                    <h4>Discovery</h4>
-                    <ul>
-                        <li>New Season</li>
-                        <li>Most searched</li>
-                        <li>Most sold</li>
-                    </ul>
-                </div>
-                <div className="footer-links">
-                    <h4>About</h4>
-                    <ul>
-                        <li>Help</li>
-                        <li>Shipping</li>
-                        <li>Affiliate</li>
-                    </ul>
-                </div>
-                <div className="footer-links">
-                    <h4>Info</h4>
-                    <ul>
-                        <li>Contact us</li>
-                        <li>Privacy Policies</li>
-                        <li>Terms & Conditions</li>
-                    </ul>
-                </div>
-            </footer>
+            <Footer />
         </main>
     );
 }

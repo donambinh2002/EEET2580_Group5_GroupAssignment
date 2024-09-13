@@ -10,6 +10,7 @@
 }
 
 .productImage {
+    display: flex;
     width: 540px;
     height: 433px;
     justify-content: center;
@@ -21,32 +22,28 @@
 .productImage img {
     width: 100%;
     height: 100%;
+    display: flex;
     object-fit: contain;
 }
 
 .price {
     font-size: 24px;
-    color: #4caf50;
+    color: #56B280;
 }
 
-.subscription-box {
-    border: 1px solid #ccc; /* Light grey border */
-    padding: 10px 15px;
-    border-radius: 4px;
-    width: 350px; /* Adjusted to match the width shown in the image */
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .subscription-option {
+.subscription-option {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-  }
+}
 
-  .subscription-option input {
+.subscription-option input {
+margin-right: 10px;
+}
+
+input[type="radio"] {
     margin-right: 10px;
-  }
+}
 
 .quantity {
     width: 100px;
@@ -75,12 +72,13 @@
     background-color: #56B280;
     color: white;
     padding: 10px;
-    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .cartAdd:hover {
-    background-color: #4caf50;
+    background-color: #dad3be;
 }
 
 .productInfo {
@@ -90,7 +88,7 @@
     margin: 20px;
 }
 
-.productInfoContainer {
+.productInfo {
     align-items: center;
 }
 
