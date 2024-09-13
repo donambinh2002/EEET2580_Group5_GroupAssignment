@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Login.jsx";
-import Register from "./Register.jsx";
-import Terms from "./Terms.jsx";
-import ForgotPassword from "./ForgotPassword.jsx";
+import Login from "./AuthenticateView/Login.jsx";
+import Register from "./AuthenticateView/Register.jsx";
+import Terms from "./AuthenticateView/Terms.jsx";
+import ForgotPassword from "./AuthenticateView/ForgotPassword.jsx";
 import Home from "./Home.jsx";
 import ShippingPage from "./ShippingPage/ShippingPage.jsx";
 import CheckoutPage from "./CheckoutPage/CheckoutPage.jsx";
