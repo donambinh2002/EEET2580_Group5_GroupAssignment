@@ -44,3 +44,28 @@
   content: "\1F6D2";
   font-size: 20px;
 }
+
+.footer {
+  background-color: #254336;
+  color: white;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
