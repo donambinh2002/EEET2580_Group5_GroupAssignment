@@ -18,6 +18,10 @@ public class SpraySession implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
+    @ManyToOne
+    @JoinColumn(name = "farmer_id", nullable = false)
+    private User farmer;
     
     private LocalDate date;
     private String timeSlot;

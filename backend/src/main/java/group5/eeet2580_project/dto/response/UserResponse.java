@@ -14,6 +14,8 @@ public class UserResponse implements Data {
     private String username;
     private String email;
     private String fullName;
+    private String address;
+    private User.Expertise expertise;
     private Set<String> roles;
     private String imageUrl;
 
@@ -22,6 +24,8 @@ public class UserResponse implements Data {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.fullName = user.getFullName();
+        this.address = user.getAddress();
+        this.expertise = user.getExpertise();
         this.roles = user.getRoles();
         this.imageUrl = user.getImageUrl();
     }

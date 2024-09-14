@@ -31,8 +31,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("v1/auth/**", "/swagger-ui/**", "/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole(Constants.ROLE_KEYS.USER, Constants.ROLE_KEYS.STAFF)
-                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole(Constants.ROLE_KEYS.STAFF)
+                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole(Constants.ROLE_KEYS.FARMER, Constants.ROLE_KEYS.RECEPTIONIST)
+                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole(Constants.ROLE_KEYS.RECEPTIONIST)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

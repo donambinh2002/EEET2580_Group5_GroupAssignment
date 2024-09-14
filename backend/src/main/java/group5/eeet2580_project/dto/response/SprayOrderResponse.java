@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class SprayOrderResponse implements Data {
     private Long id;
-    private String customerName;
+    private UserResponse farmer;
     private LocalDate orderDate;
     private String status;
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StripeService {
+public class PaymentService {
     private final SprayOrderRepository sprayOrderRepository;
 
     public ResponseEntity<?> create(PaymentRequest request) {

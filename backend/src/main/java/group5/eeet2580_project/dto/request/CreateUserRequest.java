@@ -12,13 +12,15 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class UserRequest {
+public class CreateUserRequest {
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
 
     @NotBlank
     private String fullName;
+
+    private String address;
 
     @NotBlank
     @Size(max = 50)
@@ -30,6 +32,6 @@ public class UserRequest {
     private String password;
 
     @NotBlank
-    @Pattern(regexp = Constants.ROLE_KEYS.ROLE_REGEX, message = "Invalid role, try USER or STAFF")
+    @Pattern(regexp = Constants.ROLE_KEYS.ROLE_REGEX, message = "Invalid role, try FARMER, RECEPTIONIST or SPRAYER")
     private String role;
 }

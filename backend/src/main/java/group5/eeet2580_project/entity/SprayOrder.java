@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "spray_orders")
@@ -15,16 +14,17 @@ import java.util.List;
 @Setter
 @Builder
 public class SprayOrder implements Serializable {
+    public enum Status {
+        PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @OneToMany
-    private List<Sprayer> sprayers;
+    @JoinColumn(name = "farmer_id", nullable = false)
+    private User farmer;
 
     private LocalDateTime timestamp;
     private float totalCost;
@@ -32,19 +32,11 @@ public class SprayOrder implements Serializable {
     private String feedbackText;
     private Integer feedbackRating;
 
-    public enum Status {
-        PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED
-    }
-
     @Enumerated(EnumType.STRING)
     private Status status;
 
     public float getTotalCost() {
         float result = 0;
-
-        for (Sprayer sprayer : sprayers) {
-            result += sprayer.getPrice();
-        }
 
         return result;
     }

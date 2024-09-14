@@ -43,7 +43,7 @@ public class SprayOrderService {
 
         // Create and save spray order
         SprayOrder sprayOrder = SprayOrder.builder()
-                .user(user)
+                .farmer(user)
 //                .totalCost(totalCost)
                 .status(SprayOrder.Status.PENDING)
                 .build();
