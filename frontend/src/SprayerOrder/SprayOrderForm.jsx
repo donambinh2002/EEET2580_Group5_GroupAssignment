@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import Calendar from 'react-calendar';
+import { Moon, Hemisphere } from 'lunarphase-js';
+import 'react-calendar/dist/Calendar.css';
 import './SprayOrderForm.css';
 
 const timeSlots = [
@@ -37,77 +38,94 @@ const SprayOrderForm = () => {
     setDate(newDate);
   };
 
+  const tileContent = ({ date, view }) => {
+    if (view === 'month') {
+      return (
+        <small style={{ display: 'block' }}>
+          {Moon.lunarPhaseEmoji(date, Hemisphere.NORTHERN)}{' '}
+          {Math.round(Moon.lunarAge(date, Hemisphere.NORTHERN))}
+        </small>
+      );
+    }
+  };
+
   return (
     <div className="spray-order-form">
-      <form onSubmit={handleSubmit} className="form-container">
-        <h1 className="form-title">Spray Order</h1> {/* Added title inside the form and centered */}
+      <div className="form-and-summary-container">
         
-        <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <DatePicker
-            id="date"
-            selected={date}
-            onChange={handleDateChange}
-            dateFormat="dd/MM/yyyy"
-            className="react-datepicker"
-          />
+        {/* Form Section */}
+        <form onSubmit={handleSubmit} className="shared-container form-container">
+          <h1 className="form-title">Spray Order</h1>
+          
+          <div className="form-group">
+            <label htmlFor="calendar">Date:</label>
+            <div id="calendar">
+              <Calendar
+                onChange={handleDateChange}
+                value={date}
+                tileContent={tileContent}
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="time">Time:</label>
+            <select id="time" value={time} onChange={(e) => setTime(e.target.value)}>
+              {timeSlots.map((slot) => (
+                <option key={slot} value={slot}>{slot}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="location">Location:</label>
+            <input
+              id="location"
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="cropType">Type of Crop:</label>
+            <select id="cropType" value={cropType} onChange={(e) => setCropType(e.target.value)}>
+              <option value="Fruit">Fruit</option>
+              <option value="Cereal">Cereal</option>
+              <option value="Vegetable">Vegetable</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="area">Farmland Area (decare):</label>
+            <input
+              id="area"
+              type="number"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
+              min="0"
+              step="0.01"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="paymentType">Payment Type:</label>
+            <select id="paymentType" value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+              <option value="Cash">Cash</option>
+              <option value="Card">Card</option>
+            </select>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+
+        {/* Summary Section */}
+        <div className="shared-container summary">
+          <h2 className="summary-title">Summary</h2>
+          <p><b>Date:</b> {date.toLocaleDateString('en-GB')}</p>
+          <p><b>Time:</b> {time}</p>
+          <p><b>Area:</b> {area} decares</p>
+          <p><b>Type of Crop:</b> {cropType}</p>
+          <p><b>Location:</b> {location}</p>
+          <p><b>Payment Type:</b> {paymentType}</p>
+          <p><b>Total Cost:</b> ${cost}</p>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="time">Time:</label>
-          <select id="time" value={time} onChange={(e) => setTime(e.target.value)}>
-            {timeSlots.map((slot) => (
-              <option key={slot} value={slot}>{slot}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="location">Location:</label>
-          <input
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="cropType">Type of Crop:</label>
-          <select id="cropType" value={cropType} onChange={(e) => setCropType(e.target.value)}>
-            <option value="Fruit">Fruit</option>
-            <option value="Cereal">Cereal</option>
-            <option value="Vegetable">Vegetable</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="area">Farmland Area (decare):</label>
-          <input
-            id="area"
-            type="number"
-            value={area}
-            onChange={(e) => setArea(e.target.value)}
-            min="0"
-            step="0.01"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="paymentType">Payment Type:</label>
-          <select id="paymentType" value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
-            <option value="Cash">Cash</option>
-            <option value="Card">Card</option>
-          </select>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-
-      <div className="summary">
-        <h2>Summary</h2>
-        <p><b>Date:</b> {date.toLocaleDateString('en-GB')}</p>
-        <p><b>Time:</b> {time}</p>
-        <p><b>Area:</b> {area} decares</p>
-        <p><b>Type of Crop:</b> {cropType}</p>
-        <p><b>Location:</b> {location}</p>
-        <p><b>Payment Type:</b> {paymentType}</p>
-        <p><b>Total Cost:</b> ${cost}</p>
       </div>
     </div>
   );

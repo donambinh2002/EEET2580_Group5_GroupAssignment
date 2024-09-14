@@ -1,5 +1,4 @@
-/* src/SprayOrderForm.css */
-
+/* Reset and base styling */
 html, body {
   height: 100%;
   margin: 0;
@@ -11,41 +10,45 @@ html, body {
   box-sizing: inherit;
 }
 
-/* Container for the entire form with gradient background */
+/* Container for the form with a gradient background */
 .spray-order-form {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the top */
+  align-items: flex-start; /* Aligns items at the top */
   min-height: 100vh;
   background: linear-gradient(135deg, #B7B597, #6B8A7A);
   font-family: 'Roboto', sans-serif;
-  padding: 20px; /* Add some padding to ensure elements don't touch the edges */
+  padding: 20px;
 }
 
-/* Container for both the form and summary sections */
+/* Main container for form and summary, stacked vertically */
 .form-and-summary-container {
   display: flex;
-  gap: 20px; /* Add space between form and summary */
+  flex-direction: column; /* Stacks form and summary */
+  gap: 20px;
+  width: 100%;
+  max-width: 600px; /* Maximum width for container */
+  margin: 0 auto; /* Centers the container on the page */
 }
 
-/* Styling for the form itself */
-.form-container {
-  background: white; /* Ensure the form itself has a solid background */
+/* Common styling for both the form and summary sections */
+.shared-container {
+  background: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px;
   box-sizing: border-box;
 }
 
-/* Title of the form, centered */
-.form-title {
+/* Titles for form and summary */
+.form-title, .summary-title {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 1.5em;
 }
 
-/* General styling for form groups */
+/* Styling for form groups */
 .form-group {
   margin-bottom: 15px;
 }
@@ -57,7 +60,7 @@ label {
   font-weight: bold;
 }
 
-/* Styling for input and select elements */
+/* Input and select elements */
 input, select {
   width: 100%;
   padding: 8px;
@@ -65,7 +68,7 @@ input, select {
   border-radius: 4px;
 }
 
-/* Styling for buttons */
+/* Button styling */
 button {
   padding: 10px 20px;
   background-color: #6B8A7A;
@@ -73,25 +76,88 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%;
+  font-size: 1em;
 }
 
-/* Button hover effect */
+/* Hover effect for buttons */
 button:hover {
   background-color: #4a6e5a;
 }
 
-/* Summary section styling */
-.summary {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 300px; /* Adjust width as needed */
-  box-sizing: border-box;
-}
-
-/* Margins for date picker */
+/* Date picker margin */
 .react-datepicker {
   margin-top: 10px;
+}
+
+/* Summary text styling */
+.summary p {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.summary b {
+  font-weight: bold;
+}
+
+/* Calendar container */
+#calendar {
+  display: flex;
+  justify-content: center; /* Center the calendar */
+  padding: 0;
+  margin: 0 auto; /* Centers calendar inside its container */
+  width: 100%;
+}
+
+/* Adjust calendar width and centering */
+.react-calendar {
+  width: 100%; /* Makes the calendar take full width */
+  max-width: 100%; 
+  margin: 0 auto; 
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+/* Calendar navigation (month, year controls) */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.react-calendar__navigation button {
+  font-size: 1em;
+  color: #000;
+}
+
+/* Weekday labels */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+/* Calendar day tile styling */
+.react-calendar__tile {
+  color: #000 ; /* Ensure text visibility */
+}
+
+/* Highlighting the current date */
+.react-calendar__tile--active {
+  color: #000 ;
+}
+
+/* Highlighting today's date */
+.react-calendar__tile--now {
+  color: #000 ;
+
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: red ; /* Weekend date color */
 }

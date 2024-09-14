@@ -10,6 +10,7 @@ import CheckoutPage from "./CheckoutPage/CheckoutPage.jsx";
 import ProductPage from "./ProductPage/ProductPage.jsx";
 import CustomerFeedback from "./CustomerFeedback/CustomerFeedback.jsx";
 import SprayOrderForm from "./SprayerOrder/SprayOrderForm.jsx";
+import SprayOrderCheck from "./SprayerOrder/SprayerOrderCheck.jsx";
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/feedback" element={<CustomerFeedback />} />
         <Route path="/spray-order" element={<SprayOrderForm />} />
-
+        <Route path="/spray-order-check" element={<SprayOrderCheck />} />
 
       </Routes>
     </Router>
