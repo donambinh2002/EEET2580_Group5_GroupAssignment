@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './SprayerOrderCheck.css';
 
 const SprayerOrderCheck = () => {
-  // Example data for multiple orders
-  const orders = [
+  // Move orders into state so it can be updated dynamically
+  const [orders, setOrders] = useState([
     {
       id: 1,
       date: '15/09/2024',
@@ -37,7 +37,7 @@ const SprayerOrderCheck = () => {
       cost: 1500,
       status: 'Pending',
     },
-  ];
+  ]);
 
   // State to track the selected order by its id
   const [selectedOrderId, setSelectedOrderId] = useState(orders[0].id);
@@ -51,6 +51,8 @@ const SprayerOrderCheck = () => {
     const updatedOrders = orders.map(order =>
       order.id === selectedOrderId ? { ...order, status: newStatus } : order
     );
+    setOrders(updatedOrders); // Update the orders array
+
     setMessages({
       ...messages,
       [selectedOrderId]: `Order status updated to "${newStatus}".`,
@@ -130,9 +132,9 @@ const SprayerOrderCheck = () => {
           </button>
         </div>
 
-        {/* Show success or warning message based on the update */}
+        {/* Show success message based on the updated status */}
         {messages[selectedOrderId] && (
-          <div className={`message ${selectedOrder.status === 'Completed' ? 'success' : 'warning'}`}>
+          <div className={`message ${selectedOrder.status === 'Completed' || selectedOrder.status === 'In Progress' ? 'success' : 'warning'}`}>
             {messages[selectedOrderId]}
           </div>
         )}
