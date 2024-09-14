@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class SprayOrderResponse implements Data {
     private Long id;
     private float farmLandArea;
+    private SprayOrder.CropType cropType;
     private double totalCost;
     private LocalDateTime orderTime;
     private String status;
@@ -24,6 +25,7 @@ public class SprayOrderResponse implements Data {
     public SprayOrderResponse(SprayOrder sprayOrder) {
         this.id = sprayOrder.getId();
         this.farmLandArea = sprayOrder.getFarmLandArea();
+        this.cropType = sprayOrder.getCropType();
         this.totalCost = sprayOrder.getTotalCost();
         this.orderTime = sprayOrder.getOrderTime();
         this.status = sprayOrder.getStatus().name();

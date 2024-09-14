@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class OrderPaymentService {
     private final OrderPaymentRepository orderPaymentRepository;
     private final SprayOrderRepository sprayOrderRepository;
 
+    @Transactional
     public ResponseEntity<?> createPayment(OrderPaymentRequest request) {
         Optional<SprayOrder> sprayOrderOptional = sprayOrderRepository.findById(request.getOrderID());
         if (sprayOrderOptional.isEmpty()) {
@@ -45,6 +47,10 @@ public class OrderPaymentService {
             return ResponseEntity.badRequest().body(new MessageResponse("Order total cost is 0"));
         }
 
+        OrderPayment orderPayment = new OrderPayment();
+        orderPayment.setOrder(sprayOrder);
+        orderPayment.setAmount(sprayOrder.getTotalCost());
+
         if (request.getPaymentMethod() == OrderPayment.PaymentMethod.CARD) {
             try {
                 // Set Stripe API key
@@ -61,11 +67,11 @@ public class OrderPaymentService {
 
                 PaymentIntent paymentIntent = PaymentIntent.create(params);
 
-                OrderPayment orderPayment = new OrderPayment();
-                orderPayment.setOrder(sprayOrder);
-                orderPayment.setAmount(sprayOrder.getTotalCost());
                 orderPayment.setPaymentMethod(OrderPayment.PaymentMethod.CARD);
                 orderPaymentRepository.save(orderPayment);
+
+                sprayOrder.setStatus(SprayOrder.Status.COMPLETED);
+                sprayOrderRepository.save(sprayOrder);
 
                 HashMap<String, Object> response = new HashMap<>();
                 response.put("clientSecret", paymentIntent.getClientSecret());
@@ -79,11 +85,11 @@ public class OrderPaymentService {
         }
 
         // Handle cash payment
-        OrderPayment orderPayment = new OrderPayment();
-        orderPayment.setOrder(sprayOrder);
-        orderPayment.setAmount(sprayOrder.getTotalCost());
         orderPayment.setPaymentMethod(request.getPaymentMethod());
         orderPaymentRepository.save(orderPayment);
+
+        sprayOrder.setStatus(SprayOrder.Status.COMPLETED);
+        sprayOrderRepository.save(sprayOrder);
 
         return ResponseEntity.ok(new MessageResponse("Payment successful"));
     }

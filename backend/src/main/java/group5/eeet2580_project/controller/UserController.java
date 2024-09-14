@@ -2,7 +2,6 @@ package group5.eeet2580_project.controller;
 
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
-import group5.eeet2580_project.dto.request.CreateUserRequest;
 import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.service.UserService;

@@ -18,12 +18,20 @@ public class SprayOrder implements Serializable {
         PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED
     }
 
+    public enum CropType{
+        FRUIT, CEREAL, VEGETABLE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private float farmLandArea;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CropType cropType;
 
     @ManyToOne
     @JoinColumn(name = "farmer_id", nullable = false)

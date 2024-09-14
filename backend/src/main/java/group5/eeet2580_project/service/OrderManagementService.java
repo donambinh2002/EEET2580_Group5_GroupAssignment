@@ -75,6 +75,7 @@ public class OrderManagementService {
         SprayOrder sprayOrder = SprayOrder.builder()
                 .farmer(farmerOptional.get())
                 .farmLandArea(request.getFarmLandArea())
+                .cropType(request.getCropType())
                 .desiredStartTime(request.getDesiredStartTime())
                 .orderTime(LocalDateTime.now())
                 .status(SprayOrder.Status.PENDING)
