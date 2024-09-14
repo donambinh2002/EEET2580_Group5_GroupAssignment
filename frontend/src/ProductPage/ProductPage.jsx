@@ -4,7 +4,7 @@ import styles from './ProductPage.module.css';
 import HomeHeader from '../Components/HomeHeader';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import mintImage from './mint.png';
+import mintImage from '../images/mint.png';
 import { Box, Typography, Radio, FormControlLabel, RadioGroup, Paper, MenuItem, Select, Link } from "@mui/material";
 import Footer from '../Components/Footer';
 

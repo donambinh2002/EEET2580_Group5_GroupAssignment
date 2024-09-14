@@ -91,29 +91,3 @@ input[type="radio"] {
 .productInfo {
     align-items: center;
 }
-
-footer {
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-footer h3,
-footer h4 {
-    margin: 0;
-}
-
-footer p,
-footer ul {
-    margin: 5px 0;
-}
-
-footer ul {
-    list-style-type: none;
-}
-
-footer ul li {
-    margin: 5px 0;
-}
