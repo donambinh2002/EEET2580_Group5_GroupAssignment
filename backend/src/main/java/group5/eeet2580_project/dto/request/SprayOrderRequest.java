@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SprayOrderRequest {
-    private String farmerUsername;
+    private String farmer;
     
     @NotNull(message = "Desired start time is required")
     private LocalDateTime desiredStartTime;

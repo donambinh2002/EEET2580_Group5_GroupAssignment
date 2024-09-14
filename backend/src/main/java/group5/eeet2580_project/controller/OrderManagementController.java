@@ -29,6 +29,11 @@ public class OrderManagementController {
         return orderManagementService.get(id);
     }
 
+    @GetMapping()
+    public ResponseEntity<?> getOrders() {
+        return orderManagementService.getAll();
+    }
+
     @PutMapping("/confirm/{id}")
     public ResponseEntity<?> confirmOrder(@PathVariable Long id, HttpServletRequest httpRequest) {
         return orderManagementService.confirmOrder(id);
@@ -40,8 +45,8 @@ public class OrderManagementController {
     }
 
     @PutMapping("/assign/{id}")
-    public ResponseEntity<?> assignOrder(@PathVariable Long id, @RequestParam String sprayer, HttpServletRequest httpRequest) {
-        return orderManagementService.assignOrder(id, sprayer);
+    public ResponseEntity<?> assignOrder(@PathVariable Long id, SprayerAssignRequest request, HttpServletRequest httpRequest) {
+        return orderManagementService.assignOrder(id, request);
     }
 
     @DeleteMapping("/{id}")

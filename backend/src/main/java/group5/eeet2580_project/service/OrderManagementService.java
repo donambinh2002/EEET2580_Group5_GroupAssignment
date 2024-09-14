@@ -2,8 +2,10 @@ package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group5.eeet2580_project.common.Constants;
+import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.dto.request.FeedbackRequest;
 import group5.eeet2580_project.dto.request.SprayOrderRequest;
+import group5.eeet2580_project.dto.request.SprayerAssignRequest;
 import group5.eeet2580_project.dto.response.MessageResponse;
 import group5.eeet2580_project.dto.response.SprayOrderResponse;
 import group5.eeet2580_project.entity.SprayOrder;
@@ -32,6 +34,7 @@ public class OrderManagementService {
     private final SprayOrderRepository sprayOrderRepository;
     private final SpraySessionRepository spraySessionRepository;
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
 
@@ -44,10 +47,11 @@ public class OrderManagementService {
         }
 
         String token = httpRequest.getHeader("Authorization").substring(7);
+        String username = jwtUtil.extractUsername(token);
         Optional<User> farmerOptional;
 
         try (Jedis jedis = jedisPool.getResource()) {
-            String cachedUser = jedis.get("user:" + token);
+            String cachedUser = jedis.get("user:" + username + token);
             if (cachedUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
             }
@@ -57,10 +61,10 @@ public class OrderManagementService {
             if (user.getRoles().contains(Constants.ROLE_KEYS.FARMER)) {
                 farmerOptional = userRepository.findByUsername(user.getUsername());
             } else if (user.getRoles().contains(Constants.ROLE_KEYS.RECEPTIONIST)) {
-                if (request.getFarmerUsername() == null) {
+                if (request.getFarmer() == null) {
                     return ResponseEntity.badRequest().body(new MessageResponse("Farmer username is required"));
                 }
-                farmerOptional = userRepository.findByUsername(request.getFarmerUsername());
+                farmerOptional = userRepository.findByUsername(request.getFarmer());
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not authorized to create order"));
             }
@@ -114,14 +118,14 @@ public class OrderManagementService {
         return ResponseEntity.ok(new MessageResponse("Order " + id + " cancelled successfully!"));
     }
 
-    public ResponseEntity<?> assignOrder(Long id, String sprayerUsername) {
+    public ResponseEntity<?> assignOrder(Long id, SprayerAssignRequest request) {
         Optional<SprayOrder> orderOptional = sprayOrderRepository.findById(id);
 
         if (orderOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Order not found!"));
         }
 
-        Optional<User> sprayerOptional = userRepository.findByUsername(sprayerUsername);
+        Optional<User> sprayerOptional = userRepository.findByUsername(request.getSprayer());
 
         if (sprayerOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Sprayer not found!"));
@@ -147,7 +151,7 @@ public class OrderManagementService {
         spraySessionRepository.save(spraySession);
         sprayOrderRepository.save(order);
 
-        return ResponseEntity.ok(new MessageResponse("Order " + id + " assigned to sprayer: " + sprayerUsername + " successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Order " + id + " assigned to sprayer: " + request.getSprayer() + " successfully!"));
     }
 
     public ResponseEntity<?> get(Long id) {
@@ -160,6 +164,17 @@ public class OrderManagementService {
         }
 
         return ResponseEntity.ok(new SprayOrderResponse(orderOptional.get()));
+    }
+
+    public ResponseEntity<?> getAll() {
+        List<SprayOrder> orders = sprayOrderRepository.findAll();
+        List<SprayOrderResponse> orderResponses = new ArrayList<>();
+
+        for (SprayOrder order : orders) {
+            orderResponses.add(new SprayOrderResponse(order));
+        }
+
+        return ResponseEntity.ok(orderResponses);
     }
 
     @Transactional
