@@ -62,11 +62,12 @@ public class AuthService {
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setFullName(request.getFullName());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.getRoles().add(request.getRole().toUpperCase());
-
+        user.setFullName(request.getFullName());
+        user.setAddress(request.getAddress());
+        user.setExpertise(request.getExpertise());
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)

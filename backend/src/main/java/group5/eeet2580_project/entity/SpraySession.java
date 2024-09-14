@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "spray_sessions")
@@ -19,9 +18,13 @@ public class SpraySession implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private SprayOrder order;
+
     @ManyToOne
     @JoinColumn(name = "farmer_id", nullable = false)
-    private User farmer;
+    private User sprayer;
     
     private LocalDate date;
     private String timeSlot;

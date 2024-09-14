@@ -1,7 +1,6 @@
 package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import group5.eeet2580_project.dto.request.CreateUserRequest;
 import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
