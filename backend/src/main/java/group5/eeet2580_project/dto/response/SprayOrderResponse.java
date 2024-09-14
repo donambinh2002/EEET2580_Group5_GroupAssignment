@@ -1,8 +1,9 @@
 package group5.eeet2580_project.dto.response;
 
+import group5.eeet2580_project.entity.SprayOrder;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +12,24 @@ import java.time.LocalDate;
 @Builder
 public class SprayOrderResponse implements Data {
     private Long id;
-    private String customerName;
-    private LocalDate orderDate;
+    private float farmLandArea;
+    private double totalCost;
+    private LocalDateTime orderTime;
     private String status;
+    private String farmerUsername;
+    private SpraySessionResponse session;
+    private String feedbackText;
+    private Integer feedbackRating;
+
+    public SprayOrderResponse(SprayOrder sprayOrder) {
+        this.id = sprayOrder.getId();
+        this.farmLandArea = sprayOrder.getFarmLandArea();
+        this.totalCost = sprayOrder.getTotalCost();
+        this.orderTime = sprayOrder.getOrderTime();
+        this.status = sprayOrder.getStatus().name();
+        this.farmerUsername = sprayOrder.getFarmer().getUsername();
+        this.session = sprayOrder.getSpraySession() == null ? null : new SpraySessionResponse(sprayOrder.getSpraySession());
+        this.feedbackText = sprayOrder.getFeedbackText();
+        this.feedbackRating = sprayOrder.getFeedbackRating();
+    }
 }

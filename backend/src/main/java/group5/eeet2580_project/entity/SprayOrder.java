@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "spray_orders")
@@ -15,41 +14,45 @@ import java.util.List;
 @Setter
 @Builder
 public class SprayOrder implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @OneToMany
-    private List<Sprayer> sprayers;
-
-    private LocalDateTime timestamp;
-    private float totalCost;
-    private Integer rating;
-    private String feedbackText;
-    private Integer feedbackRating;
-
     public enum Status {
         PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private float farmLandArea;
+
+    @ManyToOne
+    @JoinColumn(name = "farmer_id", nullable = false)
+    private User farmer;
+
+    @OneToOne
+    @JoinColumn(name = "session_id")
+    private SpraySession spraySession;
+
+    private LocalDateTime orderTime;
+    private LocalDateTime desiredStartTime;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
-    public float getTotalCost() {
-        float result = 0;
+    private String feedbackText;
+    private Integer feedbackRating;
 
-        for (Sprayer sprayer : sprayers) {
-            result += sprayer.getPrice();
-        }
-
-        return result;
+    public double getTotalCost() {
+        return this.getFarmLandArea() * 30000;
     }
 
-//    public double getFarmlandArea() {
-//        return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
-//    }
+    public double getFarmlandAreaInMetres() {
+        return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
+    }
+
+    public void setFeedback(String feedbackText, Integer feedbackRating) {
+        this.feedbackText = feedbackText;
+        this.feedbackRating = feedbackRating;
+    }
 }
