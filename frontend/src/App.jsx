@@ -9,6 +9,7 @@ import ShippingPage from "./ShippingPage/ShippingPage.jsx";
 import CheckoutPage from "./CheckoutPage/CheckoutPage.jsx";
 import ProductPage from "./ProductPage/ProductPage.jsx";
 import CustomerFeedback from "./CustomerFeedback/CustomerFeedback.jsx";
+import CartPage from "./CartPage/CartPage.jsx";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/feedback" element={<CustomerFeedback />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </Router>
   );
