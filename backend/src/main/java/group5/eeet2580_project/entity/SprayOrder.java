@@ -35,12 +35,13 @@ public class SprayOrder implements Serializable {
 
     private LocalDateTime orderTime;
     private LocalDateTime desiredStartTime;
-    private Integer rating;
-    private String feedbackText;
-    private Integer feedbackRating;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
+
+    private String feedbackText;
+    private Integer feedbackRating;
 
     public double getTotalCost() {
         return this.getFarmLandArea() * 30000;
@@ -48,5 +49,10 @@ public class SprayOrder implements Serializable {
 
     public double getFarmlandAreaInMetres() {
         return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
+    }
+
+    public void setFeedback(String feedbackText, Integer feedbackRating) {
+        this.feedbackText = feedbackText;
+        this.feedbackRating = feedbackRating;
     }
 }

@@ -13,6 +13,6 @@ public interface SprayOrderRepository extends JpaRepository<SprayOrder, Long> {
     @Query("SELECT S FROM SprayOrder S WHERE S.farmer.username = :username")
     List<SprayOrder> findByFarmer(@Param("username") String username);
 
-    @Query("SELECT S FROM SprayOrder S WHERE S.spraySession.sprayer.username = :username")
+    @Query("SELECT S FROM SprayOrder S JOIN S.spraySession.sprayers sprayer WHERE sprayer.username = :username")
     List<SprayOrder> findBySprayer(@Param("username") String username);
 }
