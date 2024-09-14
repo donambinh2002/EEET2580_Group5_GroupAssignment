@@ -22,12 +22,19 @@ public class SprayOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private float farmLandArea;
+
     @ManyToOne
     @JoinColumn(name = "farmer_id", nullable = false)
     private User farmer;
 
-    private LocalDateTime timestamp;
-    private float totalCost;
+    @OneToOne
+    @JoinColumn(name = "session_id")
+    private SpraySession spraySession;
+
+    private LocalDateTime orderTime;
+    private LocalDateTime desiredStartTime;
     private Integer rating;
     private String feedbackText;
     private Integer feedbackRating;
@@ -35,13 +42,11 @@ public class SprayOrder implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public float getTotalCost() {
-        float result = 0;
-
-        return result;
+    public double getTotalCost() {
+        return this.getFarmLandArea() * 30000;
     }
 
-//    public double getFarmlandArea() {
-//        return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
-//    }
+    public double getFarmlandAreaInMetres() {
+        return Math.round((this.farmLandArea / 1000.0) * 10.0) / 10.0;
+    }
 }

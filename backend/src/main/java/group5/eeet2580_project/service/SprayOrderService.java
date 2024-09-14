@@ -36,10 +36,10 @@ public class SprayOrderService {
         }
 
         // Check if the desired session is available
-        boolean sessionExists = spraySessionRepository.existsByDateAndTimeSlot(request.getDesiredDate(), String.valueOf(request.getDesiredTime()));
-        if (!sessionExists) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Desired session is not available!"));
-        }
+//        boolean sessionExists = spraySessionRepository.existsByDateAndTimeSlot(request.getDesiredDate(), String.valueOf(request.getDesiredTime()));
+//        if (!sessionExists) {
+//            return ResponseEntity.badRequest().body(new MessageResponse("Desired session is not available!"));
+//        }
 
         // Create and save spray order
         SprayOrder sprayOrder = SprayOrder.builder()
@@ -63,9 +63,9 @@ public class SprayOrderService {
         return sprayOrderRepository.findAll();
     }
 
-    public List<SpraySession> getAvailableSessions(LocalDate date) {
-        return spraySessionRepository.findAvailableSessionsByDate(date);
-    }
+//    public List<SpraySession> getAvailableSessions(LocalDate date) {
+//        return spraySessionRepository.findAvailableSessionsByDate(date);
+//    }
 
     public void updateOrderStatus(Long orderID, SprayOrder.Status status, String sprayerNames) {
         SprayOrder sprayOrder = sprayOrderRepository.findById(orderID).orElseThrow(() -> new RuntimeException("Order not found!")); ;

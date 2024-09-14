@@ -13,7 +13,7 @@ import java.util.List;
 public class SpraySessionService {
     private final SpraySessionRepository spraySessionRepository;
 
-    public List<SpraySession> getAvailableSessions(LocalDate date) {
-        return spraySessionRepository.findAvailableSessionsByDate(date);
-    }
+//    public List<SpraySession> getAvailableSessions(LocalDate date) {
+//        return spraySessionRepository.findAvailableSessionsByDate(date);
+//    }
 }

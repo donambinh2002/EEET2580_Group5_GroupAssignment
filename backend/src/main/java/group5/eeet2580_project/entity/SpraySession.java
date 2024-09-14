@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "spray_sessions")
@@ -14,6 +14,10 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class SpraySession implements Serializable {
+    public enum TimeSlot{
+        MORNING1, MORNING2, MORNING3, MORNING4, NOON1, NOON2, NOON3, NOON4, NOON5, NOON6, AFTERNOON1, AFTERNOON2
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -25,8 +29,11 @@ public class SpraySession implements Serializable {
     @ManyToOne
     @JoinColumn(name = "farmer_id", nullable = false)
     private User sprayer;
-    
-    private LocalDate date;
-    private String timeSlot;
-    private Boolean isBooked;
+
+    @Column(nullable = false)
+    private LocalDateTime timestamp;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TimeSlot timeSlot;
 }

@@ -2,7 +2,7 @@ package group5.eeet2580_project.dto.response;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +12,6 @@ import java.time.LocalDate;
 public class SprayOrderResponse implements Data {
     private Long id;
     private UserResponse farmer;
-    private LocalDate orderDate;
+    private LocalDateTime timestamp;
     private String status;
 }
