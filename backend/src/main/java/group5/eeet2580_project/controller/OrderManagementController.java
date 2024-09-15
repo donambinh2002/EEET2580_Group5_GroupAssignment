@@ -62,9 +62,9 @@ public class OrderManagementController {
         return orderPaymentService.createPayment(request);
     }
 
-    @GetMapping("/payments/{id}")
-    public ResponseEntity<?> getPayment(@PathVariable Long id) {
-        return orderPaymentService.getPayment(id);
+    @GetMapping("/payments/{orderID}")
+    public ResponseEntity<?> getPayment(@PathVariable Long orderID) {
+        return orderPaymentService.getPayment(orderID);
     }
 
     @GetMapping("/payments")
@@ -78,14 +78,14 @@ public class OrderManagementController {
         return orderFeedbackService.createFeedback(request);
     }
 
-    @GetMapping("/feedbacks/{id}")
-    public ResponseEntity<?> getFeedback(@PathVariable Long id) {
-        return orderFeedbackService.getFeedback(id);
+    @GetMapping("/feedbacks/{orderID}")
+    public ResponseEntity<?> getFeedback(@PathVariable Long orderID) {
+        return orderFeedbackService.getFeedback(orderID);
     }
 
-    @DeleteMapping("/feedbacks/{id}")
-    public ResponseEntity<?> deleteFeedback(@PathVariable Long id) {
-        return orderFeedbackService.deleteFeedback(id);
+    @DeleteMapping("/feedbacks/{orderID}")
+    public ResponseEntity<?> deleteFeedback(@PathVariable Long orderID) {
+        return orderFeedbackService.deleteFeedback(orderID);
     }
 
     @PutMapping("/feedbacks")
