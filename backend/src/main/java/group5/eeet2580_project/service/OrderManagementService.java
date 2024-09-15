@@ -137,6 +137,7 @@ public class OrderManagementService {
             spraySession.getSprayers().add(sprayerOptional.get());
         } else {
             spraySession = SpraySession.builder()
+                    .order(order)
                     .sprayers(new ArrayList<>(List.of(sprayerOptional.get())))
                     .date(order.getDesiredStartTime().toLocalDate())
                     .timeSlot(SpraySession.getTimeSlot(order.getDesiredStartTime()))
