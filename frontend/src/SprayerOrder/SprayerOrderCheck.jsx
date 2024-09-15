@@ -3,18 +3,44 @@ import { useNavigate } from "react-router-dom"; // For navigation
 import "./SprayerOrderCheck.css";
 import HomeHeader from "../Components/HomeHeader.jsx";
 import Footer from "../Components/Footer.jsx";
+import Cookies from "js-cookie";
 
 const SprayerOrderCheck = () => {
-  const token = localStorage.getItem("authToken");
+  const token = Cookies.get("authToken");
 
   const [orders, setOrders] = useState([]);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [messages, setMessages] = useState({});
   const [sprayerAssigned, setSprayerAssigned] = useState(false); // Track if sprayer is assigned
   const [isConfirmed, setIsConfirmed] = useState(false); // Track if the order is confirmed
+  const [userRole, setRole] = useState("");
   const navigate = useNavigate(); // Navigation hook
 
   useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/v1/users/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass token here
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user profile");
+        }
+
+        const data = await response.json();
+
+        // You can now store this in a variable or use it for other logic
+        setRole(data.roles[0]);
+        console.log(data.roles[0]);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
     const fetchOrders = async () => {
       try {
         const response = await fetch(`http://localhost:8080/v1/orders`, {
@@ -43,7 +69,7 @@ const SprayerOrderCheck = () => {
         alert(`Failed to get orders: ${error.message}`);
       }
     };
-
+    fetchUserProfile();
     fetchOrders();
   }, [token]);
 
@@ -79,6 +105,7 @@ const SprayerOrderCheck = () => {
       handleConfirm(selectedOrderId);
     } else {
       setIsConfirmed(false); // Disable the button if not confirmed
+      handleCancel(selectedOrderId);
     }
   };
 
@@ -107,6 +134,34 @@ const SprayerOrderCheck = () => {
     } catch (error) {
       console.error("Confirm order failed:", error);
       alert(`Failed to confirm order ${selectedOrderId}: ${error.message}`);
+    }
+  };
+
+  const handleCancel = async (selectedOrderId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/v1/orders/cancel/${selectedOrderId}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json(); // Parse error message from the server
+        console.error("Server Error:", errorData);
+        throw new Error(`Error: ${errorData.message || response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(`Cancel order ${selectedOrderId} successful:`, data);
+      // Handle successful registration
+    } catch (error) {
+      console.error("Cancel order failed:", error);
+      alert(`Failed to cancel order ${selectedOrderId}: ${error.message}`);
     }
   };
 
@@ -192,27 +247,29 @@ const SprayerOrderCheck = () => {
             <strong>Current Status:</strong> {selectedOrder.status}
           </p>
 
-          <div>
-            <button
-              className="status-button"
-              onClick={() => updateStatus("Confirmed")}
-            >
-              Confirm
-            </button>
-            <button
-              className="status-button"
-              onClick={() => updateStatus("Cancelled")}
-            >
-              Cancel
-            </button>
-            <button
-              className="status-button"
-              onClick={assignSprayer}
-              disabled={!isConfirmed} // Button is disabled unless the order is confirmed
-            >
-              Assign Sprayer
-            </button>
-          </div>
+          {userRole === "RECEPTIONIST" && (
+            <div>
+              <button
+                className="status-button"
+                onClick={() => updateStatus("Confirmed")}
+              >
+                Confirm
+              </button>
+              <button
+                className="status-button"
+                onClick={() => updateStatus("Cancelled")}
+              >
+                Cancel
+              </button>
+              <button
+                className="status-button"
+                onClick={assignSprayer}
+                disabled={!isConfirmed} // Button is disabled unless the order is confirmed
+              >
+                Assign Sprayer
+              </button>
+            </div>
+          )}
 
           {/* Success message */}
           {messages[selectedOrderId] && (
