@@ -169,7 +169,7 @@ public class OrderManagementService {
 
     public ResponseEntity<?> getAllFromUser(HttpServletRequest httpRequest) {
         String token = httpRequest.getHeader("Authorization").substring(7);
-        Set<String> roles = jwtUtil.extractRoles(token);
+        List<String> roles = jwtUtil.extractRoles(token);
         List<SprayOrder> orders;
 
         if (roles.contains(Constants.ROLE_KEYS.FARMER)) {

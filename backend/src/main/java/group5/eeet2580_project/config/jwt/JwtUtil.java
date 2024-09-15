@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -28,8 +29,8 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Set<String> extractRoles(String token) {
-        return extractClaim(token, claims -> claims.get("roles", Set.class));
+    public List<String> extractRoles(String token) {
+        return extractClaim(token, claims -> claims.get("roles", List.class));
     }
 
     public Date extractExpiration(String token) {
