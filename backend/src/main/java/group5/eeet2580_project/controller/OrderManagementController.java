@@ -47,7 +47,7 @@ public class OrderManagementController {
     }
 
     @PutMapping("/assign/{id}")
-    public ResponseEntity<?> assignOrder(@PathVariable Long id, SprayerAssignRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<?> assignOrder(@PathVariable Long id, @RequestBody SprayerAssignRequest request, HttpServletRequest httpRequest) {
         return orderManagementService.assignOrder(id, request);
     }
 
