@@ -1,4 +1,3 @@
-// src/main/java/group5/eeet2580_project/controller/EmailController.java
 package group5.eeet2580_project.controller;
 
 import group5.eeet2580_project.dto.request.EmailRequest;
@@ -9,23 +8,20 @@ import group5.eeet2580_project.repository.SprayOrderRepository;
 import group5.eeet2580_project.repository.UserRepository;
 import group5.eeet2580_project.service.email.EmailService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/email")
+@RequestMapping("/v1/email")
+@RequiredArgsConstructor
 public class EmailController {
 
-    @Autowired
-    private EmailService emailService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private SprayOrderRepository sprayOrderRepository;
+    private final EmailService emailService;
+    private final UserRepository userRepository;
+    private final SprayOrderRepository sprayOrderRepository;
 
     @PostMapping("/send-order-confirmation")
     public ResponseEntity<MessageResponse> sendOrderConfirmationEmail(@RequestBody EmailRequest emailRequest) {
@@ -77,7 +73,7 @@ public class EmailController {
     }
 
     private SprayOrder getSprayOrderFromRequest(EmailRequest emailRequest) {
-        Optional<SprayOrder> sprayOrderOptional = sprayOrderRepository.findByOrderNumber(Long.valueOf(emailRequest.getSubject()));
+        Optional<SprayOrder> sprayOrderOptional = sprayOrderRepository.findById(Long.valueOf(emailRequest.getSubject()));
         return sprayOrderOptional.orElseThrow(() -> new EntityNotFoundException("Spray order not found with order number: " + emailRequest.getSubject()));
     }
 }
