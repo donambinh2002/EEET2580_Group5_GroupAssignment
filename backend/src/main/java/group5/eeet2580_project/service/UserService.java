@@ -159,4 +159,14 @@ public class UserService {
 
         return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + id));
     }
+
+    public ResponseEntity<?> getAllSprayers() {
+        List<User> users = userRepository.findAllByRoles(Constants.ROLE_KEYS.SPRAYER);
+
+        List<UserResponse> responses = users.stream()
+                .map(UserResponse::new)
+                .toList();
+
+        return ResponseEntity.ok(responses);
+    }
 }
