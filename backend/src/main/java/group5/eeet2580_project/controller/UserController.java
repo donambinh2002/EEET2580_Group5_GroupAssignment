@@ -3,7 +3,6 @@ package group5.eeet2580_project.controller;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
 import group5.eeet2580_project.dto.request.UpdateUserRequest;
-import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("v1/users")
@@ -25,6 +23,11 @@ public class UserController {
     @PostMapping("/search")
     public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest request) {
         return userService.searchUser(request);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserByToken(HttpServletRequest httpRequest) {
+        return userService.getUserByToken(httpRequest);
     }
 
     @GetMapping("/{id}")
@@ -48,8 +51,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<UserResponse> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<?> getAllUsers(HttpServletRequest httpRequest) {
+        return userService.getAllUsers(httpRequest);
     }
 }

@@ -1,6 +1,8 @@
 package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group5.eeet2580_project.common.Constants;
+import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
@@ -20,7 +22,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
+    private final JwtUtil jwtUtil;
 
     public ResponseEntity<?> searchUser(SearchUserRequest request) {
         Optional<User> user = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential());
@@ -54,11 +56,37 @@ public class UserService {
         return ResponseEntity.ok(new UserResponse(user.get()));
     }
 
-    public List<UserResponse> getAllUsers() {
+    public ResponseEntity<?> getAllUsers(HttpServletRequest httpRequest) {
+        String token = httpRequest.getHeader("Authorization").substring(7);
+        List<String> roles = jwtUtil.extractRoles(token);
+
+        if (!roles.contains(Constants.ROLE_KEYS.RECEPTIONIST)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("You are not authorized to view all users"));
+        }
+
         List<User> users = userRepository.findAll();
-        return users.stream()
+
+        List<UserResponse> responses = users.stream()
                 .map(UserResponse::new)
-                .collect(Collectors.toList());
+                .toList();
+
+        return ResponseEntity.ok(responses);
+    }
+
+    public ResponseEntity<?> getUserByToken(HttpServletRequest httpRequest) {
+        String token = httpRequest.getHeader("Authorization").substring(7);
+        String username = jwtUtil.extractUsername(token);
+
+        try (Jedis jedis = jedisPool.getResource()) {
+            String cachedUser = jedis.get("user:" + username + token);
+            if (cachedUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
+            }
+            User user = objectMapper.readValue(cachedUser, User.class);
+            return ResponseEntity.ok(new UserResponse(user));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to retrieve user from cache"));
+        }
     }
 
     @Transactional
