@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [credential, setCredential] = useState("");
@@ -38,7 +39,7 @@ const Login = () => {
       console.log("Login successful:", data);
 
       if (data.data.access_token) {
-        localStorage.setItem("authToken", data.data.access_token);
+        Cookies.set("authToken", data.data.access_token, { expires: 7 });
       }
 
       console.log(data.data.access_token);
