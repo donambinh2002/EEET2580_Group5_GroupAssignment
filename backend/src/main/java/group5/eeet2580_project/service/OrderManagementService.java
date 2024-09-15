@@ -2,6 +2,7 @@ package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group5.eeet2580_project.common.Constants;
+import group5.eeet2580_project.common.Utils;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.dto.request.SprayOrderRequest;
 import group5.eeet2580_project.dto.request.SprayerAssignRequest;
@@ -51,7 +52,7 @@ public class OrderManagementService {
         Optional<User> farmerOptional;
 
         try (Jedis jedis = jedisPool.getResource()) {
-            String cachedUser = jedis.get("user:" + username + token);
+            String cachedUser = jedis.get(Utils.userKey(username, token));
             if (cachedUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
             }
