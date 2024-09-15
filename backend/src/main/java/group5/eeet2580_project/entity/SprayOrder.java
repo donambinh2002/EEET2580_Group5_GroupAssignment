@@ -31,9 +31,6 @@ public class SprayOrder implements Serializable {
     private Integer rating;
     private String feedbackText;
     private Integer feedbackRating;
-    private Integer attentiveRating;
-    private Integer friendlyRating;
-    private Integer professionalRating;
 
     public enum Status {
         PENDING, CANCELLED, CONFIRMED, ASSIGNED, IN_PROGRESS, COMPLETED

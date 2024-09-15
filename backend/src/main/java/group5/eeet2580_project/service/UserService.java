@@ -1,10 +1,10 @@
 package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
-import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.dto.response.MessageResponse;
 import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.repository.UserRepository;
@@ -30,13 +30,13 @@ public class UserService {
     private final JedisPool jedisPool;
     private final ObjectMapper objectMapper;
 
-    public ResponseEntity<?> searchUser(SearchUserRequest searchUserRequest) {
-        Optional<User> user = userRepository.findByUsernameOrEmail(searchUserRequest.getCredential(), searchUserRequest.getCredential());
+    public ResponseEntity<?> searchUser(SearchUserRequest request) {
+        Optional<User> user = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential());
 
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("User not found!"));
+                    .body(new MessageResponse("User with credential: " + request.getCredential() + " not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -48,7 +48,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("User not found!"));
+                    .body(new MessageResponse("User with id: " + id + " not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -62,23 +62,33 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> updateUser(Long id, UpdateUserRequest updateUserRequest, HttpServletRequest request) {
+    public ResponseEntity<?> updateUser(Long id, UpdateUserRequest request, HttpServletRequest httpRequest) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("User not found!"));
         }
 
         User user = userOptional.get();
-        user.setUsername(updateUserRequest.getUsername());
-        user.setEmail(updateUserRequest.getEmail());
-        user.setRoles(updateUserRequest.getRoles());
+
+        if(request.getFullName() != null){
+            user.setFullName(request.getFullName());
+        }
+
+        if(request.getAddress() != null){
+            user.setAddress(request.getAddress());
+        }
+
+        if(request.getPassword() != null){
+            user.setPassword(request.getPassword());
+        }
+
         userRepository.save(user);
 
-        String token = request.getHeader("Authorization").substring(7);
+        String token = httpRequest.getHeader("Authorization").substring(7);
         try (Jedis jedis = jedisPool.getResource()) {
             String cachedUser = jedis.get("user:" + token);
             if (cachedUser != null) {
-                jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));  // Update cache if exists
+                jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to update user cache"));
@@ -87,8 +97,8 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> deleteUser(DeleteUserRequest deleteUserRequest, HttpServletRequest request) {
-        Optional<User> userOptional = userRepository.findByUsernameOrEmail(deleteUserRequest.getCredential(), deleteUserRequest.getCredential());
+    public ResponseEntity<?> deleteUser(DeleteUserRequest request, HttpServletRequest httpRequest) {
+        Optional<User> userOptional = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential());
 
         if (userOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("User not found!"));
@@ -104,7 +114,7 @@ public class UserService {
             }
         }
 
-        return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + request.getCredential()));
     }
 
     @Transactional
@@ -119,6 +129,6 @@ public class UserService {
 
         userRepository.delete(user.get());
 
-        return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + id));
     }
 }

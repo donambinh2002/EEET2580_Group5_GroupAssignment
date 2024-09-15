@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -28,13 +29,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("v1/auth/**", "/swagger-ui/**", "/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole(Constants.ROLE_KEYS.USER, Constants.ROLE_KEYS.STAFF)
-                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole(Constants.ROLE_KEYS.STAFF)
-                        .requestMatchers(HttpMethod.POST, "api/email/**").permitAll()
-
+                        .requestMatchers(HttpMethod.GET, "v1/users/**").hasAnyRole(Constants.ROLE_KEYS.FARMER, Constants.ROLE_KEYS.RECEPTIONIST)
+                        .requestMatchers(HttpMethod.DELETE, "v1/users/**").hasRole(Constants.ROLE_KEYS.RECEPTIONIST)
+                        .requestMatchers(HttpMethod.POST, "v1/orders/**").hasAnyRole(Constants.ROLE_KEYS.FARMER, Constants.ROLE_KEYS.RECEPTIONIST)
+                        .requestMatchers(HttpMethod.PUT, "v1/orders/**").hasAnyRole(Constants.ROLE_KEYS.RECEPTIONIST)
+                        .requestMatchers(HttpMethod.DELETE, "v1/orders/**").hasAnyRole(Constants.ROLE_KEYS.RECEPTIONIST)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

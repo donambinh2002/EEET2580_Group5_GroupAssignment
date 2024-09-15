@@ -1,11 +1,8 @@
 package group5.eeet2580_project.dto.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import group5.eeet2580_project.entity.User;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,14 +10,12 @@ import java.util.Set;
 @Setter
 @Builder
 public class UpdateUserRequest {
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
+    private String fullName;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
+    private String address;
 
-    private Set<String> roles;
+    private User.Expertise expertise;
+
+    @Size(min = 6, max = 40)
+    private String password;
 }

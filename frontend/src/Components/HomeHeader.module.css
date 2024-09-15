@@ -1,0 +1,71 @@
+.homeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #254336;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: #254336;
+  font-weight: 500;
+}
+
+.headerIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.headerIcons a {
+  text-decoration: none;
+  color: #254336;
+}
+
+.iconUser:before {
+  content: "\1F464";
+  font-size: 20px;
+}
+
+.iconCart:before {
+  content: "\1F6D2";
+  font-size: 20px;
+}
+
+.footer {
+  background-color: #254336;
+  color: white;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}

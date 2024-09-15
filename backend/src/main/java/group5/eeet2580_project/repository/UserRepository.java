@@ -1,7 +1,6 @@
 package group5.eeet2580_project.repository;
 
 import group5.eeet2580_project.entity.User;
-import io.jsonwebtoken.security.Jwks;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

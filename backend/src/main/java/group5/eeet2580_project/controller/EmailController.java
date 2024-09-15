@@ -8,10 +8,12 @@ import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.repository.SprayOrderRepository;
 import group5.eeet2580_project.repository.UserRepository;
 import group5.eeet2580_project.service.email.EmailService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -75,11 +77,7 @@ public class EmailController {
     }
 
     private SprayOrder getSprayOrderFromRequest(EmailRequest emailRequest) {
-        Optional<SprayOrder> sprayOrderOptional = sprayOrderRepository.findByOrderNumber(emailRequest.getSubject());
-        if (sprayOrderOptional.isPresent()) {
-            return sprayOrderOptional.get();
-        } else {
-            throw new RuntimeException("Spray order not found with order number: " + emailRequest.getSubject());
-        }
+        Optional<SprayOrder> sprayOrderOptional = sprayOrderRepository.findByOrderNumber(Long.valueOf(emailRequest.getSubject()));
+        return sprayOrderOptional.orElseThrow(() -> new EntityNotFoundException("Spray order not found with order number: " + emailRequest.getSubject()));
     }
 }

@@ -22,9 +22,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest searchUserRequest) {
-        return userService.searchUser(searchUserRequest);
+    @PostMapping("/search")
+    public ResponseEntity<?> searchUser(@Valid @RequestBody SearchUserRequest request) {
+        return userService.searchUser(request);
     }
 
     @GetMapping("/{id}")
@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@Valid @RequestBody DeleteUserRequest deleteUserRequest, HttpServletRequest request) {
-        return userService.deleteUser(deleteUserRequest, request);
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody DeleteUserRequest request, HttpServletRequest httpRequest) {
+        return userService.deleteUser(request, httpRequest);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest, HttpServletRequest request) {
-        return userService.updateUser(id, updateUserRequest, request);
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request, HttpServletRequest httpRequest) {
+        return userService.updateUser(id, request, httpRequest);
     }
 
     @GetMapping
