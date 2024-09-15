@@ -3,7 +3,6 @@ package group5.eeet2580_project.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group5.eeet2580_project.common.Constants;
 import group5.eeet2580_project.config.jwt.JwtUtil;
-import group5.eeet2580_project.dto.request.FeedbackRequest;
 import group5.eeet2580_project.dto.request.SprayOrderRequest;
 import group5.eeet2580_project.dto.request.SprayerAssignRequest;
 import group5.eeet2580_project.dto.response.MessageResponse;
@@ -190,22 +189,5 @@ public class OrderManagementService {
         sprayOrderRepository.deleteById(id);
 
         return ResponseEntity.ok(new MessageResponse("Order " + id + " deleted successfully!"));
-    }
-
-    @Transactional
-    public ResponseEntity<?> orderFeedback(FeedbackRequest request) {
-        Optional<SprayOrder> orderOptional = sprayOrderRepository.findById(request.getOrderId());
-
-        if (orderOptional.isEmpty()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Order not found!"));
-        }
-
-        SprayOrder order = orderOptional.get();
-        order.setFeedback(request.getFeedbackText(), request.getFeedbackRating());
-        sprayOrderRepository.save(order);
-
-        return ResponseEntity.ok(new MessageResponse("Feedback for order " + request.getOrderId() + " submitted successfully!"));
     }
 }

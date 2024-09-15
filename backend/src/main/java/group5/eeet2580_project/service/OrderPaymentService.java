@@ -6,6 +6,7 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 import group5.eeet2580_project.dto.request.OrderPaymentRequest;
 import group5.eeet2580_project.dto.response.MessageResponse;
+import group5.eeet2580_project.dto.response.OrderPaymentResponse;
 import group5.eeet2580_project.entity.OrderPayment;
 import group5.eeet2580_project.entity.SprayOrder;
 import group5.eeet2580_project.repository.OrderPaymentRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -92,5 +94,19 @@ public class OrderPaymentService {
         sprayOrderRepository.save(sprayOrder);
 
         return ResponseEntity.ok(new MessageResponse("Payment successful"));
+    }
+
+    public ResponseEntity<?> getPayment(Long orderID) {
+        Optional<OrderPayment> orderPaymentOptional = orderPaymentRepository.findByOrder(orderID);
+        if (orderPaymentOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Payment not found"));
+        }
+
+        return ResponseEntity.ok(new OrderPaymentResponse(orderPaymentOptional.get()));
+    }
+
+    public ResponseEntity<?> getAllPayments() {
+        List<OrderPayment> orderPayments = orderPaymentRepository.findAll();
+        return ResponseEntity.ok(orderPayments.stream().map(OrderPaymentResponse::new));
     }
 }

@@ -19,8 +19,6 @@ public class SprayOrderResponse implements Data {
     private String status;
     private String farmerUsername;
     private SpraySessionResponse session;
-    private String feedbackText;
-    private Integer feedbackRating;
 
     public SprayOrderResponse(SprayOrder sprayOrder) {
         this.id = sprayOrder.getId();
@@ -31,7 +29,5 @@ public class SprayOrderResponse implements Data {
         this.status = sprayOrder.getStatus().name();
         this.farmerUsername = sprayOrder.getFarmer().getUsername();
         this.session = sprayOrder.getSpraySession() == null ? null : new SpraySessionResponse(sprayOrder.getSpraySession());
-        this.feedbackText = sprayOrder.getFeedbackText();
-        this.feedbackRating = sprayOrder.getFeedbackRating();
     }
 }
