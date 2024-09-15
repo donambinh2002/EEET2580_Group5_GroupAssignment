@@ -1,6 +1,7 @@
 package group5.eeet2580_project.dto.request;
 
 import group5.eeet2580_project.common.Constants;
+import group5.eeet2580_project.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -12,13 +13,10 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class UserRequest {
+public class CreateUserRequest {
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
-
-    @NotBlank
-    private String fullName;
 
     @NotBlank
     @Size(max = 50)
@@ -30,6 +28,13 @@ public class UserRequest {
     private String password;
 
     @NotBlank
-    @Pattern(regexp = Constants.ROLE_KEYS.ROLE_REGEX, message = "Invalid role, try USER or STAFF")
+    @Pattern(regexp = Constants.ROLE_KEYS.ROLE_REGEX, message = "Invalid role, try FARMER, RECEPTIONIST or SPRAYER")
     private String role;
+
+    @NotBlank
+    private String fullName;
+
+    private String address;
+
+    private User.Expertise expertise;
 }

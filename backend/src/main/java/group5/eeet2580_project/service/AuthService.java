@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.LoginUserRequest;
-import group5.eeet2580_project.dto.request.UserRequest;
+import group5.eeet2580_project.dto.request.CreateUserRequest;
 import group5.eeet2580_project.dto.response.AuthResponse;
 import group5.eeet2580_project.dto.response.MessageResponse;
 import group5.eeet2580_project.dto.response.UserResponse;
@@ -51,7 +51,7 @@ public class AuthService {
     }
 
     @Transactional
-    public ResponseEntity<?> registerUser(UserRequest request) {
+    public ResponseEntity<?> registerUser(CreateUserRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
         }
@@ -62,11 +62,12 @@ public class AuthService {
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setFullName(request.getFullName());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.getRoles().add(request.getRole().toUpperCase());
-
+        user.setFullName(request.getFullName());
+        user.setAddress(request.getAddress());
+        user.setExpertise(request.getExpertise());
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
