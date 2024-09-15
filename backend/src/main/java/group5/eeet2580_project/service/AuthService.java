@@ -84,8 +84,8 @@ public class AuthService {
             User user = userRepository.findByUsernameOrEmail(request.getCredential(), request.getCredential())
                     .orElseThrow(() -> new RuntimeException("User not found!"));
 
-            String accessToken = jwtUtil.generateAccessToken(user.getUsername());
-            String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
+            String accessToken = jwtUtil.generateAccessToken(user.getUsername(), user.getRoles());
+            String refreshToken = jwtUtil.generateRefreshToken(user.getUsername(), user.getRoles());
 
             cacheUser(user, accessToken);
 
@@ -106,8 +106,8 @@ public class AuthService {
         String username = jwtUtil.extractUsername(refreshToken);
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found!"));
 
-        String newAccessToken = jwtUtil.generateAccessToken(username);
-        String newRefreshToken = jwtUtil.generateRefreshToken(username);
+        String newAccessToken = jwtUtil.generateAccessToken(username, user.getRoles());
+        String newRefreshToken = jwtUtil.generateRefreshToken(username, user.getRoles());
 
         cacheUser(user, newAccessToken);
 

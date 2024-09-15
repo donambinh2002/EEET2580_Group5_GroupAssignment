@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -166,8 +167,21 @@ public class OrderManagementService {
         return ResponseEntity.ok(new SprayOrderResponse(orderOptional.get()));
     }
 
-    public ResponseEntity<?> getAll() {
-        List<SprayOrder> orders = sprayOrderRepository.findAll();
+    public ResponseEntity<?> getAllFromUser(HttpServletRequest httpRequest) {
+        String token = httpRequest.getHeader("Authorization").substring(7);
+        Set<String> roles = jwtUtil.extractRoles(token);
+        List<SprayOrder> orders;
+
+        if (roles.contains(Constants.ROLE_KEYS.FARMER)) {
+            orders = sprayOrderRepository.findByFarmer(jwtUtil.extractUsername(token));
+        }
+        else if (roles.contains(Constants.ROLE_KEYS.RECEPTIONIST)){
+            orders = sprayOrderRepository.findAll();
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not authorized to view orders"));
+        }
+
         List<SprayOrderResponse> orderResponses = new ArrayList<>();
 
         for (SprayOrder order : orders) {
