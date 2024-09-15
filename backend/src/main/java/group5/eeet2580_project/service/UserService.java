@@ -77,14 +77,12 @@ public class UserService {
         String token = httpRequest.getHeader("Authorization").substring(7);
         String username = jwtUtil.extractUsername(token);
 
-        User user;
-
         try (Jedis jedis = jedisPool.getResource()) {
             String cachedUser = jedis.get("user:" + username + token);
             if (cachedUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
             }
-            user = objectMapper.readValue(cachedUser, User.class);
+            User user = objectMapper.readValue(cachedUser, User.class);
             return ResponseEntity.ok(new UserResponse(user));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to retrieve user from cache"));
