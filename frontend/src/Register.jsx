@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -10,6 +10,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -23,8 +25,8 @@ const Register = () => {
       email: email,
       full_name: name,
       password: password,
-      username: username, // Deriving the username from the email
-      role: "USER",
+      username: username,
+      role: "FARMER",
     };
 
     console.log("Request Body:", requestBody); // Log the request body for debugging
@@ -46,6 +48,10 @@ const Register = () => {
 
       const data = await response.json();
       console.log("Registration successful:", data);
+
+      //Redirect to login page
+      navigate("/login");
+
       // Handle successful registration
     } catch (error) {
       console.error("Registration failed:", error);
