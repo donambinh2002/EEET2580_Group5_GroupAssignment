@@ -1,7 +1,7 @@
 package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import group5.eeet2580_project.dto.request.UserRequest;
+import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.entity.User;
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
@@ -36,7 +36,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("User not found!"));
+                    .body(new MessageResponse("User with credential: " + request.getCredential() + " not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -48,7 +48,7 @@ public class UserService {
         if (user.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("User not found!"));
+                    .body(new MessageResponse("User with id: " + id + " not found!"));
         }
 
         return ResponseEntity.ok(new UserResponse(user.get()));
@@ -62,23 +62,33 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> updateUser(Long id, UserRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<?> updateUser(Long id, UpdateUserRequest request, HttpServletRequest httpRequest) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("User not found!"));
         }
 
         User user = userOptional.get();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.getRoles().add(request.getRole().toUpperCase());
+
+        if(request.getFullName() != null){
+            user.setFullName(request.getFullName());
+        }
+
+        if(request.getAddress() != null){
+            user.setAddress(request.getAddress());
+        }
+
+        if(request.getPassword() != null){
+            user.setPassword(request.getPassword());
+        }
+
         userRepository.save(user);
 
         String token = httpRequest.getHeader("Authorization").substring(7);
         try (Jedis jedis = jedisPool.getResource()) {
             String cachedUser = jedis.get("user:" + token);
             if (cachedUser != null) {
-                jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));  // Update cache if exists
+                jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to update user cache"));
@@ -104,7 +114,7 @@ public class UserService {
             }
         }
 
-        return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + request.getCredential()));
     }
 
     @Transactional
@@ -119,6 +129,6 @@ public class UserService {
 
         userRepository.delete(user.get());
 
-        return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + id));
     }
 }

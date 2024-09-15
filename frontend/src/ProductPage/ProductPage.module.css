@@ -11,52 +11,38 @@
 
 .productImage {
     display: flex;
-    justify-content: space-between;
+    width: 540px;
+    height: 433px;
+    justify-content: center;
     align-items: center;
     background-color: #f5f5f5;
     padding: 10px 20px;
 }
 
-.productInfo {
-    padding: 20px;
-}
-
-/* header h1 {
-    color: #4caf50;
-}
-
-nav ul {
-    list-style-type: none;
+.productImage img {
+    width: 100%;
+    height: 100%;
     display: flex;
-    gap: 20px;
+    object-fit: contain;
 }
-
-.icons {
-    display: flex;
-    gap: 10px;
-}
-
-.product-page {
-    display: flex;
-    padding: 20px;
-}
-
-.product-page img {
-    width: 300px;
-    height: auto;
-}
-
-.product-details {
-    margin-left: 20px;
-} */
 
 .price {
     font-size: 24px;
-    color: #4caf50;
+    color: #56B280;
 }
 
-.subscription {
-    margin-top: 10px;
+.subscription-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.subscription-option input {
+margin-right: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
 }
 
 .quantity {
@@ -86,40 +72,22 @@ nav ul {
     background-color: #56B280;
     color: white;
     padding: 10px;
-    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .cartAdd:hover {
-    background-color: #4caf50;
+    background-color: #dad3be;
 }
 
-.product-info {
+.productInfo {
+    min-width: 540px;
+    min-height: 130px;
     padding: 20px;
+    margin: 20px;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-footer h3,
-footer h4 {
-    margin: 0;
-}
-
-footer p,
-footer ul {
-    margin: 5px 0;
-}
-
-footer ul {
-    list-style-type: none;
-}
-
-footer ul li {
-    margin: 5px 0;
+.productInfo {
+    align-items: center;
 }

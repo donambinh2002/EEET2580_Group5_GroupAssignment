@@ -2,7 +2,7 @@ package group5.eeet2580_project.controller;
 
 import group5.eeet2580_project.dto.request.DeleteUserRequest;
 import group5.eeet2580_project.dto.request.SearchUserRequest;
-import group5.eeet2580_project.dto.request.UserRequest;
+import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.dto.response.UserResponse;
 import group5.eeet2580_project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request, HttpServletRequest httpRequest) {
         return userService.updateUser(id, request, httpRequest);
     }
 
