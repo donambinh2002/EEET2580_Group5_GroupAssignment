@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface OrderFeedbackRepository extends JpaRepository<OrderFeedback, Long> {
-    @Query("SELECT S FROM OrderPayment S WHERE S.order.id = :orderID")
+    @Query("SELECT S FROM OrderFeedback S WHERE S.order.id = :orderID")
     Optional<OrderFeedback> findByOrder(Long orderID);
 }
