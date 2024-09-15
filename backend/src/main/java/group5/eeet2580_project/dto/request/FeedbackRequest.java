@@ -6,4 +6,7 @@ import lombok.Data;
 public class FeedbackRequest {
     private String feedbackText;
     private Integer feedbackRating;
+    private Integer attentiveRating;
+    private Integer friendlyRating;
+    private Integer professionalRating;
 }

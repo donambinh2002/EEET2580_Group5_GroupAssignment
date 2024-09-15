@@ -107,6 +107,9 @@ public class SprayOrderService {
         SprayOrder sprayOrder = sprayOrderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found!"));
         sprayOrder.setFeedbackText(feedbackRequest.getFeedbackText());
         sprayOrder.setFeedbackRating(feedbackRequest.getFeedbackRating());
+        sprayOrder.setAttentiveRating(feedbackRequest.getAttentiveRating());
+        sprayOrder.setFriendlyRating(feedbackRequest.getFriendlyRating());
+        sprayOrder.setProfessionalRating(feedbackRequest.getProfessionalRating());
         sprayOrderRepository.save(sprayOrder);
     }
 }

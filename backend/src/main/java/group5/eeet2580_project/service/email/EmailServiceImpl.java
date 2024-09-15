@@ -65,7 +65,8 @@ public class EmailServiceImpl implements EmailService {
                 "Total Cost: " + sprayOrder.getTotalCost() + "\n\nThank you for using our service!");
     }
 
-    private void sendEmail(String to, String subject, String text) {
+    @Override
+    public void sendEmail(String to, String subject, String text) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
