@@ -1,55 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation
 import "./SprayerOrderCheck.css";
 import HomeHeader from "../Components/HomeHeader.jsx";
 import Footer from "../Components/Footer.jsx";
 
 const SprayerOrderCheck = () => {
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      date: "15/09/2024",
-      time: "9:00 to 10:00",
-      location: "Field A, Farm Lane",
-      cropType: "Vegetable",
-      area: 10,
-      paymentType: "Card",
-      cost: 1000,
-      status: "Pending",
-    },
-    {
-      id: 2,
-      date: "16/09/2024",
-      time: "10:00 to 11:00",
-      location: "Field B, Green Road",
-      cropType: "Fruit",
-      area: 5,
-      paymentType: "Cash",
-      cost: 500,
-      status: "Pending",
-    },
-    {
-      id: 3,
-      date: "17/09/2024",
-      time: "11:00 to 12:00",
-      location: "Field C, Red Valley",
-      cropType: "Cereal",
-      area: 15,
-      paymentType: "Card",
-      cost: 1500,
-      status: "Pending",
-    },
-  ]);
+  const token = localStorage.getItem("authToken");
 
-  const [selectedOrderId, setSelectedOrderId] = useState(orders[0].id);
+  const [orders, setOrders] = useState([]);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [messages, setMessages] = useState({});
   const [sprayerAssigned, setSprayerAssigned] = useState(false); // Track if sprayer is assigned
   const [isConfirmed, setIsConfirmed] = useState(false); // Track if the order is confirmed
   const navigate = useNavigate(); // Navigation hook
 
-  const selectedOrder = orders.find((order) => order.id === selectedOrderId);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/v1/orders`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
-  const token = localStorage.getItem("authToken");
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Server Error:", errorData);
+          throw new Error(`Error: ${errorData.message || response.statusText}`);
+        }
+
+        const data = await response.json();
+        setOrders(data); // Set orders after successful fetch
+
+        // Set the first order as selected if there are orders
+        if (data.length > 0) {
+          setSelectedOrderId(data[0].id);
+        }
+      } catch (error) {
+        console.error("Failed to get orders:", error);
+        alert(`Failed to get orders: ${error.message}`);
+      }
+    };
+
+    fetchOrders();
+  }, [token]);
+
+  // Check if there are no orders
+  if (!orders || orders.length === 0) {
+    return (
+      <div>
+        <HomeHeader />
+        <div className="sprayer-order-check">
+          <h2>No Orders Available</h2>
+          <p>There are currently no orders to display.</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const selectedOrder = orders.find((order) => order.id === selectedOrderId);
 
   const updateStatus = (newStatus) => {
     const updatedOrders = orders.map((order) =>
