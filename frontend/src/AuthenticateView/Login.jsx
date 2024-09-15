@@ -36,6 +36,15 @@ const Login = () => {
 
       const data = await response.json();
       console.log("Login successful:", data);
+
+      if (data.data.access_token) {
+        localStorage.setItem("authToken", data.data.access_token);
+      }
+
+      console.log(data.data.access_token);
+
+      handleGoHome();
+
       // Handle successful registration
     } catch (error) {
       console.error("Login failed:", error);
