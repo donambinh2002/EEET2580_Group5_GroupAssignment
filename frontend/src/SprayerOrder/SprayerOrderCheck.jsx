@@ -114,6 +114,14 @@ const SprayerOrderCheck = () => {
     navigate(`/assign-sprayer/${selectedOrderId}`); // Redirect to the Assign Sprayer page with order ID
   };
 
+  const selectedDate = new Date(selectedOrder.order_time)
+    .toISOString()
+    .split("T")[0];
+  const selectedTime = new Date(selectedOrder.order_time)
+    .toISOString()
+    .split("T")[1]
+    .split(".")[0];
+
   return (
     <div>
       <HomeHeader />
@@ -127,7 +135,7 @@ const SprayerOrderCheck = () => {
           >
             {orders.map((order) => (
               <option key={order.id} value={order.id}>
-                Order #{order.id} - {order.date} at {order.time}
+                Order #{order.id} - {selectedDate} at {selectedTime}
               </option>
             ))}
           </select>
@@ -143,11 +151,11 @@ const SprayerOrderCheck = () => {
               {/* Display order details */}
               <tr>
                 <th>Date:</th>
-                <td>{selectedOrder.date}</td>
+                <td>{selectedDate}</td>
               </tr>
               <tr>
                 <th>Time:</th>
-                <td>{selectedOrder.time}</td>
+                <td>{selectedTime}</td>
               </tr>
               <tr>
                 <th>Location:</th>
@@ -155,11 +163,11 @@ const SprayerOrderCheck = () => {
               </tr>
               <tr>
                 <th>Type of Crop:</th>
-                <td>{selectedOrder.cropType}</td>
+                <td>{selectedOrder.crop_type}</td>
               </tr>
               <tr>
                 <th>Farmland Area (decare):</th>
-                <td>{selectedOrder.area} decares</td>
+                <td>{selectedOrder.farm_land_area} decares</td>
               </tr>
               <tr>
                 <th>Payment Type:</th>
@@ -167,7 +175,7 @@ const SprayerOrderCheck = () => {
               </tr>
               <tr>
                 <th>Total Cost:</th>
-                <td>${selectedOrder.cost}</td>
+                <td>${selectedOrder.total_cost}</td>
               </tr>
               <tr>
                 <th>Status:</th>
