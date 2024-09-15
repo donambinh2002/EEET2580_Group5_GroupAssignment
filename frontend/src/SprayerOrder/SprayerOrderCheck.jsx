@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For navigation
 import './SprayerOrderCheck.css';
 
 const SprayerOrderCheck = () => {
-  // Move orders into state so it can be updated dynamically
   const [orders, setOrders] = useState([
     {
       id: 1,
@@ -39,24 +39,34 @@ const SprayerOrderCheck = () => {
     },
   ]);
 
-  // State to track the selected order by its id
   const [selectedOrderId, setSelectedOrderId] = useState(orders[0].id);
   const [messages, setMessages] = useState({});
+  const [sprayerAssigned, setSprayerAssigned] = useState(false); // Track if sprayer is assigned
+  const [isConfirmed, setIsConfirmed] = useState(false); // Track if the order is confirmed
+  const navigate = useNavigate(); // Navigation hook
 
-  // Find the currently selected order
   const selectedOrder = orders.find(order => order.id === selectedOrderId);
 
-  // Function to handle status update for the selected order
   const updateStatus = (newStatus) => {
     const updatedOrders = orders.map(order =>
       order.id === selectedOrderId ? { ...order, status: newStatus } : order
     );
-    setOrders(updatedOrders); // Update the orders array
+    setOrders(updatedOrders);
 
     setMessages({
       ...messages,
       [selectedOrderId]: `Order status updated to "${newStatus}".`,
     });
+
+    if (newStatus === 'Confirmed') {
+      setIsConfirmed(true); // Enable the "Assign Sprayer" button when confirmed
+    } else {
+      setIsConfirmed(false); // Disable the button if not confirmed
+    }
+  };
+
+  const assignSprayer = () => {
+    navigate(`/assign-sprayer/${selectedOrderId}`); // Redirect to the Assign Sprayer page with order ID
   };
 
   return (
@@ -76,65 +86,48 @@ const SprayerOrderCheck = () => {
         </select>
       </div>
 
-      {/* Order Details Section for the selected order */}
+      {/* Order Details Section */}
       <div className="order-details-container">
         <h1 className="order-title">Spray Order Details (Order #{selectedOrder.id})</h1>
-        
         <table className="order-table">
           <tbody>
-            <tr>
-              <th>Date:</th>
-              <td>{selectedOrder.date}</td>
-            </tr>
-            <tr>
-              <th>Time:</th>
-              <td>{selectedOrder.time}</td>
-            </tr>
-            <tr>
-              <th>Location:</th>
-              <td>{selectedOrder.location}</td>
-            </tr>
-            <tr>
-              <th>Type of Crop:</th>
-              <td>{selectedOrder.cropType}</td>
-            </tr>
-            <tr>
-              <th>Farmland Area (decare):</th>
-              <td>{selectedOrder.area} decares</td>
-            </tr>
-            <tr>
-              <th>Payment Type:</th>
-              <td>{selectedOrder.paymentType}</td>
-            </tr>
-            <tr>
-              <th>Total Cost:</th>
-              <td>${selectedOrder.cost}</td>
-            </tr>
-            <tr>
-              <th>Status:</th>
-              <td>{selectedOrder.status}</td>
-            </tr>
+            {/* Display order details */}
+            <tr><th>Date:</th><td>{selectedOrder.date}</td></tr>
+            <tr><th>Time:</th><td>{selectedOrder.time}</td></tr>
+            <tr><th>Location:</th><td>{selectedOrder.location}</td></tr>
+            <tr><th>Type of Crop:</th><td>{selectedOrder.cropType}</td></tr>
+            <tr><th>Farmland Area (decare):</th><td>{selectedOrder.area} decares</td></tr>
+            <tr><th>Payment Type:</th><td>{selectedOrder.paymentType}</td></tr>
+            <tr><th>Total Cost:</th><td>${selectedOrder.cost}</td></tr>
+            <tr><th>Status:</th><td>{selectedOrder.status}</td></tr>
           </tbody>
         </table>
       </div>
 
-      {/* Status Update Section for the selected order */}
+      {/* Status Update Section */}
       <div className="status-container">
         <h2>Update Status</h2>
         <p><strong>Current Status:</strong> {selectedOrder.status}</p>
         
         <div>
-          <button className="status-button" onClick={() => updateStatus('In Progress')}>
-            In Progress
+          <button className="status-button" onClick={() => updateStatus('Confirmed')}>
+            Confirm
           </button>
-          <button className="status-button" onClick={() => updateStatus('Completed')}>
-            Completed
+          <button className="status-button" onClick={() => updateStatus('Cancelled')}>
+            Cancel
+          </button>
+          <button 
+            className="status-button" 
+            onClick={assignSprayer} 
+            disabled={!isConfirmed} // Button is disabled unless the order is confirmed
+          >
+            Assign Sprayer
           </button>
         </div>
 
-        {/* Show success message based on the updated status */}
+        {/* Success message */}
         {messages[selectedOrderId] && (
-          <div className={`message ${selectedOrder.status === 'Completed' || selectedOrder.status === 'In Progress' ? 'success' : 'warning'}`}>
+          <div className={`message ${selectedOrder.status === 'Confirmed' || selectedOrder.status === 'Cancelled' ? 'success' : 'warning'}`}>
             {messages[selectedOrderId]}
           </div>
         )}
