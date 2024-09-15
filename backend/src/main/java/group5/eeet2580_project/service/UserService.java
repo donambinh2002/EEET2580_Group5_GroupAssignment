@@ -75,11 +75,12 @@ public class UserService {
 
     public ResponseEntity<?> getUserByToken(HttpServletRequest httpRequest) {
         String token = httpRequest.getHeader("Authorization").substring(7);
+        String username = jwtUtil.extractUsername(token);
 
         User user;
 
         try (Jedis jedis = jedisPool.getResource()) {
-            String cachedUser = jedis.get("user:" + token);
+            String cachedUser = jedis.get("user:" + username + token);
             if (cachedUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
             }
