@@ -12,13 +12,14 @@ import CustomerFeedback from "./CustomerFeedback/CustomerFeedback.jsx";
 import SprayOrderForm from "./SprayerOrder/SprayOrderForm.jsx";
 import SprayOrderCheck from "./SprayerOrder/SprayerOrderCheck.jsx";
 import CartPage from "./CartPage/CartPage.jsx";
+import AssignSprayer from "./SprayerOrder/AssignSprayer.jsx";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} /> {}
-        <Route path="/login" element={<Login />} /> {}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/spray-order" element={<SprayOrderForm />} />
         <Route path="/spray-order-check" element={<SprayOrderCheck />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/assign-sprayer/:orderId" element={<AssignSprayer />} /> {/* Added new route */}
       </Routes>
     </Router>
   );

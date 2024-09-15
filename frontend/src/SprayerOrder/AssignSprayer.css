@@ -1,0 +1,67 @@
+.assign-sprayer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #b7b597, #6b8a7a);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .assign-sprayer-box {
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .box-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .sprayer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .sprayer-table th,
+  .sprayer-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sprayer-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .assign-button {
+    padding: 8px 16px;
+    background-color: #6b8a7a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .assign-button:hover {
+    background-color: #4a6e5a;
+  }
+  
+  .message {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
