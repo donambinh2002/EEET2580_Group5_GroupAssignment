@@ -49,7 +49,8 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(user.getEmail(), subject, body);
     }
 
-    private void sendEmail(String to, String subject, String text) {
+    @Override
+    public void sendEmail(String to, String subject, String text) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
