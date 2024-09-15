@@ -32,8 +32,8 @@ public class OrderManagementController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getOrders() {
-        return orderManagementService.getAll();
+    public ResponseEntity<?> getOrders(HttpServletRequest httpRequest) {
+        return orderManagementService.getAllFromUser(httpRequest);
     }
 
     @PutMapping("/confirm/{id}")
