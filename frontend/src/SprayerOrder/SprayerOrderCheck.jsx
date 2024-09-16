@@ -340,6 +340,7 @@ const SprayerOrderCheck = () => {
         {/* Feedback */}
         {(selectedOrder.status === "CONFIRMED" ||
           selectedOrder.status === "ASSIGNED") &&
+          userRole === "FARMER" &&
           !hasFeedback && <CustomerFeedback orderId={selectedOrderId} />}
       </div>
       <Footer />
