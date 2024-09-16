@@ -18,6 +18,8 @@ const SprayerOrderCheck = () => {
   const navigate = useNavigate(); // Navigation hook
   const [hasFeedback, setHasFeedback] = useState(false);
   const [currentStatus, setCurrentStatus] = useState("PENDING");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchFeedback = async (currentFeedback) => {
     try {
@@ -48,6 +50,25 @@ const SprayerOrderCheck = () => {
       setHasFeedback(false);
       console.log("Order has no feedback");
     }
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      if (!token) {
+        setIsLoggedIn(false);
+        setShowModal(true); // Show login modal
+      } else {
+        setIsLoggedIn(true);
+        setShowModal(false); // Show login modal
+      }
+    };
+
+    checkLoginStatus();
+  }, [token]);
+
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+    navigate("/login"); // Redirect to login page
   };
 
   useEffect(() => {
@@ -104,9 +125,11 @@ const SprayerOrderCheck = () => {
       }
     };
 
-    fetchUserProfile();
-    fetchOrders();
-  }, [token]);
+    if (isLoggedIn) {
+      fetchUserProfile();
+      fetchOrders();
+    }
+  }, [token, isLoggedIn]);
 
   useEffect(() => {
     if (selectedOrderId !== null) {
@@ -132,6 +155,15 @@ const SprayerOrderCheck = () => {
           <h2>No Orders Available</h2>
           <p>There are currently no orders to display.</p>
         </div>
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2>Login Required</h2>
+              <p>You need to log in to access this feature.</p>
+              <button onClick={handleLoginRedirect}>Go to Login</button>
+            </div>
+          </div>
+        )}
         <Footer />
       </div>
     );
@@ -339,6 +371,7 @@ const SprayerOrderCheck = () => {
           userRole === "FARMER" &&
           !hasFeedback && <CustomerFeedback orderId={selectedOrderId} />}
       </div>
+
       <Footer />
     </div>
   );
