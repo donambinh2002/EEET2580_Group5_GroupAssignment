@@ -54,7 +54,7 @@ const SprayOrderForm = () => {
     // Convert local date to ISO string
     const offset = 7 * 60; // GMT+7 is 7 hours ahead of UTC in minutes
     const isoString = new Date(
-      localDate.getTime() - offset * 60000
+      localDate.getTime() + offset * 60000
     ).toISOString();
 
     setIsoString(isoString);
