@@ -46,7 +46,7 @@ const SprayerOrderCheck = () => {
       }
     } catch (error) {
       setHasFeedback(false);
-      console.error("Error fetching feedback:", error);
+      console.log("Order has no feedback");
     }
   };
 
