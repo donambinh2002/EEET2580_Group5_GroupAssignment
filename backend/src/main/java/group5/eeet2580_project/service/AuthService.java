@@ -2,6 +2,7 @@ package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import group5.eeet2580_project.common.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.entity.User;
@@ -41,12 +42,11 @@ public class AuthService {
 
     private void cacheUser(User user, String accessToken) throws JsonProcessingException {
         try (Jedis jedis = jedisPool.getResource()) {
-            // Ensure old cached tokens for this user are deleted
-            Set<String> keys = jedis.keys("user:" + user.getUsername() + "*");
+            Set<String> keys = jedis.keys(Utils.userKey(user.getUsername(),"*"));
             if (!keys.isEmpty()) {
                 jedis.del(keys.toArray(new String[0]));
             }
-            jedis.setex("user:" + user.getUsername() + accessToken, 3600, objectMapper.writeValueAsString(user));
+            jedis.setex(Utils.userKey(user.getUsername(), accessToken), 3600, objectMapper.writeValueAsString(user));
         }
     }
 
@@ -130,7 +130,7 @@ public class AuthService {
         String username = jwtUtil.extractUsername(accessToken);
 
         try (Jedis jedis = jedisPool.getResource()) {
-            jedis.del("user:" + username + accessToken);
+            jedis.del(Utils.userKey(username, accessToken));
         }
 
         return ResponseEntity.ok(new MessageResponse("User logged out successfully"));
@@ -149,7 +149,7 @@ public class AuthService {
 
             // Check cache first
             try (Jedis jedis = jedisPool.getResource()) {
-                String cachedUser = jedis.get("user:" + username + token);
+                String cachedUser = jedis.get(Utils.userKey(username, token));
                 if (cachedUser != null) {
                     User user = objectMapper.readValue(cachedUser, User.class);
                     Map<String, Object> response = new HashMap<>();

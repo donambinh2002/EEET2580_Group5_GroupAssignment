@@ -2,6 +2,7 @@ package group5.eeet2580_project.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group5.eeet2580_project.common.Constants;
+import group5.eeet2580_project.common.Utils;
 import group5.eeet2580_project.config.jwt.JwtUtil;
 import group5.eeet2580_project.dto.request.UpdateUserRequest;
 import group5.eeet2580_project.entity.User;
@@ -78,7 +79,7 @@ public class UserService {
         String username = jwtUtil.extractUsername(token);
 
         try (Jedis jedis = jedisPool.getResource()) {
-            String cachedUser = jedis.get("user:" + username + token);
+            String cachedUser = jedis.get(Utils.userKey(username, token));
             if (cachedUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("User not logged in"));
             }
@@ -113,10 +114,12 @@ public class UserService {
         userRepository.save(user);
 
         String token = httpRequest.getHeader("Authorization").substring(7);
+        String username = jwtUtil.extractUsername(token);
+
         try (Jedis jedis = jedisPool.getResource()) {
-            String cachedUser = jedis.get("user:" + token);
+            String cachedUser = jedis.get(Utils.userKey(username, token));
             if (cachedUser != null) {
-                jedis.setex("user:" + token, 3600, objectMapper.writeValueAsString(user));
+                jedis.setex(Utils.userKey(username, token), 3600, objectMapper.writeValueAsString(user));
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Unable to update user cache"));
@@ -136,7 +139,7 @@ public class UserService {
         userRepository.delete(user);
 
         try (Jedis jedis = jedisPool.getResource()) {
-            Set<String> keys = jedis.keys("user:" + user.getUsername() + "*");
+            Set<String> keys = jedis.keys(Utils.userKey(user.getUsername(), "*"));
             if (!keys.isEmpty()) {
                 jedis.del(keys.toArray(new String[0]));
             }
@@ -158,5 +161,15 @@ public class UserService {
         userRepository.delete(user.get());
 
         return ResponseEntity.ok(new MessageResponse("Successfully deleted User " + id));
+    }
+
+    public ResponseEntity<?> getAllSprayers() {
+        List<User> users = userRepository.findAllByRoles(Constants.ROLE_KEYS.SPRAYER);
+
+        List<UserResponse> responses = users.stream()
+                .map(UserResponse::new)
+                .toList();
+
+        return ResponseEntity.ok(responses);
     }
 }
