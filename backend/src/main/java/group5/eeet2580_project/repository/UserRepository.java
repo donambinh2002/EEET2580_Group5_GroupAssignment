@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,5 +51,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserDetailsSe
 
     @Query("SELECT U FROM User U WHERE U.fullName = :fullName")
     Optional<User> findByFullName(@Param("fullName") String fullName);
-}
 
+    @Query("SELECT U FROM User U WHERE :role MEMBER OF U.roles")
+    List<User> findAllByRoles(String role);
+}

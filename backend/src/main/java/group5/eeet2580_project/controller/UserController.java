@@ -54,4 +54,9 @@ public class UserController {
     public ResponseEntity<?> getAllUsers(HttpServletRequest httpRequest) {
         return userService.getAllUsers(httpRequest);
     }
+
+    @GetMapping("/sprayers")
+    public ResponseEntity<?> getAllSprayers(HttpServletRequest httpRequest) {
+        return userService.getAllSprayers();
+    }
 }
