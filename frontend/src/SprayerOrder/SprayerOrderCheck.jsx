@@ -17,7 +17,7 @@ const SprayerOrderCheck = () => {
   const [userRole, setRole] = useState("");
   const navigate = useNavigate(); // Navigation hook
   const [hasFeedback, setHasFeedback] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState("Pending");
+  const [currentStatus, setCurrentStatus] = useState("PENDING");
 
   const fetchFeedback = async (currentFeedback) => {
     try {
@@ -338,9 +338,9 @@ const SprayerOrderCheck = () => {
           )}
         </div>
         {/* Feedback */}
-        {selectedOrder.status === "CONFIRMED" && !hasFeedback && (
-          <CustomerFeedback orderId={selectedOrderId} />
-        )}
+        {(selectedOrder.status === "CONFIRMED" ||
+          selectedOrder.status === "ASSIGNED") &&
+          !hasFeedback && <CustomerFeedback orderId={selectedOrderId} />}
       </div>
       <Footer />
     </div>
