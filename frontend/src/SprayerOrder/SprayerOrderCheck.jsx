@@ -219,13 +219,8 @@ const SprayerOrderCheck = () => {
     navigate(`/assign-sprayer/${selectedOrderId}`); // Redirect to the Assign Sprayer page with order ID
   };
 
-  const selectedDate = new Date(selectedOrder.order_time)
-    .toISOString()
-    .split("T")[0];
-  const selectedTime = new Date(selectedOrder.order_time)
-    .toISOString()
-    .split("T")[1]
-    .split(".")[0];
+  const selectedDate = selectedOrder.desired_time.split("T")[0];
+  const selectedTime = selectedOrder.desired_time.split("T")[1].split(".")[0];
 
   return (
     <div>
@@ -242,14 +237,8 @@ const SprayerOrderCheck = () => {
           >
             {orders.map((order) => (
               <option key={order.id} value={order.id}>
-                Order #{order.id} -{" "}
-                {new Date(order.order_time).toISOString().split("T")[0]} at{" "}
-                {
-                  new Date(order.order_time)
-                    .toISOString()
-                    .split("T")[1]
-                    .split(".")[0]
-                }
+                Order #{order.id} - made on: {order.order_time.split("T")[0]} at{" "}
+                {order.order_time.split("T")[1].split(".")[0]}
               </option>
             ))}
           </select>
