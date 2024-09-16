@@ -24,6 +24,7 @@ const SprayOrderForm = () => {
   const [time, setTime] = useState(timeSlots[0]);
   const [paymentType, setPaymentType] = useState("Cash");
   const [cost, setCost] = useState(0.0);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const token = Cookies.get("authToken");
 
@@ -82,6 +83,7 @@ const SprayOrderForm = () => {
 
       const data = await response.json();
       console.log("Create order successful:", data);
+      setIsPopupVisible(true); // Show the success popup
     } catch (error) {
       console.error("Create order failed:", error);
       alert(`Failed create order: ${error.message}`);
@@ -102,6 +104,10 @@ const SprayOrderForm = () => {
         </small>
       );
     }
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
   };
 
   return (
@@ -222,6 +228,16 @@ const SprayOrderForm = () => {
             </p>
           </div>
         </div>
+        {/* Popup for successful order creation */}
+        {isPopupVisible && (
+          <div className="popup">
+            <div className="popup-content">
+              <h3>Order Created Successfully!</h3>
+              <p>Your order has been created.</p>
+              <button onClick={closePopup}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
