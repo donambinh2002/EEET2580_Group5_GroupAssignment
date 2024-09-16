@@ -8,12 +8,8 @@ import "./Home.css";
 import HomeHeader from "./Components/HomeHeader";
 
 const Home = () => {
-  const productSectionRef = useRef(null);
-
-  const scrollToProducts = () => {
-    if (productSectionRef.current) {
-      productSectionRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+  const scrollToLearnMore = () => {
+    document.querySelector(".services-1-section").scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -24,110 +20,75 @@ const Home = () => {
       {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-content">
-          <h1>HOVER SPRITE</h1>
+          <h1>HoverSprite</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quasi
-            voluptatum accusantium ullam in architecto soluta eius. Aspernatur
-            sunt facere suscipit architecto corporis soluta, placeat, maxime
-            deleniti perspiciatis iste officiis.
+          Specializes in organic fertilizer and pesticide spraying services for farmers, utilizing a fleet of 15
+          spraying drones to serve orchards, cereal fields, and vegetable farms.
           </p>
-          <button onClick={scrollToProducts} className="hero-button">
-            Discover our products
+          <button onClick={scrollToLearnMore} className="hero-button">
+            What are we offering?
           </button>
         </div>
       </main>
 
-      {/* Products Section */}
-      <section className="products-section" ref={productSectionRef}>
-        <h2>Products</h2>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={3}
-          loop={true}
-          pagination={{ clickable: true }}
-          className="product-carousel"
-        >
-          <SwiperSlide>
-            <Link to="/product/1">
-              <div className="product-card">
-                <img src="src/images/product.jpg" alt="product" />
-                <div className="product-info">
-                  <p>Product</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/2">
-              <div className="product-card">
-                <img src="src/images/product1.jpg" alt="product 1" />
-                <div className="product-info">
-                  <p>Product 1</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/3">
-              <div className="product-card">
-                <img src="src/images/product2.jpg" alt="product 2" />
-                <div className="product-info">
-                  <p>Product 2</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 3" />
-                <div className="product-info">
-                  <p>Product 3</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 4" />
-                <div className="product-info">
-                  <p>Product 4</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 5" />
-                <div className="product-info">
-                  <p>Product 5</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 6" />
-                <div className="product-info">
-                  <p>Product 6</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        </Swiper>
+      {/* New Spraying Service Section 1 (Image on Right) */}
+      <section className="services-1-section">
+        <div className="services-1-content">
+          <div className="services-1-text">
+            <h2>Our Services</h2>
+            <p>
+            HoverSprite provides efficient organic fertilizer and pesticide spraying with our fleet of advanced drones. 
+            </p>
+
+            <p>
+            We cover orchards, cereal fields, and vegetable farms, ensuring precise and eco-friendly application.
+            </p>
+
+            <p>
+            Our services enhance crop health and yield while supporting sustainable farming practices.
+           </p>
+
+          </div>
+          <div className="services-1-image">
+            <img src="src/images/sprayingAsset2.jpg" alt="droneSpraying" />
+          </div>
+        </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* New Spraying Service Section 2 (Image on Left) */}
+      <section className="services-section">
+        <div className="services-content reverse">
+          <div className="services-image">
+            <img src="src/images/sprayingAsset1.jpg" alt="droneSpraying2" />
+          </div>
+          <div className="services-text">
+            <h2>Our Technology</h2>
+            <p>
+            We use state-of-the-art drones with advanced sensors for precise spraying. This technology reduces waste and improves the effectiveness of our treatments, supporting efficient and sustainable agriculture.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Create your own */}
+      <section className="services-1-section">
+        <div className="services-1-content">
+          <div className="services-1-text">
+            <h2>How can I order?</h2>
+            <p>
+            Place an order via our website by clicking the button below, fill out all infomation needed and you will be good!
+            </p>
+            <Link to="/services-1" className="services-1-button">
+              Order your now!
+            </Link>
+          </div>
+          <div className="services-1-image">
+            <img src="src/images/sprayingAsset.jpg" alt="notDroneSpraying" />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section (Moved to Bottom) */}
       <section className="testimonials-section">
         <h2>Testimonials</h2>
         <Swiper
@@ -165,127 +126,11 @@ const Home = () => {
         </Swiper>
       </section>
 
-      {/* Learn More Section */}
-      <section className="learn-more-section">
-        <div className="learn-more-content">
-          <div className="learn-more-text">
-            <h2>Learn More</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Cupiditate repudiandae minus, autem officiis nostrum deleniti
-              reiciendis error maiores quidem, quis hic illo numquam molestiae
-              obcaecati ad recusandae reprehenderit dolore omnis.
-            </p>
-            <Link to="/learn-more" className="learn-more-button">
-              Learn More
-            </Link>
-          </div>
-          <div className="learn-more-image">
-            <img src="src/images/learn_more.jpg" alt="Learn More" />
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Products Section */}
-      <section className="popular-section">
-        <h2>Popular</h2>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={3}
-          loop={true}
-          pagination={{ clickable: true }}
-          className="product-carousel"
-        >
-          <SwiperSlide>
-            <Link to="/product/1">
-              <div className="product-card">
-                <img src="src/images/product.jpg" alt="product" />
-                <div className="product-info">
-                  <p>Product</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/2">
-              <div className="product-card">
-                <img src="src/images/product1.jpg" alt="product 1" />
-                <div className="product-info">
-                  <p>Product 1</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/3">
-              <div className="product-card">
-                <img src="src/images/product2.jpg" alt="product 2" />
-                <div className="product-info">
-                  <p>Product 2</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 3" />
-                <div className="product-info">
-                  <p>Product 3</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 4" />
-                <div className="product-info">
-                  <p>Product 4</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 5" />
-                <div className="product-info">
-                  <p>Product 5</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 6" />
-                <div className="product-info">
-                  <p>Product 6</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        </Swiper>
-      </section>
-
       {/* Footer Section */}
       <footer className="footer">
         <div className="footer-content">
-          <p>slogan.</p>
-          <nav className="footer-nav">
-            <Link to="/nav-link-2">nav-link-2</Link>
-            <Link to="/nav-link-3">nav-link-3</Link>
-            <Link to="/nav-link-4">nav-link-4</Link>
-          </nav>
-          <p>&copy; [WEBSITE NAME] All Rights Reserved.</p>
+          <p>Precision in Every Flight, Excellence in Every Spray.</p>
+          <p>&copy; [HoverSprite] All Rights Reserved.</p>
         </div>
       </footer>
     </div>
@@ -293,3 +138,4 @@ const Home = () => {
 };
 
 export default Home;
+

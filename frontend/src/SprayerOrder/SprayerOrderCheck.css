@@ -1,11 +1,11 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+  box-sizing: border-box;
+}
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
 *, *::before, *::after {
     box-sizing: inherit;
 }
@@ -17,7 +17,7 @@ html, body {
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, #B7B597, #6B8A7A);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Merriweather", sans-serif;
     padding: 20px;
 }
   

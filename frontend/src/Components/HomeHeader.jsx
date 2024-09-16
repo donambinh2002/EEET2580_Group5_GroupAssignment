@@ -5,7 +5,7 @@ import styles from "./HomeHeader.module.css";
 const HomeHeader = () => {
   return (
     <header className={styles.homeHeader}>
-      <div className={styles.logo}>[LOGO]</div>
+      <div className={styles.logo}>[HoverSprite]</div>
       <nav>
         <ul className={styles.navLinks}>
           <li>
