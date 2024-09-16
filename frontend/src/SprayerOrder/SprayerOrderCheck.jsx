@@ -4,6 +4,7 @@ import "./SprayerOrderCheck.css";
 import HomeHeader from "../Components/HomeHeader.jsx";
 import Footer from "../Components/Footer.jsx";
 import Cookies from "js-cookie";
+import CustomerFeedback from "../CustomerFeedback/CustomerFeedback.jsx";
 
 const SprayerOrderCheck = () => {
   const token = Cookies.get("authToken");
@@ -15,6 +16,39 @@ const SprayerOrderCheck = () => {
   const [isConfirmed, setIsConfirmed] = useState(false); // Track if the order is confirmed
   const [userRole, setRole] = useState("");
   const navigate = useNavigate(); // Navigation hook
+  const [hasFeedback, setHasFeedback] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState("Pending");
+
+  const fetchFeedback = async (currentFeedback) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/v1/orders/feedbacks/${currentFeedback}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass token here
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch feedback");
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+      if (data) {
+        setHasFeedback(true); // Set to true if feedback exists
+      } else {
+        setHasFeedback(false); // Set to false if feedback doesn't exist
+      }
+    } catch (error) {
+      setHasFeedback(false);
+      console.error("Error fetching feedback:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -69,9 +103,18 @@ const SprayerOrderCheck = () => {
         alert(`Failed to get orders: ${error.message}`);
       }
     };
+
     fetchUserProfile();
     fetchOrders();
   }, [token]);
+
+  useEffect(() => {
+    if (selectedOrderId !== null) {
+      fetchFeedback(selectedOrderId);
+    } else {
+      setHasFeedback(false);
+    }
+  }, [selectedOrderId, token]);
 
   // Check if there are no orders
   if (!orders || orders.length === 0) {
@@ -186,7 +229,9 @@ const SprayerOrderCheck = () => {
           <h2>Select Order</h2>
           <select
             value={selectedOrderId}
-            onChange={(e) => setSelectedOrderId(parseInt(e.target.value))}
+            onChange={(e) => {
+              setSelectedOrderId(parseInt(e.target.value));
+            }}
           >
             {orders.map((order) => (
               <option key={order.id} value={order.id}>
@@ -285,6 +330,10 @@ const SprayerOrderCheck = () => {
             </div>
           )}
         </div>
+        {/* Feedback */}
+        {selectedOrder.status === "CONFIRMED" && !hasFeedback && (
+          <CustomerFeedback orderId={selectedOrderId} />
+        )}
       </div>
       <Footer />
     </div>
