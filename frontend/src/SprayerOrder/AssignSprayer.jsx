@@ -47,19 +47,16 @@ const AssignSprayer = () => {
   }, [token]);
 
   const handleAssignSprayer = async (sprayer) => {
-    console.log(`http://localhost:8080/v1/orders/assign/${orderId}`);
+    console.log(orderId);
     try {
-      const response = await fetch(
-        `http://localhost:8080/v1/orders/assign/${orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`, // Pass token here
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sprayer: sprayer.username }),
-        }
-      );
+      const response = await fetch(`http://localhost:8080/v1/orders/assign`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass token here
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ order_id: orderId, sprayer: sprayer.username }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to assign sprayers");

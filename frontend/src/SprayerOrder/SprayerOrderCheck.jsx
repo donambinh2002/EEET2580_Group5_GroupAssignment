@@ -242,7 +242,14 @@ const SprayerOrderCheck = () => {
           >
             {orders.map((order) => (
               <option key={order.id} value={order.id}>
-                Order #{order.id} - {selectedDate} at {selectedTime}
+                Order #{order.id} -{" "}
+                {new Date(order.order_time).toISOString().split("T")[0]} at{" "}
+                {
+                  new Date(order.order_time)
+                    .toISOString()
+                    .split("T")[1]
+                    .split(".")[0]
+                }
               </option>
             ))}
           </select>
