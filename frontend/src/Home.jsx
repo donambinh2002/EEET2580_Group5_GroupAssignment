@@ -8,12 +8,8 @@ import "./Home.css";
 import HomeHeader from "./Components/HomeHeader";
 
 const Home = () => {
-  const productSectionRef = useRef(null);
-
-  const scrollToProducts = () => {
-    if (productSectionRef.current) {
-      productSectionRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+  const scrollToLearnMore = () => {
+    document.querySelector(".services-1-section").scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -31,103 +27,64 @@ const Home = () => {
             sunt facere suscipit architecto corporis soluta, placeat, maxime
             deleniti perspiciatis iste officiis.
           </p>
-          <button onClick={scrollToProducts} className="hero-button">
-            Discover our products
+          <button onClick={scrollToLearnMore} className="hero-button">
+            What are we offering?
           </button>
         </div>
       </main>
 
-      {/* Products Section */}
-      <section className="products-section" ref={productSectionRef}>
-        <h2>Products</h2>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={3}
-          loop={true}
-          pagination={{ clickable: true }}
-          className="product-carousel"
-        >
-          <SwiperSlide>
-            <Link to="/product/1">
-              <div className="product-card">
-                <img src="src/images/product.jpg" alt="product" />
-                <div className="product-info">
-                  <p>Product</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/2">
-              <div className="product-card">
-                <img src="src/images/product1.jpg" alt="product 1" />
-                <div className="product-info">
-                  <p>Product 1</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/3">
-              <div className="product-card">
-                <img src="src/images/product2.jpg" alt="product 2" />
-                <div className="product-info">
-                  <p>Product 2</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 3" />
-                <div className="product-info">
-                  <p>Product 3</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 4" />
-                <div className="product-info">
-                  <p>Product 4</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 5" />
-                <div className="product-info">
-                  <p>Product 5</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 6" />
-                <div className="product-info">
-                  <p>Product 6</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        </Swiper>
+      {/* New Spraying Service Section 1 (Image on Right) */}
+      <section className="services-1-section">
+        <div className="services-1-content">
+          <div className="services-1-text">
+            <h2>Spraying type 2</h2>
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus 
+            ex praesentium sint dolor odio maiores beatae aliquid a in. Est dignissimos optio et placeat. Modi maxime deserunt animi amet officia? 
+            </p>
+          </div>
+          <div className="services-1-image">
+            <img src="src/images/sprayingAsset2.jpg" alt="Precision Spraying" />
+          </div>
+        </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* New Spraying Service Section 2 (Image on Left) */}
+      <section className="services-section">
+        <div className="services-content reverse">
+          <div className="services-image">
+            <img src="src/images/sprayingAsset1.jpg" alt="Residential Spraying" />
+          </div>
+          <div className="services-text">
+            <h2>Spraying type 2</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ex praesentium sint dolor odio maiores beatae aliquid a in. Est dignissimos optio et placeat. Modi maxime deserunt animi amet officia? 
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Create your own */}
+      <section className="services-1-section">
+        <div className="services-1-content">
+          <div className="services-1-text">
+            <h2>Your order is here!</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate repudiandae minus,
+              autem officiis nostrum deleniti reiciendis error maiores quidem, quis hic illo numquam
+              molestiae obcaecati ad recusandae reprehenderit dolore omnis.
+            </p>
+            <Link to="/services-1" className="services-1-button">
+              Order your now!
+            </Link>
+          </div>
+          <div className="services-1-image">
+            <img src="src/images/sprayingAsset.jpg" alt="Learn More" />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section (Moved to Bottom) */}
       <section className="testimonials-section">
         <h2>Testimonials</h2>
         <Swiper
@@ -165,117 +122,6 @@ const Home = () => {
         </Swiper>
       </section>
 
-      {/* Learn More Section */}
-      <section className="learn-more-section">
-        <div className="learn-more-content">
-          <div className="learn-more-text">
-            <h2>Learn More</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Cupiditate repudiandae minus, autem officiis nostrum deleniti
-              reiciendis error maiores quidem, quis hic illo numquam molestiae
-              obcaecati ad recusandae reprehenderit dolore omnis.
-            </p>
-            <Link to="/learn-more" className="learn-more-button">
-              Learn More
-            </Link>
-          </div>
-          <div className="learn-more-image">
-            <img src="src/images/learn_more.jpg" alt="Learn More" />
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Products Section */}
-      <section className="popular-section">
-        <h2>Popular</h2>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={3}
-          loop={true}
-          pagination={{ clickable: true }}
-          className="product-carousel"
-        >
-          <SwiperSlide>
-            <Link to="/product/1">
-              <div className="product-card">
-                <img src="src/images/product.jpg" alt="product" />
-                <div className="product-info">
-                  <p>Product</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/2">
-              <div className="product-card">
-                <img src="src/images/product1.jpg" alt="product 1" />
-                <div className="product-info">
-                  <p>Product 1</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/3">
-              <div className="product-card">
-                <img src="src/images/product2.jpg" alt="product 2" />
-                <div className="product-info">
-                  <p>Product 2</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 3" />
-                <div className="product-info">
-                  <p>Product 3</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 4" />
-                <div className="product-info">
-                  <p>Product 4</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 5" />
-                <div className="product-info">
-                  <p>Product 5</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link to="/product/4">
-              <div className="product-card">
-                <img src="src/images/product3.jpg" alt="product 6" />
-                <div className="product-info">
-                  <p>Product 6</p>
-                  <p>$9.99</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        </Swiper>
-      </section>
-
       {/* Footer Section */}
       <footer className="footer">
         <div className="footer-content">
@@ -293,3 +139,4 @@ const Home = () => {
 };
 
 export default Home;
+
