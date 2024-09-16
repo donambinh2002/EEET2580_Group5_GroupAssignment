@@ -24,6 +24,8 @@ const SprayOrderForm = () => {
   const [time, setTime] = useState(timeSlots[0]);
   const [paymentType, setPaymentType] = useState("Cash");
   const [cost, setCost] = useState(0.0);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isoString, setIsoString] = useState(null);
 
   const token = Cookies.get("authToken");
 
@@ -40,6 +42,25 @@ const SprayOrderForm = () => {
     return area * costPerDecare;
   };
 
+  useEffect(() => {
+    // Convert selected time to ISO 8601 format
+    const [startTime] = time.split(" to ");
+    const [hours, minutes] = startTime.split(":").map(Number);
+
+    // Create a new Date object in local time (already in GMT+0700)
+    const localDate = new Date(date);
+    localDate.setHours(hours, minutes, 0, 0); // Set time to date
+
+    // Convert local date to ISO string
+    const offset = 7 * 60; // GMT+7 is 7 hours ahead of UTC in minutes
+    const isoString = new Date(
+      localDate.getTime() - offset * 60000
+    ).toISOString();
+
+    setIsoString(isoString);
+    console.log(`ISO 8601 format: ${isoString}`);
+  }, [date, time]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // const decArea = parseFloat(area);
@@ -50,19 +71,21 @@ const SprayOrderForm = () => {
     // }
 
     // Convert selected time to ISO 8601 format
-    const [startTime, endTime] = time.split(" to ");
-    const [hours, minutes] = startTime.split(":").map(Number);
-    const timeISO = new Date(date);
-    timeISO.setHours(hours, minutes, 0, 0); // Set time to date
-    const isoString = timeISO.toISOString();
+    // const [startTime, endTime] = time.split(" to ");
+    // const [hours, minutes] = startTime.split(":").map(Number);
+    // const timeISO = new Date(date);
+    // timeISO.setHours(hours, minutes, 0, 0); // Set time to date
+    // const isoString = timeISO.toISOString();
 
-    console.log(`ISO 8601 format: ${isoString}`);
+    // console.log(`ISO 8601 format: ${isoString}`);
 
     const requestBody = {
       desiredStartTime: isoString,
       cropType: cropType.toUpperCase(),
       farmLandArea: area,
     };
+
+    console.log(requestBody);
 
     try {
       const response = await fetch("http://localhost:8080/v1/orders/create", {
@@ -82,6 +105,7 @@ const SprayOrderForm = () => {
 
       const data = await response.json();
       console.log("Create order successful:", data);
+      setIsPopupVisible(true); // Show the success popup
     } catch (error) {
       console.error("Create order failed:", error);
       alert(`Failed create order: ${error.message}`);
@@ -102,6 +126,10 @@ const SprayOrderForm = () => {
         </small>
       );
     }
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
   };
 
   return (
@@ -222,6 +250,16 @@ const SprayOrderForm = () => {
             </p>
           </div>
         </div>
+        {/* Popup for successful order creation */}
+        {isPopupVisible && (
+          <div className="popup">
+            <div className="popup-content">
+              <h3>Order Created Successfully!</h3>
+              <p>Your order has been created.</p>
+              <button onClick={closePopup}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>

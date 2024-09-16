@@ -6,7 +6,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -41,7 +43,8 @@ html {
 }
 
 /* Titles for form and summary */
-.form-title, .summary-title {
+.form-title,
+.summary-title {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5em;
@@ -61,7 +64,8 @@ label {
 }
 
 /* Input and select elements */
-input, select {
+input,
+select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
@@ -72,7 +76,7 @@ input, select {
 /* Button styling */
 button {
   padding: 10px 20px;
-  background-color: #6B8A7A;
+  background-color: #6b8a7a;
   color: white;
   border: none;
   border-radius: 4px;
@@ -116,8 +120,8 @@ button {
 /* Adjust calendar width and centering */
 .react-calendar {
   width: 100%; /* Makes the calendar take full width */
-  max-width: 100%; 
-  margin: 0 auto; 
+  max-width: 100%;
+  margin: 0 auto;
   padding: 10px;
   border: 1px solid #000;
   border-radius: 4px;
@@ -154,20 +158,57 @@ button {
 
 /* Calendar day tile styling */
 .react-calendar__tile {
-  color: #000 ; /* Ensure text visibility */
+  color: #000; /* Ensure text visibility */
 }
 
 /* Highlighting the current date */
 .react-calendar__tile--active {
-  color: #000 ;
+  color: #000;
 }
 
 /* Highlighting today's date */
 .react-calendar__tile--now {
-  color: #000 ;
-
+  color: #000;
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: red ; /* Weekend date color */
+  color: red; /* Weekend date color */
+}
+
+/* Overlay for the popup */
+.popup {
+  position: fixed; /* Fixed positioning to cover the whole viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* High z-index to ensure it's on top */
+}
+
+/* Popup content */
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Close button */
+.popup-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #0056b3;
 }
