@@ -1,10 +1,18 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+  box-sizing: border-box;
+}
+
 .assign-sprayer-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, #b7b597, #6b8a7a);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Merriweather", sans-serif; /* Updated font */
   }
   
   .assign-sprayer-box {
