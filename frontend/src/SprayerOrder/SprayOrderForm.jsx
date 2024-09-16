@@ -213,7 +213,12 @@ const SprayOrderForm = () => {
               <b>Payment Type:</b> {paymentType}
             </p>
             <p>
-              <b>Total Cost:</b> ${cost}
+              <b>Total Cost:</b>
+              {cost.toLocaleString("vn-VN", {
+                style: "currency",
+                currency: "VND",
+                currencyDisplay: "symbol",
+              })}
             </p>
           </div>
         </div>
