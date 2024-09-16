@@ -110,11 +110,18 @@ const SprayerOrderCheck = () => {
 
   useEffect(() => {
     if (selectedOrderId !== null) {
-      fetchFeedback(selectedOrderId);
+      const selectedOrder = orders.find(
+        (order) => order.id === selectedOrderId
+      );
+      if (selectedOrder) {
+        setIsConfirmed(selectedOrder.status === "CONFIRMED");
+        fetchFeedback(selectedOrderId);
+      }
     } else {
       setHasFeedback(false);
+      setIsConfirmed(false);
     }
-  }, [selectedOrderId, token]);
+  }, [selectedOrderId, orders, token]);
 
   // Check if there are no orders
   if (!orders || orders.length === 0) {
