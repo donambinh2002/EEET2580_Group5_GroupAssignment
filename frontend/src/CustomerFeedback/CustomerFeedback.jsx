@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CustomerFeedback.module.css";
 import Cookies from "js-cookie";
 
@@ -17,6 +17,10 @@ const CustomerFeedback = ({ orderId }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const token = Cookies.get("authToken");
+
+  useEffect(() => {
+    setIsSubmitted(false); // Reset isSubmitted when selectedOrderId changes
+  }, [orderId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -17,7 +17,7 @@ const SprayerOrderCheck = () => {
   const [userRole, setRole] = useState("");
   const navigate = useNavigate(); // Navigation hook
   const [hasFeedback, setHasFeedback] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState("Pending");
+  const [currentStatus, setCurrentStatus] = useState("PENDING");
 
   const fetchFeedback = async (currentFeedback) => {
     try {
@@ -150,12 +150,12 @@ const SprayerOrderCheck = () => {
       [selectedOrderId]: `Order status updated to "${newStatus}".`,
     });
 
-    if (newStatus === "Confirmed") {
-      setIsConfirmed(true); // Enable the "Assign Sprayer" button when confirmed
+    if (newStatus === "CONFIRMED") {
       handleConfirm(selectedOrderId);
+      setIsConfirmed(true); // Enable the "Assign Sprayer" button when confirmed
     } else {
-      setIsConfirmed(false); // Disable the button if not confirmed
       handleCancel(selectedOrderId);
+      setIsConfirmed(false); // Disable the button if not confirmed
     }
   };
 
@@ -303,13 +303,13 @@ const SprayerOrderCheck = () => {
             <div>
               <button
                 className="status-button"
-                onClick={() => updateStatus("Confirmed")}
+                onClick={() => updateStatus("CONFIRMED")}
               >
                 Confirm
               </button>
               <button
                 className="status-button"
-                onClick={() => updateStatus("Cancelled")}
+                onClick={() => updateStatus("CANCELLED")}
               >
                 Cancel
               </button>
@@ -338,9 +338,9 @@ const SprayerOrderCheck = () => {
           )}
         </div>
         {/* Feedback */}
-        {selectedOrder.status === "CONFIRMED" && !hasFeedback && (
-          <CustomerFeedback orderId={selectedOrderId} />
-        )}
+        {(selectedOrder.status === "CONFIRMED" ||
+          selectedOrder.status === "ASSIGNED") &&
+          !hasFeedback && <CustomerFeedback orderId={selectedOrderId} />}
       </div>
       <Footer />
     </div>
