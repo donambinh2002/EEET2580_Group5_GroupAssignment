@@ -150,12 +150,12 @@ const SprayerOrderCheck = () => {
       [selectedOrderId]: `Order status updated to "${newStatus}".`,
     });
 
-    if (newStatus === "Confirmed") {
-      setIsConfirmed(true); // Enable the "Assign Sprayer" button when confirmed
+    if (newStatus === "CONFIRMED") {
       handleConfirm(selectedOrderId);
+      setIsConfirmed(true); // Enable the "Assign Sprayer" button when confirmed
     } else {
-      setIsConfirmed(false); // Disable the button if not confirmed
       handleCancel(selectedOrderId);
+      setIsConfirmed(false); // Disable the button if not confirmed
     }
   };
 
@@ -303,13 +303,13 @@ const SprayerOrderCheck = () => {
             <div>
               <button
                 className="status-button"
-                onClick={() => updateStatus("Confirmed")}
+                onClick={() => updateStatus("CONFIRMED")}
               >
                 Confirm
               </button>
               <button
                 className="status-button"
-                onClick={() => updateStatus("Cancelled")}
+                onClick={() => updateStatus("CANCELLED")}
               >
                 Cancel
               </button>
