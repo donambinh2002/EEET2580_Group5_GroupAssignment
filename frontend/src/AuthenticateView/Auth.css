@@ -1,15 +1,6 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; 
-}
-
-
 *, *::before, *::after {
   box-sizing: inherit; 
 }
-
 
 .auth-container {
   display: flex;
@@ -17,7 +8,6 @@ html, body {
   align-items: center;
   min-height: 100vh; 
   background: linear-gradient(135deg, #B7B597, #6B8A7A); 
-  font-family: 'Roboto', sans-serif; 
 }
 
 
@@ -30,6 +20,7 @@ html, body {
   max-width: 400px;
   text-align: center;
   box-sizing: border-box; 
+  
 }
 
 
@@ -51,6 +42,7 @@ html, body {
   border: 1px solid #DAD3BE;
   border-radius: 8px;
   font-size: 16px;
+  font-family: "Merriweather", sans-serif;
   box-sizing: border-box; 
   transition: border-color 0.3s; 
 }
@@ -59,6 +51,7 @@ html, body {
 .input-group input:focus {
   border-color: #6B8A7A; 
   outline: none;
+  
 }
 
 
@@ -130,6 +123,7 @@ html, body {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: "Merriweather", sans-serif; /* Updated font */
 }
 
 .auth-button:hover {

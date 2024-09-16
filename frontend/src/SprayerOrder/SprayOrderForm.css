@@ -1,8 +1,8 @@
-/* Reset and base styling */
-html, body {
-  height: 100%;
+body,
+html {
   margin: 0;
   padding: 0;
+  font-family: "Merriweather", sans-serif; /* Updated font */
   box-sizing: border-box;
 }
 
@@ -17,7 +17,6 @@ html, body {
   align-items: flex-start; /* Aligns items at the top */
   min-height: 100vh;
   background: linear-gradient(135deg, #B7B597, #6B8A7A);
-  font-family: 'Roboto', sans-serif;
   padding: 20px;
 }
 
@@ -46,6 +45,7 @@ html, body {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5em;
+  
 }
 
 /* Styling for form groups */
@@ -66,6 +66,7 @@ input, select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-family: "Merriweather", sans-serif; /* Updated font */
 }
 
 /* Button styling */
@@ -78,10 +79,12 @@ button {
   cursor: pointer;
   width: 100%;
   font-size: 1em;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+
 }
 
 /* Hover effect for buttons */
-button:hover {
+.button:hover {
   background-color: #4a6e5a;
 }
 
@@ -107,6 +110,7 @@ button:hover {
   padding: 0;
   margin: 0 auto; /* Centers calendar inside its container */
   width: 100%;
+  
 }
 
 /* Adjust calendar width and centering */
@@ -118,6 +122,8 @@ button:hover {
   border: 1px solid #000;
   border-radius: 4px;
   box-shadow: none;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+
 }
 
 /* Calendar navigation (month, year controls) */
@@ -128,11 +134,15 @@ button:hover {
   margin-bottom: 10px;
   border: 1px solid #000;
   border-radius: 4px;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+
 }
 
 .react-calendar__navigation button {
   font-size: 1em;
   color: #000;
+  font-family: "Merriweather", sans-serif; /* Updated font */
+
 }
 
 /* Weekday labels */
