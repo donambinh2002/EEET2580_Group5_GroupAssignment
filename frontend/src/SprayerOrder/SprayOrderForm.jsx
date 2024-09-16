@@ -5,18 +5,13 @@ import "react-calendar/dist/Calendar.css";
 import "./SprayOrderForm.css";
 import HomeHeader from "../Components/HomeHeader.jsx";
 import Footer from "../Components/Footer.jsx";
+import Cookies from "js-cookie";
 
 const timeSlots = [
+  "4:00 to 5:00",
+  "5:00 to 6:00",
   "6:00 to 7:00",
   "7:00 to 8:00",
-  "8:00 to 9:00",
-  "9:00 to 10:00",
-  "10:00 to 11:00",
-  "11:00 to 12:00",
-  "12:00 to 13:00",
-  "13:00 to 14:00",
-  "14:00 to 15:00",
-  "15:00 to 16:00",
   "16:00 to 17:00",
   "17:00 to 18:00",
 ];
@@ -30,12 +25,14 @@ const SprayOrderForm = () => {
   const [paymentType, setPaymentType] = useState("Cash");
   const [cost, setCost] = useState(0);
 
+  const token = Cookies.get("authToken");
+
   const calculateCost = (area) => {
     const costPerDecare = 100; // Example cost per decare
     return area * costPerDecare;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const decArea = parseFloat(area);
     if (!isNaN(decArea)) {
@@ -43,10 +40,49 @@ const SprayOrderForm = () => {
     } else {
       setCost(0);
     }
+
+    // Convert selected time to ISO 8601 format
+    const [startTime, endTime] = time.split(" to ");
+    const [hours, minutes] = startTime.split(":").map(Number);
+    const timeISO = new Date(date);
+    timeISO.setHours(hours, minutes, 0, 0); // Set time to date
+    const isoString = timeISO.toISOString();
+
+    console.log(`ISO 8601 format: ${isoString}`);
+
+    const requestBody = {
+      desiredStartTime: isoString,
+      cropType: cropType.toUpperCase(),
+      farmLandArea: area,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/v1/orders/create", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json(); // Parse error message from the server
+        console.error("Server Error:", errorData);
+        throw new Error(`Error: ${errorData.message || response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Create order successful:", data);
+    } catch (error) {
+      console.error("Create order failed:", error);
+      alert(`Failed create order: ${error.message}`);
+    }
   };
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
+    console.log(date);
   };
 
   const tileContent = ({ date, view }) => {
