@@ -46,9 +46,9 @@ public class OrderManagementController {
         return orderManagementService.cancelOrder(id);
     }
 
-    @PutMapping("/assign/{id}")
-    public ResponseEntity<?> assignOrder(@PathVariable Long id, @RequestBody SprayerAssignRequest request, HttpServletRequest httpRequest) {
-        return orderManagementService.assignOrder(id, request);
+    @PutMapping("/assign")
+    public ResponseEntity<?> assignOrder(@RequestBody SprayerAssignRequest request, HttpServletRequest httpRequest) {
+        return orderManagementService.assignOrder(request);
     }
 
     @DeleteMapping("/{id}")

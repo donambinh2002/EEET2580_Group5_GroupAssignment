@@ -27,7 +27,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -119,8 +118,8 @@ public class OrderManagementService {
         return ResponseEntity.ok(new MessageResponse("Order " + id + " cancelled successfully!"));
     }
 
-    public ResponseEntity<?> assignOrder(Long id, SprayerAssignRequest request) {
-        Optional<SprayOrder> orderOptional = sprayOrderRepository.findById(id);
+    public ResponseEntity<?> assignOrder(SprayerAssignRequest request) {
+        Optional<SprayOrder> orderOptional = sprayOrderRepository.findById(request.getOrderID());
 
         if (orderOptional.isEmpty()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Order not found!"));
@@ -134,7 +133,7 @@ public class OrderManagementService {
 
         SprayOrder order = orderOptional.get();
 
-        SpraySession spraySession = spraySessionRepository.findByOrder(id).orElse(null);
+        SpraySession spraySession = spraySessionRepository.findByOrder(request.getOrderID()).orElse(null);
         if (spraySession != null) {
             spraySession.getSprayers().add(sprayerOptional.get());
         } else {
@@ -153,7 +152,7 @@ public class OrderManagementService {
         spraySessionRepository.save(spraySession);
         sprayOrderRepository.save(order);
 
-        return ResponseEntity.ok(new MessageResponse("Order " + id + " assigned to sprayer: " + request.getSprayer() + " successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Order " + request.getOrderID() + " assigned to sprayer: " + request.getSprayer() + " successfully!"));
     }
 
     public ResponseEntity<?> get(Long id) {
