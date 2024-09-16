@@ -20,12 +20,10 @@ const Home = () => {
       {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-content">
-          <h1>HOVER SPRITE</h1>
+          <h1>HoverSprite</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quasi
-            voluptatum accusantium ullam in architecto soluta eius. Aspernatur
-            sunt facere suscipit architecto corporis soluta, placeat, maxime
-            deleniti perspiciatis iste officiis.
+          Specializes in organic fertilizer and pesticide spraying services for farmers, utilizing a fleet of 15
+          spraying drones to serve orchards, cereal fields, and vegetable farms.
           </p>
           <button onClick={scrollToLearnMore} className="hero-button">
             What are we offering?
@@ -37,14 +35,22 @@ const Home = () => {
       <section className="services-1-section">
         <div className="services-1-content">
           <div className="services-1-text">
-            <h2>Spraying type 2</h2>
+            <h2>Our Services</h2>
             <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus 
-            ex praesentium sint dolor odio maiores beatae aliquid a in. Est dignissimos optio et placeat. Modi maxime deserunt animi amet officia? 
+            HoverSprite provides efficient organic fertilizer and pesticide spraying with our fleet of advanced drones. 
             </p>
+
+            <p>
+            We cover orchards, cereal fields, and vegetable farms, ensuring precise and eco-friendly application.
+            </p>
+
+            <p>
+            Our services enhance crop health and yield while supporting sustainable farming practices.
+           </p>
+
           </div>
           <div className="services-1-image">
-            <img src="src/images/sprayingAsset2.jpg" alt="Precision Spraying" />
+            <img src="src/images/sprayingAsset2.jpg" alt="droneSpraying" />
           </div>
         </div>
       </section>
@@ -53,12 +59,12 @@ const Home = () => {
       <section className="services-section">
         <div className="services-content reverse">
           <div className="services-image">
-            <img src="src/images/sprayingAsset1.jpg" alt="Residential Spraying" />
+            <img src="src/images/sprayingAsset1.jpg" alt="droneSpraying2" />
           </div>
           <div className="services-text">
-            <h2>Spraying type 2</h2>
+            <h2>Our Technology</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ex praesentium sint dolor odio maiores beatae aliquid a in. Est dignissimos optio et placeat. Modi maxime deserunt animi amet officia? 
+            We use state-of-the-art drones with advanced sensors for precise spraying. This technology reduces waste and improves the effectiveness of our treatments, supporting efficient and sustainable agriculture.
             </p>
           </div>
         </div>
@@ -68,18 +74,16 @@ const Home = () => {
       <section className="services-1-section">
         <div className="services-1-content">
           <div className="services-1-text">
-            <h2>Your order is here!</h2>
+            <h2>How can I order?</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate repudiandae minus,
-              autem officiis nostrum deleniti reiciendis error maiores quidem, quis hic illo numquam
-              molestiae obcaecati ad recusandae reprehenderit dolore omnis.
+            Place an order via our website by clicking the button below, fill out all infomation needed and you will be good!
             </p>
             <Link to="/services-1" className="services-1-button">
               Order your now!
             </Link>
           </div>
           <div className="services-1-image">
-            <img src="src/images/sprayingAsset.jpg" alt="Learn More" />
+            <img src="src/images/sprayingAsset.jpg" alt="notDroneSpraying" />
           </div>
         </div>
       </section>
@@ -125,13 +129,8 @@ const Home = () => {
       {/* Footer Section */}
       <footer className="footer">
         <div className="footer-content">
-          <p>slogan.</p>
-          <nav className="footer-nav">
-            <Link to="/nav-link-2">nav-link-2</Link>
-            <Link to="/nav-link-3">nav-link-3</Link>
-            <Link to="/nav-link-4">nav-link-4</Link>
-          </nav>
-          <p>&copy; [WEBSITE NAME] All Rights Reserved.</p>
+          <p>Precision in Every Flight, Excellence in Every Spray.</p>
+          <p>&copy; [HoverSprite] All Rights Reserved.</p>
         </div>
       </footer>
     </div>
