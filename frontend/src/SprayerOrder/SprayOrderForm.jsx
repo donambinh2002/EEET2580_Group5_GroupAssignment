@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { Moon, Hemisphere } from "lunarphase-js";
 import "react-calendar/dist/Calendar.css";
@@ -18,43 +18,74 @@ const timeSlots = [
 
 const SprayOrderForm = () => {
   const [cropType, setCropType] = useState("Fruit");
-  const [area, setArea] = useState("");
+  const [area, setArea] = useState(0.0);
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(timeSlots[0]);
   const [paymentType, setPaymentType] = useState("Cash");
-  const [cost, setCost] = useState(0);
+  const [cost, setCost] = useState(0.0);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isoString, setIsoString] = useState(null);
 
   const token = Cookies.get("authToken");
 
-  const calculateCost = (area) => {
-    const costPerDecare = 100; // Example cost per decare
-    return area * costPerDecare;
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const decArea = parseFloat(area);
-    if (!isNaN(decArea)) {
-      setCost(calculateCost(decArea));
+  useEffect(() => {
+    if (area != 0 || area != "") {
+      setCost(calculateCost(area));
     } else {
       setCost(0);
     }
+  }, [area]);
+
+  const calculateCost = (area) => {
+    const costPerDecare = 30000; // Example cost per decare
+    return area * costPerDecare;
+  };
+
+  useEffect(() => {
+    // Convert selected time to ISO 8601 format
+    const [startTime] = time.split(" to ");
+    const [hours, minutes] = startTime.split(":").map(Number);
+
+    // Create a new Date object in local time (already in GMT+0700)
+    const localDate = new Date(date);
+    localDate.setHours(hours, minutes, 0, 0); // Set time to date
+
+    // Convert local date to ISO string
+    const offset = 7 * 60; // GMT+7 is 7 hours ahead of UTC in minutes
+    const isoString = new Date(
+      localDate.getTime() - offset * 60000
+    ).toISOString();
+
+    setIsoString(isoString);
+    console.log(`ISO 8601 format: ${isoString}`);
+  }, [date, time]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // const decArea = parseFloat(area);
+    // if (!isNaN(decArea)) {
+    //   setCost(calculateCost(decArea));
+    // } else {
+    //   setCost(0);
+    // }
 
     // Convert selected time to ISO 8601 format
-    const [startTime, endTime] = time.split(" to ");
-    const [hours, minutes] = startTime.split(":").map(Number);
-    const timeISO = new Date(date);
-    timeISO.setHours(hours, minutes, 0, 0); // Set time to date
-    const isoString = timeISO.toISOString();
+    // const [startTime, endTime] = time.split(" to ");
+    // const [hours, minutes] = startTime.split(":").map(Number);
+    // const timeISO = new Date(date);
+    // timeISO.setHours(hours, minutes, 0, 0); // Set time to date
+    // const isoString = timeISO.toISOString();
 
-    console.log(`ISO 8601 format: ${isoString}`);
+    // console.log(`ISO 8601 format: ${isoString}`);
 
     const requestBody = {
       desiredStartTime: isoString,
       cropType: cropType.toUpperCase(),
       farmLandArea: area,
     };
+
+    console.log(requestBody);
 
     try {
       const response = await fetch("http://localhost:8080/v1/orders/create", {
@@ -74,6 +105,7 @@ const SprayOrderForm = () => {
 
       const data = await response.json();
       console.log("Create order successful:", data);
+      setIsPopupVisible(true); // Show the success popup
     } catch (error) {
       console.error("Create order failed:", error);
       alert(`Failed create order: ${error.message}`);
@@ -94,6 +126,10 @@ const SprayOrderForm = () => {
         </small>
       );
     }
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
   };
 
   return (
@@ -140,6 +176,7 @@ const SprayOrderForm = () => {
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                required
               />
             </div>
             <div className="form-group">
@@ -160,9 +197,12 @@ const SprayOrderForm = () => {
                 id="area"
                 type="number"
                 value={area}
-                onChange={(e) => setArea(e.target.value)}
+                onChange={(e) => {
+                  setArea(e.target.value);
+                }}
                 min="0"
                 step="0.01"
+                required
               />
             </div>
             <div className="form-group">
@@ -201,10 +241,25 @@ const SprayOrderForm = () => {
               <b>Payment Type:</b> {paymentType}
             </p>
             <p>
-              <b>Total Cost:</b> ${cost}
+              <b>Total Cost:</b>
+              {cost.toLocaleString("vn-VN", {
+                style: "currency",
+                currency: "VND",
+                currencyDisplay: "symbol",
+              })}
             </p>
           </div>
         </div>
+        {/* Popup for successful order creation */}
+        {isPopupVisible && (
+          <div className="popup">
+            <div className="popup-content">
+              <h3>Order Created Successfully!</h3>
+              <p>Your order has been created.</p>
+              <button onClick={closePopup}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
