@@ -16,6 +16,7 @@ public class SprayOrderResponse implements Data {
     private SprayOrder.CropType cropType;
     private double totalCost;
     private LocalDateTime orderTime;
+    private LocalDateTime desiredTime;
     private String status;
     private String farmerUsername;
     private SpraySessionResponse session;
@@ -26,6 +27,7 @@ public class SprayOrderResponse implements Data {
         this.cropType = sprayOrder.getCropType();
         this.totalCost = sprayOrder.getTotalCost();
         this.orderTime = sprayOrder.getOrderTime();
+        this.desiredTime = sprayOrder.getDesiredStartTime();
         this.status = sprayOrder.getStatus().name();
         this.farmerUsername = sprayOrder.getFarmer().getUsername();
         this.session = sprayOrder.getSpraySession() == null ? null : new SpraySessionResponse(sprayOrder.getSpraySession());
