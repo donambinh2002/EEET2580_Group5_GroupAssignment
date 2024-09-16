@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { Moon, Hemisphere } from "lunarphase-js";
 import "react-calendar/dist/Calendar.css";
@@ -18,28 +18,36 @@ const timeSlots = [
 
 const SprayOrderForm = () => {
   const [cropType, setCropType] = useState("Fruit");
-  const [area, setArea] = useState("");
+  const [area, setArea] = useState(0.0);
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(timeSlots[0]);
   const [paymentType, setPaymentType] = useState("Cash");
-  const [cost, setCost] = useState(0);
+  const [cost, setCost] = useState(0.0);
 
   const token = Cookies.get("authToken");
 
+  useEffect(() => {
+    if (area != 0 || area != "") {
+      setCost(calculateCost(area));
+    } else {
+      setCost(0);
+    }
+  }, [area]);
+
   const calculateCost = (area) => {
-    const costPerDecare = 100; // Example cost per decare
+    const costPerDecare = 30000; // Example cost per decare
     return area * costPerDecare;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const decArea = parseFloat(area);
-    if (!isNaN(decArea)) {
-      setCost(calculateCost(decArea));
-    } else {
-      setCost(0);
-    }
+    // const decArea = parseFloat(area);
+    // if (!isNaN(decArea)) {
+    //   setCost(calculateCost(decArea));
+    // } else {
+    //   setCost(0);
+    // }
 
     // Convert selected time to ISO 8601 format
     const [startTime, endTime] = time.split(" to ");
@@ -161,7 +169,9 @@ const SprayOrderForm = () => {
                 id="area"
                 type="number"
                 value={area}
-                onChange={(e) => setArea(e.target.value)}
+                onChange={(e) => {
+                  setArea(e.target.value);
+                }}
                 min="0"
                 step="0.01"
                 required
