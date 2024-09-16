@@ -140,6 +140,7 @@ const SprayOrderForm = () => {
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                required
               />
             </div>
             <div className="form-group">
@@ -163,6 +164,7 @@ const SprayOrderForm = () => {
                 onChange={(e) => setArea(e.target.value)}
                 min="0"
                 step="0.01"
+                required
               />
             </div>
             <div className="form-group">
