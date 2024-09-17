@@ -6,6 +6,7 @@ import "./SprayOrderForm.css";
 import HomeHeader from "../Components/HomeHeader.jsx";
 import Footer from "../Components/Footer.jsx";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const timeSlots = [
   "4:00 to 5:00",
@@ -26,8 +27,28 @@ const SprayOrderForm = () => {
   const [cost, setCost] = useState(0.0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isoString, setIsoString] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const token = Cookies.get("authToken");
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      if (!token) {
+        setShowModal(true); // Show login modal if token is missing
+      } else {
+        setShowModal(false); // Hide login modal if token exists
+      }
+    };
+
+    checkLoginStatus();
+  }, [token]);
+
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+    navigate("/login"); // Redirect to login page
+  };
 
   useEffect(() => {
     if (area != 0 || area != "") {
@@ -261,6 +282,15 @@ const SprayOrderForm = () => {
           </div>
         )}
       </div>
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Login Required</h2>
+            <p>You need to log in to access this feature.</p>
+            <button onClick={handleLoginRedirect}>Go to Login</button>
+          </div>
+        </div>
+      )}
       <Footer />
     </div>
   );
