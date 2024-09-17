@@ -1,35 +1,33 @@
-*, *::before, *::after {
-  box-sizing: inherit; 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
-  background: linear-gradient(135deg, #B7B597, #6B8A7A); 
+  min-height: 100vh;
+  background: linear-gradient(135deg, #b7b597, #6b8a7a);
 }
-
 
 .auth-box {
   background: #fff;
   padding: 40px 30px;
-  border-radius: 12px; 
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); 
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 400px;
   text-align: center;
-  box-sizing: border-box; 
-  
+  box-sizing: border-box;
 }
-
 
 .auth-box h2 {
   margin-bottom: 24px;
-  color: #254336; 
-  font-size: 24px; 
+  color: #254336;
+  font-size: 24px;
 }
-
 
 .input-group {
   position: relative;
@@ -39,21 +37,18 @@
 .input-group input {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #DAD3BE;
+  border: 1px solid #dad3be;
   border-radius: 8px;
   font-size: 16px;
   font-family: "Merriweather", sans-serif;
-  box-sizing: border-box; 
-  transition: border-color 0.3s; 
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
-
 
 .input-group input:focus {
-  border-color: #6B8A7A; 
+  border-color: #6b8a7a;
   outline: none;
-  
 }
-
 
 .toggle-password {
   position: absolute;
@@ -61,10 +56,9 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #B7B597; 
+  color: #b7b597;
   font-size: 14px;
 }
-
 
 .auth-options {
   display: flex;
@@ -74,7 +68,7 @@
 }
 
 .auth-options a {
-  color: #6B8A7A; 
+  color: #6b8a7a;
   text-decoration: none;
 }
 
@@ -87,7 +81,7 @@
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 1px solid #6B8A7A;
+  border: 1px solid #6b8a7a;
   border-radius: 3px;
   margin-right: 8px;
   position: relative;
@@ -96,12 +90,12 @@
 }
 
 .auth-options input[type="checkbox"]:checked {
-  background-color: #6B8A7A;
-  border-color: #6B8A7A;
+  background-color: #6b8a7a;
+  border-color: #6b8a7a;
 }
 
 .auth-options input[type="checkbox"]:checked::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -116,7 +110,7 @@
   margin-top: 0.4rem;
   width: 100%;
   padding: 12px 0;
-  background: #6B8A7A; 
+  background: #6b8a7a;
   color: white;
   border: none;
   border-radius: 8px;
@@ -127,33 +121,37 @@
 }
 
 .auth-button:hover {
-  background: #DAD3BE;
+  background: #dad3be;
 }
-
 
 .back-to-home-button {
   margin-top: 1rem;
   padding: 12px 0;
   width: 100%;
-  background-color: #254336; 
+  background-color: #254336;
   color: white;
   border: none;
-  border-radius: 8px; 
+  border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
 }
 
 .back-to-home-button:hover {
-  background-color: #6B8A7A; 
+  background-color: #6b8a7a;
 }
-
 
 .auth-box p {
   font-size: 14px;
 }
 
 .auth-box p a {
-  color: #6B8A7A; 
+  color: #6b8a7a;
   text-decoration: none;
+}
+
+.profileDetail {
+  margin-bottom: 20px;
+  font-size: 1em;
+  color: rgb(100, 97, 97);
 }
