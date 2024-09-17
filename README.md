@@ -66,6 +66,8 @@ docker compose up -d service-db service-redis
 3. Frontend
 
 ```bash
+cd frontend
+npm i
 npm run dev
 ```
 
