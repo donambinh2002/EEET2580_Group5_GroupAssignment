@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -9,6 +9,18 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+
+  const token = Cookies.get("authToken");
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      if (token) {
+        navigate("/profile");
+      }
+    };
+
+    checkLoginStatus();
+  }, [token]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

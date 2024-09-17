@@ -13,6 +13,7 @@ import SprayOrderForm from "./SprayerOrder/SprayOrderForm.jsx";
 import SprayOrderCheck from "./SprayerOrder/SprayerOrderCheck.jsx";
 // import CartPage from "./CartPage/CartPage.jsx";
 import AssignSprayer from "./SprayerOrder/AssignSprayer.jsx";
+import Profile from "./AuthenticateView/Profile.jsx";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           element={<AssignSprayer />}
         />{" "}
         {/* Added new route */}
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );
