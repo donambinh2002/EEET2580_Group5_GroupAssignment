@@ -57,7 +57,7 @@ docker-compose up -d
 docker-compose up -d service-db service-redis
 ```
 
-- for Mac Intel:
+- for Mac Intel and Window PCs:
 
 ```bash
 docker compose up -d service-db service-redis
