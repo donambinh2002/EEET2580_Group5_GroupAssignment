@@ -35,6 +35,10 @@ cp ./frontend/.env.example ./frontend/.env
 
 - Configure the environment variables as you see fit
 
+- Add environment variables to project in IntellJ IDEA
+- ![Add environment variables](./Guide-GIFs/Add-environment-variable-backend.gif)
+
+
 ### Deployment
 
 #### Docker
