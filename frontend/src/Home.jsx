@@ -88,44 +88,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section (Moved to Bottom) */}
-      <section className="testimonials-section">
-        <h2>Testimonials</h2>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={3}
-          loop={true}
-          pagination={{ clickable: true }}
-          className="testimonial-carousel"
-        >
-          <SwiperSlide>
-            <div className="testimonial-card">
-              <img src="src/images/product3.jpg" alt="product 6" />
-              <p>"Testimonials 1."</p>
-              <p>- Name</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="testimonial-card">
-              <p>"Testimonials 2."</p>
-              <p>- Name</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="testimonial-card">
-              <p>"Testimonials 3."</p>
-              <p>- Name</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="testimonial-card">
-              <p>"Testimonials 4."</p>
-              <p>- Name</p>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </section>
-
       {/* Footer Section */}
       <footer className="footer">
         <div className="footer-content">
