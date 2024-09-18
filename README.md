@@ -65,6 +65,8 @@ docker compose up -d service-db service-redis
 
 2. Backend
 
+   - Make sure your database and cache docker services are up
+   - Make sure the .env variables are configured correctly
    - Build via Intellij IDEA run
 
 3. Frontend
